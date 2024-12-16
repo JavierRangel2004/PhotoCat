@@ -48,26 +48,21 @@ def write_xmp_sidecar(image_path, rating, tags, title):
 
         rdf = root.find(".//rdf:RDF", namespaces)
         if rdf is None:
-            # If no RDF, create it
             rdf = ET.SubElement(root, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF")
 
-        # Find or create a single rdf:Description with rdf:about=""
+        # Find or create the main rdf:Description
         descriptions = rdf.findall("rdf:Description", namespaces)
         if len(descriptions) == 0:
-            # Create a new Description that follows Lightroom-like structure
             rdf_desc = ET.SubElement(rdf, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description", {
-                "rdf:about": "",
-                "xmlns:xmp": "http://ns.adobe.com/xap/1.0/",
-                "xmlns:dc": "http://purl.org/dc/elements/1.1/",
-                "xmlns:crs": "http://ns.adobe.com/camera-raw-settings/1.0/"
+                "rdf:about": ""
             })
         else:
             rdf_desc = descriptions[0]
 
-        # Set rating attribute as Lightroom does
+        # Set rating
         rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
 
-        # Remove existing dc:title and dc:subject if present to avoid duplication
+        # Remove existing title and subject if present
         for existing_title in rdf_desc.findall("dc:title", namespaces):
             rdf_desc.remove(existing_title)
         for existing_subject in rdf_desc.findall("dc:subject", namespaces):
@@ -81,19 +76,19 @@ def write_xmp_sidecar(image_path, rating, tags, title):
         tree.write(xmp_path, encoding="utf-8", xml_declaration=True)
     else:
         # Create a new XMP file in a structure similar to Lightroom
+        # Note: We only set namespaces on the top element (x:xmpmeta).
+        # Additional namespaces are already registered globally via ET.register_namespace.
         xmpmeta = ET.Element("{adobe:ns:meta/}xmpmeta", {
-            "xmlns:x": "adobe:ns:meta/",
             "x:xmptk": "Adobe XMP Core 7.0-c000 1.000000, 0000/00/00-00:00:00        "
         })
         rdf = ET.SubElement(xmpmeta, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF")
+        # rdf:Description with about="" and the rating
         rdf_desc = ET.SubElement(rdf, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description", {
-            "rdf:about": "",
-            "xmlns:xmp": "http://ns.adobe.com/xap/1.0/",
-            "xmlns:dc": "http://purl.org/dc/elements/1.1/",
-            "xmlns:crs": "http://ns.adobe.com/camera-raw-settings/1.0/",
-            "{http://ns.adobe.com/xap/1.0/}Rating": str(rating)
+            "rdf:about": ""
         })
+        rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
 
+        # Add the title and subject
         rdf_desc.append(create_dc_title(title))
         rdf_desc.append(create_dc_subject(tags))
 
