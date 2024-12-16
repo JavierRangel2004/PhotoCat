@@ -1,0 +1,13 @@
+pillow
+pyexiftool
+torch
+torchvision
+torchaudio
+ultralytics
+rawpy
+opencv-python
+imageio
+pytesseract
+transformers
+huggingface_hub
+nltk

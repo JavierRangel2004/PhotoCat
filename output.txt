@@ -1,0 +1,727 @@
+File: ./.gitignore
+--------------------------------------------------------------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to ignore these files since the code is
+#   intended to run in multiple environments; otherwise, check them in:
+# .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# poetry
+#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+#   This is especially recommended for binary packages to ensure reproducibility, and is more
+#   commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
+
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#pdm.lock
+#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
+#   in version control.
+#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
+.pdm.toml
+.pdm-python
+.pdm-build/
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
+#  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+#  and can be added to the global gitignore or merged into this file.  For a more nuclear
+#  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+#.idea/
+--------------------------------------------------------------------------------
+
+File: ./requirements.txt
+--------------------------------------------------------------------------------
+pillow
+pyexiftool
+torch
+torchvision
+torchaudio
+ultralytics
+rawpy
+opencv-python
+imageio
+pytesseract
+transformers
+huggingface_hub
+nltk--------------------------------------------------------------------------------
+
+File: ./yolov8l.pt
+--------------------------------------------------------------------------------
+Error reading ./yolov8l.pt: 'utf-8' codec can't decode byte 0x80 in position 64: invalid start byte
+File: ./images\IMG_1424.CR2
+--------------------------------------------------------------------------------
+Error reading ./images\IMG_1424.CR2: 'utf-8' codec can't decode byte 0xbc in position 13: invalid start byte
+File: ./images\IMG_1424.xmp
+--------------------------------------------------------------------------------
+<?xml version='1.0' encoding='utf-8'?>
+<x:xmpmeta xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:x="adobe:ns:meta/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 7.0-c000 1.000000, 0000/00/00-00:00:00        "><rdf:RDF><rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:crs="http://ns.adobe.com/camera-raw-settings/1.0/" xmp:Rating="3"><dc:title><rdf:Alt><rdf:li xml:lang="x-default">This is an image of a horse drawn carriage in a museum.</rdf:li></rdf:Alt></dc:title><dc:subject><rdf:Bag><rdf:li>red</rdf:li><rdf:li>image</rdf:li><rdf:li>horse</rdf:li><rdf:li>muted</rdf:li><rdf:li>orange</rdf:li><rdf:li>drawn</rdf:li><rdf:li>carriage</rdf:li><rdf:li>museum</rdf:li><rdf:li>person</rdf:li></rdf:Bag></dc:subject></rdf:Description></rdf:RDF></x:xmpmeta>--------------------------------------------------------------------------------
+
+File: ./src\image_analysis.py
+--------------------------------------------------------------------------------
+import rawpy
+import cv2
+import numpy as np
+import imageio
+
+def load_image(path):
+    try:
+        # Attempt to read RAW image using rawpy
+        with rawpy.imread(path) as raw:
+            rgb = raw.postprocess()
+        # rawpy returns RGB, convert to BGR for consistency with OpenCV
+        image = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+        return image
+    except Exception as e:
+        print(f"Error reading {path} with rawpy: {e}")
+        # Fallback to OpenCV reading (works if file is a supported format)
+        image = cv2.imread(path, cv2.IMREAD_COLOR)
+        if image is not None:
+            return image
+        print(f"Could not load image {path} with fallback as well.")
+        return None
+
+def preprocess_image(image, apply_noise_reduction=False):
+    # Normalize image: ensure dtype is uint8 and convert if needed
+    if image.dtype != np.uint8:
+        image = cv2.convertScaleAbs(image)
+    # Optional noise reduction
+    if apply_noise_reduction:
+        image = cv2.medianBlur(image, 3)
+    return image
+
+def analyze_color_tone(image):
+    # Compute average brightness and contrast
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    brightness = np.mean(gray)
+    contrast = gray.std()  # standard deviation as a proxy for contrast
+    return brightness, contrast
+
+def is_blurry(image, threshold=100.0):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    lap_var = cv2.Laplacian(gray, cv2.CV_64F).var()
+    return lap_var < threshold
+
+def check_exposure(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    mean_val = np.mean(gray)
+    # Define exposure thresholds (tweak these values)
+    if mean_val < 50:  # underexposed
+        return 'under'
+    elif mean_val > 200: # overexposed
+        return 'over'
+    else:
+        return 'normal'
+--------------------------------------------------------------------------------
+
+File: ./src\image_captioning.py
+--------------------------------------------------------------------------------
+import torch
+from PIL import Image
+from transformers import BlipProcessor, BlipForConditionalGeneration
+
+class ImageCaptioner:
+    def __init__(self, model_name="Salesforce/blip-image-captioning-large", device=None):
+        self.device = device if device else ("cuda" if torch.cuda.is_available() else "cpu")
+        self.processor = BlipProcessor.from_pretrained(model_name)
+        self.model = BlipForConditionalGeneration.from_pretrained(model_name).to(self.device)
+
+    def caption_image(self, image):
+        # image: OpenCV image (BGR), convert to PIL (RGB)
+        image_pil = Image.fromarray(image[:,:,::-1])
+        inputs = self.processor(image_pil, return_tensors="pt").to(self.device)
+        out = self.model.generate(**inputs, max_length=50, num_beams=5, early_stopping=True)
+        caption = self.processor.decode(out[0], skip_special_tokens=True)
+        return caption
+--------------------------------------------------------------------------------
+
+File: ./src\main.py
+--------------------------------------------------------------------------------
+import os
+import cv2
+import numpy as np
+from multiprocessing import Pool, cpu_count
+import pytesseract
+import nltk
+from nltk import word_tokenize, pos_tag
+from nltk.corpus import stopwords
+import string
+
+# Ensure NLTK data is downloaded in your environment:
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('stopwords')
+nltk.download('punkt_tab')
+nltk.download('averaged_perceptron_tagger_eng')
+
+from image_analysis import load_image, is_blurry, check_exposure, preprocess_image, analyze_color_tone
+from object_detection import detect_objects
+from metadata_writer import write_xmp_sidecar
+from image_captioning import ImageCaptioner
+
+#####################
+# Configuration Flags
+#####################
+ENABLE_BLUR_CHECK = True
+ENABLE_EXPOSURE_CHECK = True
+ENABLE_OBJECT_DETECTION = True
+ENABLE_RATING_LOGIC = True
+ENABLE_XMP_WRITING = True
+
+captioner = ImageCaptioner()
+
+#####################
+# Helper Functions
+#####################
+
+def compute_composition_rating(image, objects):
+    # Analyze if main objects are near rule-of-thirds lines:
+    # If YOLO gives bounding boxes, we could get them. For now, assume objects is a list of class names only.
+    # Without bounding boxes, we approximate composition rating by presence of multiple distinct objects and variety.
+    # A placeholder: More objects = more interesting composition, up to a point
+    # If we had boxes: we’d check their centroid positions against rule-of-thirds lines.
+    comp_rating = 0
+    if len(objects) == 0:
+        comp_rating = 1
+    elif len(objects) == 1:
+        comp_rating = 2
+    else:
+        comp_rating = 3  # multiple objects add visual interest
+    
+    # Could add more heuristics if bounding boxes were available.
+    return comp_rating
+
+def compute_rating(is_blur, exposure, objects_detected, composition_score):
+    # Base rating: start from composition_score (1-3)
+    rating = composition_score
+    # Adjust for technical aspects
+    if is_blur:
+        rating -= 1
+    if exposure in ['under', 'over']:
+        rating -= 1
+    else:
+        rating += 1  # good exposure adds to rating
+
+    # Ensure rating between 1 and 5
+    rating = max(1, min(rating, 5))
+    return rating
+
+def basic_color_name(rgb):
+    r, g, b = rgb
+    hsv = cv2.cvtColor(np.uint8([[rgb]]), cv2.COLOR_RGB2HSV)[0][0]
+    h, s, v = hsv
+    if s < 50 and v > 200:
+        return "white"
+    if v < 50:
+        return "black"
+    if s < 50 and v < 200:
+        return "gray"
+    if h < 15 or h > 165:
+        return "red"
+    elif h < 35:
+        return "orange"
+    elif h < 85:
+        return "green"
+    elif h < 125:
+        return "blue"
+    elif h < 165:
+        return "purple"
+    return "colorful"
+
+def extract_top_colors(image, top_n=3):
+    img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    img_small = cv2.resize(img_rgb, (100, 100))
+    data = img_small.reshape(-1, 3)
+    data = np.float32(data)
+
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+    K = top_n
+    _, labels, centers = cv2.kmeans(data, K, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+
+    centers = np.uint8(centers)
+    counts = np.bincount(labels.flatten())
+    sorted_idx = np.argsort(counts)[::-1]
+    top_colors = centers[sorted_idx]
+
+    named_colors = []
+    for c in top_colors:
+        color_name = basic_color_name(c)
+        if color_name not in named_colors:
+            named_colors.append(color_name)
+    return named_colors
+
+def detect_mood(image):
+    brightness, contrast = analyze_color_tone(image)
+    # More nuanced mood detection:
+    # bright & low contrast = serene, bright & high contrast = vibrant, dark & low contrast = muted, dark & high contrast = dramatic
+    if brightness > 150 and contrast < 50:
+        return "serene"
+    elif brightness > 150 and contrast >= 50:
+        return "vibrant"
+    elif brightness < 80 and contrast < 50:
+        return "muted"
+    elif brightness < 80 and contrast >= 50:
+        return "dramatic"
+    else:
+        return "calm"
+
+def ocr_text(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.medianBlur(gray, 3)
+    text = pytesseract.image_to_string(gray)
+    return text.lower()
+
+def analyze_scene(objects, ocr_result):
+    beverage_words = ["can", "bottle", "drink", "beverage"]
+    brand_words = ["mamitas", "mandarina", "coca", "pepsi"]
+
+    lower_objects = [obj.lower() for obj in objects]
+    has_beverage = any(obj in lower_objects for obj in beverage_words)
+
+    if not has_beverage:
+        for bw in beverage_words:
+            if bw in ocr_result:
+                has_beverage = True
+                break
+
+    identified_brand = None
+    for bw in brand_words:
+        if bw in ocr_result:
+            identified_brand = bw
+            break
+
+    return has_beverage, identified_brand
+
+def caption_to_tags(caption):
+    # Extract nouns and adjectives from the caption to generate tags
+    words = word_tokenize(caption.lower())
+    words = [w for w in words if w not in set(stopwords.words('english')) and w not in string.punctuation]
+    pos_tags = pos_tag(words)
+    # Consider nouns and adjectives as tags
+    tags = [w for w, pos in pos_tags if pos.startswith('NN') or pos.startswith('JJ')]
+    return list(set(tags))  # unique
+
+def generate_tags_from_all(objects_detected, image, has_beverage, identified_brand, caption):
+    tags = set()
+
+    # From objects
+    tags.update(obj.lower() for obj in objects_detected)
+
+    # From colors and mood
+    top_colors = extract_top_colors(image, top_n=3)
+    tags.update(top_colors)
+    mood_tag = detect_mood(image)
+    tags.add(mood_tag)
+
+    # From beverage/brand
+    if has_beverage:
+        tags.add("beverage")
+        if identified_brand:
+            tags.add(identified_brand)
+
+    # From caption (nouns/adjectives)
+    caption_tags = caption_to_tags(caption)
+    tags.update(caption_tags)
+
+    return list(tags)
+
+def refine_title(caption, objects_detected, has_beverage, identified_brand):
+    # Use the caption as the basis for the title.  
+    # If beverage and brand are known, integrate them.
+    # If a person is detected, try to mention it.
+    # The caption should already be descriptive. Just ensure it starts with a capital letter and is a proper sentence.
+    # Example: caption: "a person holding an orange can on a couch"
+    # Refine to: "A person holding an orange beverage can (Mamitas) on a couch."
+    
+    title = caption.strip()
+    if not title.endswith('.'):
+        title += '.'
+    title = title[0].upper() + title[1:]  # capitalize first letter
+
+    # Add brand detail if known
+    if has_beverage and identified_brand and identified_brand not in title.lower():
+        # Insert brand detail after "beverage can" or similar
+        if "beverage can" in title.lower():
+            title = title.replace("beverage can", f"{identified_brand.capitalize()} beverage can")
+        elif "can" in title.lower():
+            title = title.replace("can", f"{identified_brand.capitalize()} can")
+
+    return title
+
+def process_image(img_path):
+    print(f"Processing image: {img_path}")
+    image = load_image(img_path)
+    if image is None:
+        print(f"Skipping {img_path} due to load failure.")
+        return None, None, None
+
+    image = preprocess_image(image, apply_noise_reduction=True)
+
+    if ENABLE_BLUR_CHECK:
+        is_image_blurry = is_blurry(image)
+    else:
+        is_image_blurry = False
+
+    if ENABLE_EXPOSURE_CHECK:
+        exposure = check_exposure(image)
+    else:
+        exposure = 'normal'
+
+    objects_detected = []
+    if ENABLE_OBJECT_DETECTION:
+        objects_detected = detect_objects(image)
+
+    # OCR to detect possible text (brand, etc.)
+    ocr_result = ocr_text(image)
+
+    # Scene analysis (beverage detection, brand)
+    has_beverage, identified_brand = analyze_scene(objects_detected, ocr_result)
+
+    # Use image captioning model (BLIP)
+    caption = captioner.caption_image(image)
+
+    # Compute a composition score (simple heuristic)
+    composition_score = compute_composition_rating(image, objects_detected)
+
+    # Compute rating
+    rating = compute_rating(is_image_blurry, exposure, objects_detected, composition_score)
+
+    # Generate tags from all sources
+    tags = generate_tags_from_all(objects_detected, image, has_beverage, identified_brand, caption)
+
+    # Refine the caption into a title
+    title = refine_title(caption, objects_detected, has_beverage, identified_brand)
+
+    print(f"Finished processing {img_path}: Rating={rating}, Tags={tags}, Title='{title}'")
+    return rating, tags, title
+
+def process_and_write(img_path):
+    rating, tags, title = process_image(img_path)
+    if rating is not None and ENABLE_XMP_WRITING:
+        write_xmp_sidecar(img_path, rating, tags, title)
+        return (img_path, rating, tags, title)
+    return (img_path, None, None, None)
+
+def main():
+    input_dir = "images"
+    print(f"Processing images in {input_dir}")
+    image_files = [os.path.join(input_dir, f) for f in os.listdir(input_dir) if f.lower().endswith(('.cr2','.cr3','.jpg','.jpeg','.png','.tiff'))]
+
+    num_workers = min(cpu_count(), 8)  # Use up to 8 cores
+    with Pool(num_workers) as p:
+        results = p.map(process_and_write, image_files)
+
+    for res in results:
+        img_path, rating, tags, title = res
+        if rating is not None:
+            print(f"Processed {img_path}: Rating={rating}, Tags={tags}, Title='{title}'")
+        else:
+            print(f"Skipped {img_path}")
+
+if __name__ == "__main__":
+    main()
+--------------------------------------------------------------------------------
+
+File: ./src\metadata_writer.py
+--------------------------------------------------------------------------------
+# File: ./src/metadata_writer.py
+import os
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
+def write_xmp_sidecar(image_path, rating, tags, title):
+    base_name = os.path.splitext(image_path)[0]
+    xmp_path = base_name + ".xmp"
+
+    # Register namespaces once, similar to Lightroom's structure
+    ET.register_namespace("x", "adobe:ns:meta/")
+    ET.register_namespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+    ET.register_namespace("xmp", "http://ns.adobe.com/xap/1.0/")
+    ET.register_namespace("dc", "http://purl.org/dc/elements/1.1/")
+    ET.register_namespace("crs", "http://ns.adobe.com/camera-raw-settings/1.0/")
+
+    namespaces = {
+        "x": "adobe:ns:meta/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "xmp": "http://ns.adobe.com/xap/1.0/",
+        "dc": "http://purl.org/dc/elements/1.1/",
+        "crs": "http://ns.adobe.com/camera-raw-settings/1.0/"
+    }
+
+    def create_dc_subject(tags_list):
+        subject_elem = ET.Element("{http://purl.org/dc/elements/1.1/}subject")
+        bag = ET.Element("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Bag")
+        for tag in tags_list:
+            li = ET.Element("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}li")
+            li.text = tag
+            bag.append(li)
+        subject_elem.append(bag)
+        return subject_elem
+
+    def create_dc_title(title_text):
+        title_elem = ET.Element("{http://purl.org/dc/elements/1.1/}title")
+        alt = ET.Element("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Alt")
+        li = ET.Element("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}li", {"xml:lang": "x-default"})
+        li.text = title_text
+        alt.append(li)
+        title_elem.append(alt)
+        return title_elem
+
+    if os.path.exists(xmp_path):
+        # Parse existing XMP file
+        tree = ET.parse(xmp_path)
+        root = tree.getroot()
+
+        rdf = root.find(".//rdf:RDF", namespaces)
+        if rdf is None:
+            # If no RDF, create it
+            rdf = ET.SubElement(root, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF")
+
+        # Find or create a single rdf:Description with rdf:about=""
+        descriptions = rdf.findall("rdf:Description", namespaces)
+        if len(descriptions) == 0:
+            # Create a new Description that follows Lightroom-like structure
+            rdf_desc = ET.SubElement(rdf, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description", {
+                "rdf:about": "",
+                "xmlns:xmp": "http://ns.adobe.com/xap/1.0/",
+                "xmlns:dc": "http://purl.org/dc/elements/1.1/",
+                "xmlns:crs": "http://ns.adobe.com/camera-raw-settings/1.0/"
+            })
+        else:
+            rdf_desc = descriptions[0]
+
+        # Set rating attribute as Lightroom does
+        rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
+
+        # Remove existing dc:title and dc:subject if present to avoid duplication
+        for existing_title in rdf_desc.findall("dc:title", namespaces):
+            rdf_desc.remove(existing_title)
+        for existing_subject in rdf_desc.findall("dc:subject", namespaces):
+            rdf_desc.remove(existing_subject)
+
+        # Add updated title and tags
+        rdf_desc.append(create_dc_title(title))
+        rdf_desc.append(create_dc_subject(tags))
+
+        # Write back to file
+        tree.write(xmp_path, encoding="utf-8", xml_declaration=True)
+    else:
+        # Create a new XMP file in a structure similar to Lightroom
+        xmpmeta = ET.Element("{adobe:ns:meta/}xmpmeta", {
+            "xmlns:x": "adobe:ns:meta/",
+            "x:xmptk": "Adobe XMP Core 7.0-c000 1.000000, 0000/00/00-00:00:00        "
+        })
+        rdf = ET.SubElement(xmpmeta, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF")
+        rdf_desc = ET.SubElement(rdf, "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description", {
+            "rdf:about": "",
+            "xmlns:xmp": "http://ns.adobe.com/xap/1.0/",
+            "xmlns:dc": "http://purl.org/dc/elements/1.1/",
+            "xmlns:crs": "http://ns.adobe.com/camera-raw-settings/1.0/",
+            "{http://ns.adobe.com/xap/1.0/}Rating": str(rating)
+        })
+
+        rdf_desc.append(create_dc_title(title))
+        rdf_desc.append(create_dc_subject(tags))
+
+        tree = ET.ElementTree(xmpmeta)
+        tree.write(xmp_path, encoding="utf-8", xml_declaration=True)
+
+    # Pretty-print the XML for formatting compatibility
+    with open(xmp_path, 'r', encoding='utf-8') as f:
+        xml_string = f.read()
+
+    # Use minidom to pretty-print
+    dom = minidom.parseString(xml_string)
+    pretty_xml = dom.toprettyxml(indent="  ", encoding="utf-8")
+
+    # Write formatted XML back to file
+    with open(xmp_path, 'wb') as f:
+        f.write(pretty_xml)
+--------------------------------------------------------------------------------
+
+File: ./src\object_detection.py
+--------------------------------------------------------------------------------
+from ultralytics import YOLO
+
+def detect_objects(image):
+    # Load YOLO model (ensure yolov8s.pt is a valid model file)
+    model = YOLO("yolov8l.pt") 
+    results = model(image, conf=0.5)
+    class_indices = results[0].boxes.cls.tolist() if results and results[0].boxes.cls is not None else []
+    names = results[0].names
+    detected_names = [names[int(i)] for i in class_indices]
+    return detected_names
+--------------------------------------------------------------------------------
+
+File: ./src\utilities.py
+--------------------------------------------------------------------------------
+from image_analysis import load_image, is_blurry, check_exposure
+from object_detection import detect_objects
+
+def process_image(path):
+    image = load_image(path)
+    if image is None:
+        return None
+
+    # Basic checks
+    if is_blurry(image):
+        rating = 1
+        tags = ["blurry"]
+        title = "Blurry Image"
+        return rating, tags, title
+
+    exposure = check_exposure(image)
+    if exposure in ['under', 'over']:
+        rating = 1
+        tags = [exposure]
+        title = f"{exposure.capitalize()} Image"
+        return rating, tags, title
+
+    # Object detection
+    objects = detect_objects(image)
+    tags = objects
+    rating = 3
+    if exposure == 'normal':
+        rating += 1
+    if objects:
+        rating += 1
+    rating = min(rating, 5)
+
+    title = "A photo with objects" if objects else "Untitled"
+    return rating, tags, title
+--------------------------------------------------------------------------------
+
