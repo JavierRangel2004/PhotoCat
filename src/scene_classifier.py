@@ -50,6 +50,7 @@ class SceneClassifier:
             task="zero-shot-image-classification",
             model=MODEL_ID,
             device=0 if self.device == "cuda" else -1,
+            torch_dtype=torch.float16 if self.device == "cuda" else None,
         )
 
         # GemmaTokenizer (used by SigLIP2) has no predefined model_max_length.
@@ -87,7 +88,8 @@ class SceneClassifier:
             # Assume OpenCV BGR numpy array
             image = Image.fromarray(image[:, :, ::-1])
 
-        results = self.pipe(image, candidate_labels=self.labels, padding=True, truncation=True)
+        with torch.no_grad():
+            results = self.pipe(image, candidate_labels=self.labels, padding=True, truncation=True)
         # results: [{"score": float, "label": str}, ...] sorted descending by score
 
         # Aggregate scores per genre by averaging over its prompts

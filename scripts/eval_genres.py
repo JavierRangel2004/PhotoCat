@@ -56,7 +56,28 @@ def collect_samples(portfolio_dir):
     return samples
 
 
+def _warn_if_low_vram():
+    """Print a warning when free VRAM is likely insufficient for the full pipeline."""
+    try:
+        import torch
+        if torch.cuda.is_available():
+            free_bytes, total_bytes = torch.cuda.mem_get_info()
+            free_gb = free_bytes / 1e9
+            total_gb = total_bytes / 1e9
+            print(f"[eval] GPU VRAM: {free_gb:.1f} GB free / {total_gb:.1f} GB total")
+            if free_gb < 2.5:
+                print(
+                    f"[WARN] Only {free_gb:.1f} GB VRAM free. "
+                    "This eval uses SigLIP2 only (~400 MB) and should be fine, "
+                    "but running main.py (full pipeline) may OOM. "
+                    "Use --genre-only for the full pipeline on low-VRAM machines."
+                )
+    except Exception:
+        pass  # Non-fatal — VRAM check is advisory only
+
+
 def run_eval(portfolio_dir, output_csv, device=None):
+    _warn_if_low_vram()
     samples = collect_samples(portfolio_dir)
     if not samples:
         print("[ERROR] No images found. Check --portfolio-dir.")

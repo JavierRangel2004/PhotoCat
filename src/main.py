@@ -8,12 +8,19 @@ from nltk import word_tokenize, pos_tag
 from nltk.corpus import stopwords
 import string
 
-# Ensure NLTK data is downloaded in your environment:
-nltk.download('punkt', quiet=True)
-nltk.download('averaged_perceptron_tagger', quiet=True)
-nltk.download('stopwords', quiet=True)
-nltk.download('punkt_tab', quiet=True)
-nltk.download('averaged_perceptron_tagger_eng', quiet=True)
+# Download NLTK data only when not already cached locally (avoids blocking startup).
+_NLTK_PACKAGES = [
+    ("tokenizers/punkt",                          "punkt"),
+    ("tokenizers/punkt_tab",                      "punkt_tab"),
+    ("taggers/averaged_perceptron_tagger",         "averaged_perceptron_tagger"),
+    ("taggers/averaged_perceptron_tagger_eng",     "averaged_perceptron_tagger_eng"),
+    ("corpora/stopwords",                          "stopwords"),
+]
+for _resource_path, _package in _NLTK_PACKAGES:
+    try:
+        nltk.data.find(_resource_path)
+    except LookupError:
+        nltk.download(_package, quiet=True)
 
 from image_analysis import load_image, is_blurry, check_exposure, preprocess_image, analyze_color_tone
 from object_detection import detect_objects
@@ -215,6 +222,10 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
         )
         print(f"  Genre: {genre_result['genre']} "
               f"(conf={genre_result['confidence']:.2f}, status={genre_result['review_status']})")
+
+    import torch
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
 
     print(f"Finished {img_path}: Rating={rating}, Title='{title}'")
     return rating, tags, title, genre_result
