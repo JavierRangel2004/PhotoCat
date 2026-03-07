@@ -36,6 +36,11 @@ GENRE_PROMPTS = {
         "product photography showing an object as the main subject",
         "studio-style product shot",
     ],
+    "Food Photography": [
+        "a food photography shot of a dish or meal",
+        "culinary photography with food as the main subject",
+        "close-up of food, cooking, or kitchen scene",
+    ],
 }
 
 MODEL_ID = "google/siglip2-base-patch16-224"

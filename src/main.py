@@ -243,6 +243,7 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
             yolo_detections=objects_detected,
             caption=caption,
             ocr_text=ocr_result,
+            title=title,
         )
         print(f"  Genre: {genre_result['genre']} "
               f"(conf={genre_result['confidence']:.2f}, status={genre_result['review_status']})")

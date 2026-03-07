@@ -3,7 +3,7 @@ from ultralytics import YOLO
 
 # Model loaded ONCE at module import — not per image call.
 # This fixes the per-call bottleneck identified in Phase 0.
-_MODEL_PATH = "yolov8l.pt"
+_MODEL_PATH = "yolov8n.pt"
 _yolo_model = None
 
 

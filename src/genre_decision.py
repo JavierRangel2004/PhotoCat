@@ -5,28 +5,32 @@ Combines SigLIP2 classification with YOLO object cues, caption text, and OCR tex
 to produce a final genre label and a write-policy status.
 
 Write policy (Phase 0 decision):
-  HIGH  (>= 0.80) → review_status = "auto"   → write genre to XMP
-  MEDIUM (0.55-0.79) → review_status = "review"  → write genre + add 'genre-needs-review' tag
-  LOW   (< 0.55)  → review_status = "skip"   → log only, no XMP write
+  HIGH  (>= 0.80) → review_status = "auto"          → write genre to XMP
+  MEDIUM (0.55-0.79) → review_status = "review"      → write genre + add 'genre-needs-review' tag
+  LOW   (< 0.55)  → review_status = "title-inferred" → derive category from title; write + tag
 """
 
 # Boost amounts applied per detected evidence cue
 _BOOST = 0.12
 
 # Object label sets that boost specific genres
+# NOTE: "person" intentionally excluded — it is too generic and biases Concert on every portrait/food/street shot
 _CONCERT_OBJECTS = {
     "microphone", "guitar", "drums", "keyboard", "piano",
-    "speaker", "amplifier", "stage", "spotlight", "crowd",
-    "person",  # crowd of people at a concert
+    "speaker", "amplifier", "spotlight",
 }
 _NATURE_OBJECTS = {
     "tree", "flower", "bird", "cat", "dog", "horse", "cow",
     "sheep", "elephant", "bear", "zebra", "giraffe", "mountain",
     "plant", "leaf", "grass", "sky",
 }
+_FOOD_OBJECTS = {
+    "cake", "donut", "sandwich", "pizza", "hot dog", "carrot", "broccoli",
+    "apple", "orange", "banana", "wine glass", "cup", "bowl",
+    "fork", "knife", "spoon", "dining table", "oven",
+}
 _PRODUCT_OBJECTS = {
-    "bottle", "cup", "bowl", "wine glass", "fork", "knife",
-    "spoon", "cell phone", "laptop", "keyboard", "mouse",
+    "bottle", "cell phone", "laptop", "mouse",
     "book", "clock", "vase", "scissors", "toothbrush",
     "sports ball", "tennis racket", "remote",
 }
@@ -39,12 +43,52 @@ _STREET_OBJECTS = {
 # Caption / OCR keyword hints
 _CONCERT_KEYWORDS = {"concert", "stage", "mic", "microphone", "guitar", "band", "music", "live", "performance", "festival"}
 _NATURE_KEYWORDS = {"nature", "forest", "mountain", "river", "lake", "ocean", "wildlife", "landscape", "sunset", "sunrise", "tree", "flower", "beach", "field"}
+_FOOD_KEYWORDS = {"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish", "bread", "dough", "bake", "dessert", "pastry", "plate", "recipe", "restaurant", "ingredient", "cutting", "preparing", "chocolate", "chefs"}
 _PRODUCT_KEYWORDS = {"product", "bottle", "can", "brand", "studio", "commercial", "isolated", "white background", "packaging"}
 _PORTRAIT_KEYWORDS = {"portrait", "face", "person", "smile", "close-up", "headshot", "model"}
 _STREET_KEYWORDS = {"street", "city", "urban", "road", "sidewalk", "building", "crowd", "candid", "town"}
 
 HIGH_THRESHOLD = 0.80
 MEDIUM_THRESHOLD = 0.55
+
+# --- Title-based fallback category maps (used when confidence < MEDIUM_THRESHOLD) ---
+_TITLE_CATEGORY_RULES = [
+    ({"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish",
+      "bread", "dough", "bake", "dessert", "pastry", "plate", "chocolate", "chefs", "frying",
+      "cutting", "preparing", "ingredients", "stove", "oven", "restaurant"},
+     "Food Photography"),
+    ({"danc", "perform", "stage", "festival", "show", "sword", "folk", "cosplay",
+      "costume", "parade", "cultural", "carnival"},
+     "Event Photography"),
+    ({"beach", "ocean", "sea", "wave", "surf", "coastal", "shore", "bay"},
+     "Beach Photography"),
+    ({"building", "church", "castle", "bridge", "tower", "landmark", "cathedral",
+      "monument", "statue", "architecture", "hallway", "corridor"},
+     "Architecture Photography"),
+    ({"sport", "bike", "skateboard", "football", "run", "jump", "game", "match",
+      "soccer", "tennis", "basketball", "swim", "race", "athlete"},
+     "Sports Photography"),
+    ({"street", "city", "urban", "road", "sidewalk", "alley", "neon", "sign",
+      "graffiti", "mural", "market"},
+     "Street Photography"),
+    ({"portrait", "face", "smile", "headshot", "selfie", "pose", "posing"},
+     "Portraits Photography"),
+    ({"nature", "forest", "mountain", "river", "lake", "wildlife", "landscape",
+      "sunset", "sunrise", "tree", "flower", "field", "garden", "park", "jungle",
+      "woods", "waterfall", "cliff", "valley"},
+     "Nature Photography"),
+    ({"concert", "band", "music", "guitar", "microphone", "singer", "musician"},
+     "Concert Photography"),
+]
+
+
+def _title_based_category(title: str) -> str:
+    """Derive a photography category from image title keywords when model confidence is low."""
+    title_lower = title.lower()
+    for keyword_set, category in _TITLE_CATEGORY_RULES:
+        if any(kw in title_lower for kw in keyword_set):
+            return category
+    return "Other Photography"
 
 
 def _keyword_boost(text, keywords):
@@ -63,25 +107,27 @@ def _object_boost(detections, object_set):
     return _BOOST if det_lower & object_set else 0.0
 
 
-def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_text=""):
+def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_text="", title=""):
     """
     Args:
         siglip_result:   dict from SceneClassifier.classify_scene()
         yolo_detections: list[str] of detected object class names (may be empty)
         caption:         str caption from image captioning model
         ocr_text:        str OCR output from the image
+        title:           str refined title used as fallback for low-confidence images
 
     Returns:
         dict:
             genre         (str)
             confidence    (float, 0-1, capped at 0.95)
-            review_status ("auto" | "review" | "skip")
+            review_status ("auto" | "review" | "title-inferred")
             top2          (list of two (label, score) tuples)
             evidence_log  (dict — what boosted what)
     """
     yolo_detections = yolo_detections or []
     caption = caption or ""
     ocr_text = ocr_text or ""
+    title = title or ""
 
     # Start from SigLIP2 scores
     scores = {label: score for label, score in siglip_result["top_k"]}
@@ -102,6 +148,13 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     if nature_obj_boost or nature_txt_boost:
         scores["Nature Photography"] = scores.get("Nature Photography", 0.0) + nature_obj_boost + nature_txt_boost
         evidence_log["nature_boost"] = nature_obj_boost + nature_txt_boost
+
+    # --- Food boosts ---
+    food_obj_boost = _object_boost(yolo_detections, _FOOD_OBJECTS)
+    food_txt_boost = _keyword_boost(caption + " " + ocr_text, _FOOD_KEYWORDS)
+    if food_obj_boost or food_txt_boost:
+        scores["Food Photography"] = scores.get("Food Photography", 0.0) + food_obj_boost + food_txt_boost
+        evidence_log["food_boost"] = food_obj_boost + food_txt_boost
 
     # --- Product boosts ---
     product_obj_boost = _object_boost(yolo_detections, _PRODUCT_OBJECTS)
@@ -138,7 +191,10 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     elif confidence >= MEDIUM_THRESHOLD:
         review_status = "review"
     else:
-        review_status = "skip"
+        # Low confidence: derive category from title instead of leaving unlabeled
+        genre = _title_based_category(title or caption)
+        review_status = "title-inferred"
+        evidence_log["title_fallback"] = title or caption
 
     return {
         "genre": genre,

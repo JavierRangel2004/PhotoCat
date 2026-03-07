@@ -29,6 +29,6 @@ class ImageCaptioner:
             for k, v in inputs.items()
         }
         with torch.no_grad():
-            out = self.model.generate(**inputs, max_length=50, num_beams=5, early_stopping=True)
+            out = self.model.generate(**inputs, max_length=40, num_beams=2, early_stopping=True)
         caption = self.processor.decode(out[0], skip_special_tokens=True)
         return caption
