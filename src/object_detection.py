@@ -1,5 +1,5 @@
-import torch
 from ultralytics import YOLO
+from device import get_device
 
 # Model loaded ONCE at module import — not per image call.
 # This fixes the per-call bottleneck identified in Phase 0.
@@ -7,20 +7,12 @@ _MODEL_PATH = "yolov8n.pt"
 _yolo_model = None
 
 
-def _best_device():
-    if torch.cuda.is_available():
-        return "cuda"
-    if torch.backends.mps.is_available():
-        return "mps"
-    return "cpu"
-
-
 class ObjectDetector:
     """Wrapper that holds a single YOLO model instance."""
 
     def __init__(self, model_path=_MODEL_PATH):
         self.model = YOLO(model_path)
-        self.device = _best_device()
+        self.device = get_device()
 
     def detect(self, image, conf=0.5):
         results = self.model(image, conf=conf, device=self.device)

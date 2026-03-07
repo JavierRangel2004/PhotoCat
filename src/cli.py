@@ -7,6 +7,22 @@ Replaces the hard-coded 'images/' path in main.py.
 import argparse
 import os
 
+# Reserved directory names used for organized output.
+# collect_images() skips these to avoid re-processing already-categorized photos.
+CATEGORY_DIRS = {
+    "Street Photography",
+    "Concert Photography",
+    "Nature Photography",
+    "Portraits Photography",
+    "Product Photography",
+    "Food Photography",
+    "Architecture Photography",
+    "Beach Photography",
+    "Event Photography",
+    "Sports Photography",
+    "Other Photography",
+}
+
 
 def build_parser():
     parser = argparse.ArgumentParser(
@@ -55,6 +71,18 @@ def build_parser():
         help="Number of parallel worker processes (default: 1). "
              "Keep at 1 when running GPU models to avoid VRAM exhaustion.",
     )
+    parser.add_argument(
+        "--organize",
+        action="store_true",
+        default=False,
+        help="Move images into genre subdirectories inside the input directory after classification.",
+    )
+    parser.add_argument(
+        "--csv",
+        default=None,
+        metavar="PATH",
+        help="Write an audit CSV report to the given path (default: <input-dir>/photocat_audit.csv).",
+    )
 
     return parser
 
@@ -68,13 +96,18 @@ def collect_images(input_dir, recursive=False, extensions=None):
 
     paths = []
     if recursive:
-        for root, _dirs, files in os.walk(input_dir):
+        for root, dirs, files in os.walk(input_dir):
+            # Skip reserved category output directories
+            dirs[:] = [d for d in dirs if d not in CATEGORY_DIRS]
             for fname in files:
                 if os.path.splitext(fname)[1].lower() in extensions:
                     paths.append(os.path.join(root, fname))
     else:
         for fname in os.listdir(input_dir):
+            full = os.path.join(input_dir, fname)
+            if os.path.isdir(full) and fname in CATEGORY_DIRS:
+                continue
             if os.path.splitext(fname)[1].lower() in extensions:
-                paths.append(os.path.join(input_dir, fname))
+                paths.append(full)
 
     return sorted(paths)

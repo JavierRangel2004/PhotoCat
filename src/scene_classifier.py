@@ -8,6 +8,7 @@ Primary model: google/siglip2-base-patch16-224 (Apache-2.0)
 import torch
 from PIL import Image
 from transformers import pipeline
+from device import get_device
 
 # Five target genres with prompt ensembles (Phase 0 research decision)
 GENRE_PROMPTS = {
@@ -46,17 +47,9 @@ GENRE_PROMPTS = {
 MODEL_ID = "google/siglip2-base-patch16-224"
 
 
-def _best_device():
-    if torch.cuda.is_available():
-        return "cuda"
-    if torch.backends.mps.is_available():
-        return "mps"
-    return "cpu"
-
-
 class SceneClassifier:
     def __init__(self, device=None):
-        self.device = device or _best_device()
+        self.device = device or get_device()
         print(f"[SceneClassifier] Loading {MODEL_ID} on {self.device} ...")
 
         if self.device == "cuda":
