@@ -1,3 +1,4 @@
+import gc
 import os
 import sys
 import cv2
@@ -184,8 +185,19 @@ def refine_title(caption, objects_detected, has_beverage, identified_brand):
 # Per-image pipeline
 #####################
 
+def _clear_model_cache():
+    """Free unused memory after model inference."""
+    gc.collect()
+    import torch
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+
+
 def process_image(img_path, enable_blur=True, enable_exposure=True,
-                  enable_object_detection=True, enable_genre=True):
+                  enable_object_detection=True, enable_genre=True,
+                  genre_only=False):
     print(f"Processing image: {img_path}")
     image = load_image(img_path)
     if image is None:
@@ -193,6 +205,18 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
         return None, None, None, None
 
     image = preprocess_image(image, apply_noise_reduction=True)
+
+    # Genre-only mode: skip YOLO, OCR, BLIP — only run SigLIP2
+    if genre_only:
+        from PIL import Image as PILImage
+        pil_image = PILImage.fromarray(image[:, :, ::-1])
+        siglip_result = _get_scene_clf().classify_scene(pil_image)
+        genre_result = make_genre_decision(siglip_result=siglip_result)
+        print(f"  Genre: {genre_result['genre']} "
+              f"(conf={genre_result['confidence']:.2f}, status={genre_result['review_status']})")
+        _clear_model_cache()
+        print(f"Finished {img_path}: Genre-only mode")
+        return None, None, None, genre_result
 
     is_image_blurry = is_blurry(image) if enable_blur else False
     exposure = check_exposure(image) if enable_exposure else 'normal'
@@ -223,9 +247,7 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
         print(f"  Genre: {genre_result['genre']} "
               f"(conf={genre_result['confidence']:.2f}, status={genre_result['review_status']})")
 
-    import torch
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+    _clear_model_cache()
 
     print(f"Finished {img_path}: Rating={rating}, Title='{title}'")
     return rating, tags, title, genre_result
@@ -233,7 +255,13 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
 
 def process_and_write(args):
     img_path, write_xmp, genre_only = args
-    rating, tags, title, genre_result = process_image(img_path, enable_genre=True)
+    rating, tags, title, genre_result = process_image(
+        img_path, enable_genre=True, genre_only=genre_only,
+    )
+    if genre_only:
+        if write_xmp and genre_result:
+            write_xmp_sidecar(img_path, None, None, None, genre_result=genre_result)
+        return (img_path, None, None, None, genre_result)
     if rating is None:
         return (img_path, None, None, None, None)
     if write_xmp:
@@ -272,7 +300,12 @@ def main():
 
     for res in results:
         img_path, rating, tags, title, genre_result = res
-        if rating is not None:
+        if genre_result and rating is None:
+            # genre-only mode
+            print(f"Done {img_path}: Genre={genre_result['genre']} "
+                  f"({genre_result['review_status']}, "
+                  f"conf={genre_result['confidence']:.2f})")
+        elif rating is not None:
             genre_str = ""
             if genre_result:
                 genre_str = (f", Genre={genre_result['genre']} "

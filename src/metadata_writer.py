@@ -33,7 +33,7 @@ def write_xmp_sidecar(image_path, rating, tags, title, genre_result=None):
     }
 
     # Build final tags list, optionally including genre
-    final_tags = list(tags)
+    final_tags = list(tags) if tags else []
     if genre_result is not None:
         review_status = genre_result.get("review_status", "skip")
         if review_status != "skip":
@@ -82,15 +82,18 @@ def write_xmp_sidecar(image_path, rating, tags, title, genre_result=None):
         else:
             rdf_desc = descriptions[0]
 
-        rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
+        if rating is not None:
+            rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
 
-        for existing_title in rdf_desc.findall("dc:title", namespaces):
-            rdf_desc.remove(existing_title)
+        if title is not None:
+            for existing_title in rdf_desc.findall("dc:title", namespaces):
+                rdf_desc.remove(existing_title)
+            rdf_desc.append(create_dc_title(title))
+
         for existing_subject in rdf_desc.findall("dc:subject", namespaces):
             rdf_desc.remove(existing_subject)
-
-        rdf_desc.append(create_dc_title(title))
-        rdf_desc.append(create_dc_subject(final_tags))
+        if final_tags:
+            rdf_desc.append(create_dc_subject(final_tags))
 
         tree.write(xmp_path, encoding="utf-8", xml_declaration=True)
     else:
@@ -104,9 +107,12 @@ def write_xmp_sidecar(image_path, rating, tags, title, genre_result=None):
             "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description",
             {"rdf:about": ""},
         )
-        rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
-        rdf_desc.append(create_dc_title(title))
-        rdf_desc.append(create_dc_subject(final_tags))
+        if rating is not None:
+            rdf_desc.set("{http://ns.adobe.com/xap/1.0/}Rating", str(rating))
+        if title is not None:
+            rdf_desc.append(create_dc_title(title))
+        if final_tags:
+            rdf_desc.append(create_dc_subject(final_tags))
 
         tree = ET.ElementTree(xmpmeta)
         tree.write(xmp_path, encoding="utf-8", xml_declaration=True)

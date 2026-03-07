@@ -41,15 +41,30 @@ GENRE_PROMPTS = {
 MODEL_ID = "google/siglip2-base-patch16-224"
 
 
+def _best_device():
+    if torch.cuda.is_available():
+        return "cuda"
+    if torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
+
+
 class SceneClassifier:
     def __init__(self, device=None):
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = device or _best_device()
         print(f"[SceneClassifier] Loading {MODEL_ID} on {self.device} ...")
+
+        if self.device == "cuda":
+            pipe_device = 0
+        elif self.device == "mps":
+            pipe_device = "mps"
+        else:
+            pipe_device = -1
 
         self.pipe = pipeline(
             task="zero-shot-image-classification",
             model=MODEL_ID,
-            device=0 if self.device == "cuda" else -1,
+            device=pipe_device,
             torch_dtype=torch.float16 if self.device == "cuda" else None,
         )
 

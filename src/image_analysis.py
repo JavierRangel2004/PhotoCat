@@ -1,19 +1,31 @@
+import os
 import rawpy
 import cv2
 import numpy as np
 import imageio
 
+_RAW_EXTENSIONS = {".cr2", ".cr3", ".nef", ".arw", ".dng", ".orf", ".rw2", ".raf", ".pef", ".srw"}
+
+
 def load_image(path):
+    ext = os.path.splitext(path)[1].lower()
+
+    # For standard image formats, use OpenCV directly (avoids rawpy error spam)
+    if ext not in _RAW_EXTENSIONS:
+        image = cv2.imread(path, cv2.IMREAD_COLOR)
+        if image is not None:
+            return image
+        print(f"Could not load image {path} with OpenCV.")
+        return None
+
+    # RAW formats: try rawpy first, fall back to OpenCV
     try:
-        # Attempt to read RAW image using rawpy
         with rawpy.imread(path) as raw:
             rgb = raw.postprocess()
-        # rawpy returns RGB, convert to BGR for consistency with OpenCV
         image = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
         return image
     except Exception as e:
         print(f"Error reading {path} with rawpy: {e}")
-        # Fallback to OpenCV reading (works if file is a supported format)
         image = cv2.imread(path, cv2.IMREAD_COLOR)
         if image is not None:
             return image

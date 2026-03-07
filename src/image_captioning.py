@@ -2,9 +2,17 @@ import torch
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
 
+def _best_device():
+    if torch.cuda.is_available():
+        return "cuda"
+    if torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
+
+
 class ImageCaptioner:
     def __init__(self, model_name="Salesforce/blip-image-captioning-large", device=None):
-        self.device = device if device else ("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = device if device else _best_device()
         self.dtype = torch.float16 if self.device == "cuda" else torch.float32
         self.processor = BlipProcessor.from_pretrained(model_name)
         self.model = BlipForConditionalGeneration.from_pretrained(
