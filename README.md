@@ -101,6 +101,7 @@ python src/main.py --input-dir /path/to/photos --write-xmp --organize
 | Portraits Photography | People-focused, posed or close-up |
 | Product Photography | Commercial objects, studio-style |
 | Food Photography | Dishes, cooking, culinary scenes |
+| Wedding Photography | Bride, groom, ceremonies, receptions |
 | Architecture Photography | Buildings, landmarks, structures (title-inferred) |
 | Beach Photography | Coastal, ocean, shore scenes (title-inferred) |
 | Event Photography | Festivals, parades, performances (title-inferred) |
@@ -152,11 +153,12 @@ Every run generates a CSV report (by default at `<input-dir>/photocat_audit.csv`
 |--------|-------------|
 | `filename` | Image file name |
 | `rating` | Quality rating (1-5) |
-| `genre_1st` | Top genre prediction |
-| `confidence_1st` | Confidence score for top prediction |
-| `genre_2nd` | Second-best genre prediction |
-| `confidence_2nd` | Confidence score for second prediction |
+| `final_genre` | Final assigned genre (matches the directory the file is moved to) |
 | `review_status` | `auto`, `review`, `title-inferred`, or `skipped` |
+| `model_1st` | Raw model top prediction (before contradiction checks / title fallback) |
+| `model_1st_conf` | Confidence score for raw top prediction |
+| `model_2nd` | Raw model second prediction |
+| `model_2nd_conf` | Confidence score for second prediction |
 | `title` | Generated image title/caption |
 
 ## Project Structure

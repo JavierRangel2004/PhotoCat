@@ -12,9 +12,13 @@ Write policy (Phase 0 decision):
 
 # Boost amounts applied per detected evidence cue
 _BOOST = 0.12
+# Negative boost (demotion) for contradiction checks
+_DEMOTE = 0.10
 
+# ---------------------------------------------------------------------------
 # Object label sets that boost specific genres
-# NOTE: "person" intentionally excluded — it is too generic and biases Concert on every portrait/food/street shot
+# NOTE: "person" intentionally excluded — too generic, biases Concert/Wedding
+# ---------------------------------------------------------------------------
 _CONCERT_OBJECTS = {
     "microphone", "guitar", "drums", "keyboard", "piano",
     "speaker", "amplifier", "spotlight",
@@ -39,23 +43,46 @@ _STREET_OBJECTS = {
     "traffic light", "stop sign", "parking meter",
     "bench", "backpack", "umbrella", "handbag",
 }
+# Phase 1: Wedding objects — YOLO labels that suggest a wedding scene
+_WEDDING_OBJECTS = {
+    "tie", "cake",
+}
 
+# ---------------------------------------------------------------------------
 # Caption / OCR keyword hints
+# ---------------------------------------------------------------------------
 _CONCERT_KEYWORDS = {"concert", "stage", "mic", "microphone", "guitar", "band", "music", "live", "performance", "festival"}
 _NATURE_KEYWORDS = {"nature", "forest", "mountain", "river", "lake", "ocean", "wildlife", "landscape", "sunset", "sunrise", "tree", "flower", "beach", "field"}
-_FOOD_KEYWORDS = {"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish", "bread", "dough", "bake", "dessert", "pastry", "plate", "recipe", "restaurant", "ingredient", "cutting", "preparing", "chocolate", "chefs"}
+# Phase 3: Removed generic keywords "cutting", "preparing" — too many false positives
+_FOOD_KEYWORDS = {"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish", "bread", "dough", "bake", "dessert", "pastry", "plate", "recipe", "restaurant", "ingredient", "chocolate", "chefs"}
 _PRODUCT_KEYWORDS = {"product", "bottle", "can", "brand", "studio", "commercial", "isolated", "white background", "packaging"}
 _PORTRAIT_KEYWORDS = {"portrait", "face", "person", "smile", "close-up", "headshot", "model"}
 _STREET_KEYWORDS = {"street", "city", "urban", "road", "sidewalk", "building", "crowd", "candid", "town"}
+# Phase 1: Wedding keywords
+_WEDDING_KEYWORDS = {
+    "bride", "groom", "wedding", "bridal", "bouquet", "veil",
+    "reception", "ceremony", "marriage", "married", "chapel",
+    "bridesmaid", "groomsmen", "confetti", "aisle",
+}
+
+# Phase 2: Contradiction-check word sets
+_PERSON_WORDS = {"woman", "man", "girl", "boy", "person", "people", "posing", "portrait", "dress", "suit", "wearing"}
+_FOOD_CONFIRM_WORDS = {"food", "dish", "meal", "plate", "cook", "chef", "kitchen", "eat", "restaurant", "cake", "donut", "bread", "dessert", "pastry", "pizza", "sandwich", "chocolate"}
+# Phase 4: Nature-indicator words for product disambiguation
+_NATURE_CAPTION_WORDS = {"shark", "fish", "bird", "moon", "sky", "ocean", "sea", "flying", "swimming", "sunset", "sunrise", "mountain", "forest", "wildlife", "animal", "manta", "seahorse", "ray"}
 
 HIGH_THRESHOLD = 0.80
 MEDIUM_THRESHOLD = 0.55
 
 # --- Title-based fallback category maps (used when confidence < MEDIUM_THRESHOLD) ---
 _TITLE_CATEGORY_RULES = [
+    # Phase 1: Wedding before Food/Event to catch wedding receptions
+    ({"bride", "groom", "wedding", "bridal", "bouquet", "veil", "ceremony",
+      "reception", "bridesmaid", "groomsmen", "married"},
+     "Wedding Photography"),
     ({"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish",
       "bread", "dough", "bake", "dessert", "pastry", "plate", "chocolate", "chefs", "frying",
-      "cutting", "preparing", "ingredients", "stove", "oven", "restaurant"},
+      "ingredients", "stove", "oven", "restaurant"},
      "Food Photography"),
     ({"danc", "perform", "stage", "festival", "show", "sword", "folk", "cosplay",
       "costume", "parade", "cultural", "carnival"},
@@ -107,6 +134,14 @@ def _object_boost(detections, object_set):
     return _BOOST if det_lower & object_set else 0.0
 
 
+def _has_any_word(text, word_set):
+    """Check if any word from word_set appears in text (case-insensitive)."""
+    if not text:
+        return False
+    text_lower = text.lower()
+    return any(w in text_lower for w in word_set)
+
+
 def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_text="", title=""):
     """
     Args:
@@ -128,55 +163,109 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     caption = caption or ""
     ocr_text = ocr_text or ""
     title = title or ""
+    combined_text = caption + " " + ocr_text + " " + title
 
     # Start from SigLIP2 scores
     scores = {label: score for label, score in siglip_result["top_k"]}
 
     evidence_log = {}
+    det_lower = {d.lower() for d in yolo_detections}
+    has_dominant_person = "person" in det_lower
+
+    # ===================================================================
+    # POSITIVE BOOSTS — add evidence for matching genres
+    # ===================================================================
 
     # --- Concert boosts ---
     concert_obj_boost = _object_boost(yolo_detections, _CONCERT_OBJECTS)
-    concert_txt_boost = _keyword_boost(caption + " " + ocr_text, _CONCERT_KEYWORDS)
+    concert_txt_boost = _keyword_boost(combined_text, _CONCERT_KEYWORDS)
     if concert_obj_boost or concert_txt_boost:
         scores["Concert Photography"] = scores.get("Concert Photography", 0.0) + concert_obj_boost + concert_txt_boost
         evidence_log["concert_boost"] = concert_obj_boost + concert_txt_boost
 
     # --- Nature boosts ---
-    has_dominant_person = "person" in {d.lower() for d in yolo_detections}
     nature_obj_boost = _object_boost(yolo_detections, _NATURE_OBJECTS) if not has_dominant_person else 0.0
-    nature_txt_boost = _keyword_boost(caption + " " + ocr_text, _NATURE_KEYWORDS)
+    nature_txt_boost = _keyword_boost(combined_text, _NATURE_KEYWORDS)
     if nature_obj_boost or nature_txt_boost:
         scores["Nature Photography"] = scores.get("Nature Photography", 0.0) + nature_obj_boost + nature_txt_boost
         evidence_log["nature_boost"] = nature_obj_boost + nature_txt_boost
 
     # --- Food boosts ---
     food_obj_boost = _object_boost(yolo_detections, _FOOD_OBJECTS)
-    food_txt_boost = _keyword_boost(caption + " " + ocr_text, _FOOD_KEYWORDS)
+    food_txt_boost = _keyword_boost(combined_text, _FOOD_KEYWORDS)
     if food_obj_boost or food_txt_boost:
         scores["Food Photography"] = scores.get("Food Photography", 0.0) + food_obj_boost + food_txt_boost
         evidence_log["food_boost"] = food_obj_boost + food_txt_boost
 
     # --- Product boosts ---
     product_obj_boost = _object_boost(yolo_detections, _PRODUCT_OBJECTS)
-    product_txt_boost = _keyword_boost(caption + " " + ocr_text, _PRODUCT_KEYWORDS)
+    product_txt_boost = _keyword_boost(combined_text, _PRODUCT_KEYWORDS)
     if product_obj_boost or product_txt_boost:
         scores["Product Photography"] = scores.get("Product Photography", 0.0) + product_obj_boost + product_txt_boost
         evidence_log["product_boost"] = product_obj_boost + product_txt_boost
 
     # --- Portrait boosts ---
-    portrait_txt_boost = _keyword_boost(caption + " " + ocr_text, _PORTRAIT_KEYWORDS)
+    portrait_txt_boost = _keyword_boost(combined_text, _PORTRAIT_KEYWORDS)
     if portrait_txt_boost:
         scores["Portraits Photography"] = scores.get("Portraits Photography", 0.0) + portrait_txt_boost
         evidence_log["portrait_boost"] = portrait_txt_boost
 
     # --- Street boosts ---
     street_obj_boost = _object_boost(yolo_detections, _STREET_OBJECTS)
-    street_txt_boost = _keyword_boost(caption + " " + ocr_text, _STREET_KEYWORDS)
+    street_txt_boost = _keyword_boost(combined_text, _STREET_KEYWORDS)
     if street_obj_boost or street_txt_boost:
         scores["Street Photography"] = scores.get("Street Photography", 0.0) + street_obj_boost + street_txt_boost
         evidence_log["street_boost"] = street_obj_boost + street_txt_boost
 
-    # Re-normalize so scores sum to 1 (they may have been probability-like already)
+    # --- Phase 1: Wedding boosts ---
+    wedding_obj_boost = _object_boost(yolo_detections, _WEDDING_OBJECTS)
+    wedding_txt_boost = _keyword_boost(combined_text, _WEDDING_KEYWORDS)
+    if wedding_obj_boost or wedding_txt_boost:
+        scores["Wedding Photography"] = scores.get("Wedding Photography", 0.0) + wedding_obj_boost + wedding_txt_boost
+        evidence_log["wedding_boost"] = wedding_obj_boost + wedding_txt_boost
+
+    # ===================================================================
+    # PHASE 2: CONTRADICTION CHECKS — demote genres that conflict with caption
+    # ===================================================================
+    has_wedding_words = _has_any_word(combined_text, _WEDDING_KEYWORDS)
+    has_person_words = _has_any_word(combined_text, _PERSON_WORDS)
+    has_food_words = _has_any_word(combined_text, _FOOD_CONFIRM_WORDS)
+    has_food_objects = bool(det_lower & _FOOD_OBJECTS) if det_lower else False
+    has_nature_words = _has_any_word(combined_text, _NATURE_CAPTION_WORDS)
+
+    # If caption says wedding but SigLIP2 picked Concert → demote Concert, boost Wedding
+    if has_wedding_words:
+        if scores.get("Concert Photography", 0) > 0.3:
+            scores["Concert Photography"] = max(scores["Concert Photography"] - _DEMOTE, 0.0)
+            scores["Wedding Photography"] = scores.get("Wedding Photography", 0.0) + _DEMOTE
+            evidence_log["concert_demote_wedding"] = _DEMOTE
+        if scores.get("Food Photography", 0) > 0.3:
+            scores["Food Photography"] = max(scores["Food Photography"] - _DEMOTE, 0.0)
+            scores["Wedding Photography"] = scores.get("Wedding Photography", 0.0) + _DEMOTE
+            evidence_log["food_demote_wedding"] = _DEMOTE
+
+    # Phase 3: Food veto — if SigLIP2 says Food but caption has person/portrait
+    # words and NO food words and YOLO has no food objects → demote Food
+    if scores.get("Food Photography", 0) > 0.3 and not has_wedding_words:
+        if has_person_words and not has_food_words and not has_food_objects:
+            scores["Food Photography"] = max(scores["Food Photography"] - _DEMOTE, 0.0)
+            scores["Portraits Photography"] = scores.get("Portraits Photography", 0.0) + _DEMOTE * 0.5
+            evidence_log["food_veto_no_food_evidence"] = _DEMOTE
+
+    # Phase 4: Product-vs-Nature disambiguation — if caption mentions animals,
+    # sky, nature but SigLIP2 picked Product → shift score to Nature
+    if scores.get("Product Photography", 0) > 0.3:
+        if has_nature_words and not _has_any_word(combined_text, _PRODUCT_KEYWORDS):
+            shift = min(_DEMOTE, scores.get("Product Photography", 0.0))
+            scores["Product Photography"] = max(scores["Product Photography"] - shift, 0.0)
+            scores["Nature Photography"] = scores.get("Nature Photography", 0.0) + shift
+            evidence_log["product_demote_nature"] = shift
+
+    # ===================================================================
+    # SCORING — normalize and pick winner
+    # ===================================================================
+
+    # Re-normalize so scores sum to 1
     total = sum(scores.values())
     if total > 0:
         scores = {k: v / total for k, v in scores.items()}

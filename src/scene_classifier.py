@@ -42,6 +42,11 @@ GENRE_PROMPTS = {
         "culinary photography with food as the main subject",
         "close-up of food, cooking, or kitchen scene",
     ],
+    "Wedding Photography": [
+        "a wedding photograph of bride and groom",
+        "wedding ceremony or reception photography",
+        "romantic couple photography at a wedding event",
+    ],
 }
 
 MODEL_ID = "google/siglip2-base-patch16-224"

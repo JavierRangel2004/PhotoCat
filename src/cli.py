@@ -16,6 +16,7 @@ CATEGORY_DIRS = {
     "Portraits Photography",
     "Product Photography",
     "Food Photography",
+    "Wedding Photography",
     "Architecture Photography",
     "Beach Photography",
     "Event Photography",
