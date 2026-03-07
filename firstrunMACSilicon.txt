@@ -1,0 +1,1092 @@
+   obj = obj.tobytes()
+KeyboardInterrupt
+
+python src/main.py --input-dir "/Users/javierrangel/Pictures/Lightroom Saved Photos/export" --recursive --extensions ".jpg,.jpeg" --workers 1
+/Users/javierrangel/github/PhotoCat/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Processing images in: /Users/javierrangel/Pictures/Lightroom Saved Photos/export
+Found 154 image(s). write-xmp=False, workers=1
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250115_165025.jpg
+
+0: 640x480 1 person, 257.7ms
+Speed: 36.3ms preprocess, 257.7ms inference, 127.3ms postprocess per image at shape (1, 3, 640, 480)
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[SceneClassifier] Loading google/siglip2-base-patch16-224 on mps ...
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Device set to use mps
+[SceneClassifier] Ready.
+  Genre: Concert Photography (conf=0.93, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250115_165025.jpg: Rating=3, Title='There is a woman in a black skirt and white sweater posing for a picture.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250115_170810.jpg
+
+0: 640x480 1 person, 1719.1ms
+Speed: 7.1ms preprocess, 1719.1ms inference, 301.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.91, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250115_170810.jpg: Rating=2, Title='There is a woman that is standing in the middle of a room.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250118_074018.jpg
+
+0: 384x640 2 persons, 1186.8ms
+Speed: 26.9ms preprocess, 1186.8ms inference, 165.5ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Nature Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250118_074018.jpg: Rating=3, Title='There are two people that are sitting on the beach watching the sun set.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250118_091144.jpg
+
+0: 640x512 1 person, 2082.7ms
+Speed: 15.0ms preprocess, 2082.7ms inference, 254.5ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250118_091144.jpg: Rating=3, Title='There is a woman that is standing in front of a statue.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250403_180513.jpg
+
+0: 640x480 1 bus, 1294.8ms
+Speed: 33.3ms preprocess, 1294.8ms inference, 157.1ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250403_180513.jpg: Rating=3, Title='There is a man that is looking out the window of a bus.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250406_150902.jpg
+
+0: 640x480 2 cars, 1261.9ms
+Speed: 8.1ms preprocess, 1261.9ms inference, 356.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250406_150902.jpg: Rating=4, Title='There is a yellow car that is parked on the side of the road.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250414_185839.jpg
+
+0: 640x480 1 person, 1344.2ms
+Speed: 60.9ms preprocess, 1344.2ms inference, 892.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250414_185839.jpg: Rating=2, Title='There is a man standing on the beach with a fishing rod.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250414_191548.jpg
+
+0: 640x384 (no detections), 3014.7ms
+Speed: 99.7ms preprocess, 3014.7ms inference, 26.9ms postprocess per image at shape (1, 3, 640, 384)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250414_191548.jpg: Rating=1, Title='The sun is setting on the horizon of the ocean at dusk.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250426_181400.jpg
+
+0: 640x480 (no detections), 1562.3ms
+Speed: 32.6ms preprocess, 1562.3ms inference, 14.8ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.62, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250426_181400.jpg: Rating=2, Title='There is a merry go round in the middle of a park.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250426_182552.jpg
+
+0: 640x480 (no detections), 1657.7ms
+Speed: 12.4ms preprocess, 1657.7ms inference, 280.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250426_182552.jpg: Rating=1, Title='This is an image of a merry go round carousel with lights.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0064.jpg
+
+0: 640x480 1 person, 1 knife, 1689.8ms
+Speed: 36.5ms preprocess, 1689.8ms inference, 918.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0064.jpg: Rating=3, Title='There is a woman that is cutting up some food on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0130.jpg
+
+0: 640x480 2 persons, 1 spoon, 1 oven, 1923.2ms
+Speed: 37.8ms preprocess, 1923.2ms inference, 944.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0130.jpg: Rating=3, Title='There are two chefs in the kitchen preparing food on the stove.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0137.jpg
+
+0: 640x480 (no detections), 1282.5ms
+Speed: 34.3ms preprocess, 1282.5ms inference, 412.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.81, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0137.jpg: Rating=1, Title='There is a spider that is sitting on top of a cactus.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0190.jpg
+
+0: 512x640 (no detections), 1683.9ms
+Speed: 34.5ms preprocess, 1683.9ms inference, 30.8ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Product Photography (conf=0.77, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0190.jpg: Rating=1, Title='There is a close up of a plate of food with corn on it.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0192.jpg
+
+0: 512x640 1 person, 1 cup, 2 bowls, 1532.4ms
+Speed: 34.6ms preprocess, 1532.4ms inference, 1212.5ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0192.jpg: Rating=3, Title='There is a woman that is cutting bread with a pair of scissors.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0231.jpg
+
+0: 640x480 1 wine glass, 1 spoon, 1950.4ms
+Speed: 14.4ms preprocess, 1950.4ms inference, 380.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0231.jpg: Rating=4, Title='There is a person pouring chocolate into a pan with a spatula.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0300.jpg
+
+0: 512x640 1 person, 1 knife, 2 cakes, 2006.4ms
+Speed: 36.5ms preprocess, 2006.4ms inference, 315.7ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Product Photography (conf=0.33, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0300.jpg: Rating=3, Title='There is a person cutting a piece of cake with a knife.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0309.jpg
+
+0: 640x480 1 person, 2 wine glasss, 2245.6ms
+Speed: 39.0ms preprocess, 2245.6ms inference, 526.1ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0309.jpg: Rating=3, Title='There is a chocolate cake being drizzled with chocolate.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0316.jpg
+
+0: 640x512 1 person, 2463.4ms
+Speed: 67.0ms preprocess, 2463.4ms inference, 518.4ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0316.jpg: Rating=2, Title='There is a woman that is holding a pot in her hand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0328.jpg
+
+0: 640x512 1 person, 1 bird, 1 scissors, 1463.7ms
+Speed: 33.4ms preprocess, 1463.7ms inference, 758.0ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Portraits Photography (conf=0.33, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0328.jpg: Rating=3, Title='There is a person cutting a piece of cake on a plate.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0409.jpg
+
+0: 640x480 (no detections), 2021.9ms
+Speed: 19.5ms preprocess, 2021.9ms inference, 34.1ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.64, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0409.jpg: Rating=1, Title='There are many plates of food that are on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0442.jpg
+
+0: 448x640 1 person, 1 bowl, 2782.5ms
+Speed: 62.0ms preprocess, 2782.5ms inference, 378.0ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0442.jpg: Rating=3, Title='There is a male chef in a kitchen preparing food on a plate.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0466.jpg
+
+0: 640x448 1 person, 1 orange, 2176.0ms
+Speed: 44.2ms preprocess, 2176.0ms inference, 339.3ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0466.jpg: Rating=3, Title='There is a woman in a chef ' s uniform preparing doughnuts on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0487.jpg
+
+0: 640x448 1 person, 1 knife, 1891.8ms
+Speed: 39.8ms preprocess, 1891.8ms inference, 820.4ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0487.jpg: Rating=3, Title='There is a woman that is cutting up something with a knife.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0509.jpg
+
+0: 640x448 1 person, 1 baseball bat, 1671.3ms
+Speed: 37.9ms preprocess, 1671.3ms inference, 713.9ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0509.jpg: Rating=3, Title='There is a woman in a chef ' s uniform preparing food in a kitchen.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0533.jpg
+
+0: 640x512 (no detections), 2092.7ms
+Speed: 22.4ms preprocess, 2092.7ms inference, 17.5ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Portraits Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0533.jpg: Rating=1, Title='There is a person wearing black gloves and holding ice cubes.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0563.jpg
+
+0: 512x640 2 persons, 1962.8ms
+Speed: 139.8ms preprocess, 1962.8ms inference, 470.2ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0563.jpg: Rating=3, Title='There are two women that are sitting next to each other.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0572.jpg
+
+0: 640x480 1 cake, 1 dining table, 1920.9ms
+Speed: 15.9ms preprocess, 1920.9ms inference, 488.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.81, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0572.jpg: Rating=3, Title='Several plates of pastries are lined up on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0576.jpg
+
+0: 640x480 1 donut, 1729.2ms
+Speed: 37.0ms preprocess, 1729.2ms inference, 696.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.90, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0576.jpg: Rating=1, Title='This is a close up of a piece of cake on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0587.jpg
+
+0: 640x480 1 person, 1 donut, 1862.6ms
+Speed: 53.2ms preprocess, 1862.6ms inference, 684.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0587.jpg: Rating=3, Title='There is a woman that is holding a chocolate doughnut in her hands.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0625.jpg
+
+0: 640x480 1 person, 1596.3ms
+Speed: 39.9ms preprocess, 1596.3ms inference, 708.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0625.jpg: Rating=2, Title='There is a woman that is standing in a kitchen with a plate.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0651.jpg
+
+0: 640x448 1 person, 2200.9ms
+Speed: 16.7ms preprocess, 2200.9ms inference, 336.2ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0651.jpg: Rating=2, Title='There is a woman that is putting chocolate on top of a cake.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0683.jpg
+
+0: 640x512 1 donut, 2770.9ms
+Speed: 75.6ms preprocess, 2770.9ms inference, 263.6ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0683.jpg: Rating=1, Title='There is a close up of a bowl of ice on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0696.jpg
+
+0: 640x384 2 cakes, 2126.2ms
+Speed: 39.0ms preprocess, 2126.2ms inference, 557.0ms postprocess per image at shape (1, 3, 640, 384)
+  Genre: Portraits Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0696.jpg: Rating=4, Title='There is a person cutting a cake with a knife on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_4590.jpg
+
+0: 640x448 2 birds, 1913.9ms
+Speed: 35.3ms preprocess, 1913.9ms inference, 435.5ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_4590.jpg: Rating=3, Title='There are two people in the water with surfboards at sunset.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5065.jpg
+
+0: 640x448 (no detections), 1470.0ms
+Speed: 29.9ms preprocess, 1470.0ms inference, 410.8ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5065.jpg: Rating=1, Title='The sun is setting over a body of water with waves.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5090.jpg
+
+0: 640x448 2 persons, 1252.3ms
+Speed: 25.0ms preprocess, 1252.3ms inference, 689.7ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Nature Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5090.jpg: Rating=3, Title='There are two people sitting on top of a mountain watching the sunset.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5349.jpg
+
+0: 384x640 1 bear, 2008.7ms
+Speed: 17.6ms preprocess, 2008.7ms inference, 492.6ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5349.jpg: Rating=3, Title='There is a seal that is sitting in a hole in a rock.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5354.jpg
+
+0: 640x480 (no detections), 1491.0ms
+Speed: 44.0ms preprocess, 1491.0ms inference, 24.1ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.75, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5354.jpg: Rating=2, Title='This is a black and white photo of a bird perched on a stone wall.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5419.jpg
+
+0: 448x640 (no detections), 2106.3ms
+Speed: 19.6ms preprocess, 2106.3ms inference, 17.4ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Nature Photography (conf=0.84, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5419.jpg: Rating=2, Title='There is a small plant growing out of a hole in a stone wall.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5502.jpg
+
+0: 640x480 1 bird, 1396.9ms
+Speed: 46.1ms preprocess, 1396.9ms inference, 564.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5502.jpg: Rating=2, Title='There are two birds that are sitting on a stone wall.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5504.jpg
+
+0: 448x640 (no detections), 1760.2ms
+Speed: 16.5ms preprocess, 1760.2ms inference, 12.7ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5504.jpg: Rating=1, Title='There is a butterfly that is sitting on a purple flower.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5540.jpg
+
+0: 512x640 (no detections), 1696.7ms
+Speed: 38.4ms preprocess, 1696.7ms inference, 29.3ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5540.jpg: Rating=1, Title='There is a butterfly that is sitting on a branch of a tree.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5587.jpg
+
+0: 448x640 1 person, 1915.1ms
+Speed: 22.9ms preprocess, 1915.1ms inference, 605.6ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5587.jpg: Rating=2, Title='There is a woman that is talking on the phone in the woods.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5588.jpg
+
+0: 640x480 1 person, 1804.2ms
+Speed: 48.7ms preprocess, 1804.2ms inference, 358.3ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.33, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5588.jpg: Rating=2, Title='There is a woman that is walking down the street with a bag.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5630.jpg
+
+0: 640x448 1 person, 2111.4ms
+Speed: 20.8ms preprocess, 2111.4ms inference, 62.6ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5630.jpg: Rating=2, Title='There is a man that is standing in the woods with a skateboard.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5633.jpg
+
+0: 640x448 1 person, 1658.7ms
+Speed: 39.1ms preprocess, 1658.7ms inference, 408.0ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5633.jpg: Rating=2, Title='There is a man that is standing in front of a skateboard.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5641.jpg
+
+0: 448x640 1 person, 2113.7ms
+Speed: 41.2ms preprocess, 2113.7ms inference, 39.0ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.91, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5641.jpg: Rating=2, Title='There is a man that is standing in the middle of a jungle.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5925.jpg
+
+0: 640x480 2 birds, 2787.2ms
+Speed: 46.5ms preprocess, 2787.2ms inference, 643.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5925.jpg: Rating=3, Title='There are two white ducks standing in the water next to each other.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5934.jpg
+
+0: 448x640 1 bird, 2645.7ms
+Speed: 98.5ms preprocess, 2645.7ms inference, 113.3ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5934.jpg: Rating=3, Title='There is a white bird with a red beak standing in the sand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5949.jpg
+
+0: 640x448 7 persons, 1 bicycle, 1 motorcycle, 1 handbag, 1499.4ms
+Speed: 42.7ms preprocess, 1499.4ms inference, 489.6ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Street Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5949.jpg: Rating=3, Title='There is a little girl that is riding a bike in the street.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6006.jpg
+
+0: 640x480 (no detections), 1646.4ms
+Speed: 22.9ms preprocess, 1646.4ms inference, 16.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6006.jpg: Rating=1, Title='There is a small bird that is sitting on the top of a bush.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6047.jpg
+
+0: 640x448 (no detections), 2678.7ms
+Speed: 38.5ms preprocess, 2678.7ms inference, 26.0ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Street Photography (conf=0.93, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6047.jpg: Rating=2, Title='There is a bench that is sitting in the middle of a courtyard.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6056.jpg
+
+0: 640x480 (no detections), 1562.5ms
+Speed: 15.8ms preprocess, 1562.5ms inference, 35.6ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.71, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6056.jpg: Rating=2, Title='There is a piece of paper with a drawing of a heart on it.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6059.jpg
+
+0: 448x640 (no detections), 1703.5ms
+Speed: 28.2ms preprocess, 1703.5ms inference, 40.1ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Street Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6059.jpg: Rating=2, Title='Painting of a woman ' s face on the side of a brick building.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6065.jpg
+
+0: 640x480 1 clock, 1437.9ms
+Speed: 12.8ms preprocess, 1437.9ms inference, 648.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6065.jpg: Rating=2, Title='There is a clock with roman numerals on the face of it.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6152.jpg
+
+0: 640x480 1 cup, 1379.9ms
+Speed: 36.0ms preprocess, 1379.9ms inference, 1190.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6152.jpg: Rating=1, Title='There is a display of donuts and other foods on the table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6241.jpg
+
+0: 640x448 2 persons, 2064.3ms
+Speed: 54.3ms preprocess, 2064.3ms inference, 133.7ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Nature Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6241.jpg: Rating=3, Title='They are standing on a rock in the middle of the ocean.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6284.jpg
+
+0: 448x640 (no detections), 1303.8ms
+Speed: 40.1ms preprocess, 1303.8ms inference, 22.4ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6284.jpg: Rating=2, Title='There is a bird that is sitting on the rocks by the water.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6291.jpg
+
+0: 480x640 1 bird, 1836.0ms
+Speed: 74.8ms preprocess, 1836.0ms inference, 360.7ms postprocess per image at shape (1, 3, 480, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6291.jpg: Rating=2, Title='There is a crab that is sitting on a rock by the water.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6303.jpg
+
+0: 640x512 (no detections), 2101.2ms
+Speed: 26.6ms preprocess, 2101.2ms inference, 26.7ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Nature Photography (conf=0.94, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6303.jpg: Rating=2, Title='There are two crabs that are sitting on a rock together.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6322.jpg
+
+0: 384x640 (no detections), 2011.2ms
+Speed: 18.7ms preprocess, 2011.2ms inference, 31.1ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6322.jpg: Rating=2, Title='There is a small bird that is sitting on top of a rock.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6339.jpg
+
+0: 512x640 1 boat, 1514.8ms
+Speed: 63.5ms preprocess, 1514.8ms inference, 567.9ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Nature Photography (conf=0.88, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6339.jpg: Rating=2, Title='There is a boat that is out in the water near some rocks.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6445.jpg
+
+0: 640x480 (no detections), 1620.7ms
+Speed: 9.5ms preprocess, 1620.7ms inference, 14.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6445.jpg: Rating=1, Title='There is a neon sign on the side of a building at night.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6457.jpg
+
+0: 640x448 (no detections), 1426.2ms
+Speed: 29.6ms preprocess, 1426.2ms inference, 16.6ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Portraits Photography (conf=0.64, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6457.jpg: Rating=1, Title='There is a statue of a man riding on top of a horse.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6567.jpg
+
+0: 640x448 (no detections), 1344.4ms
+Speed: 10.4ms preprocess, 1344.4ms inference, 211.9ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Street Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6567.jpg: Rating=1, Title='There is a dark hallway with shutters on both sides of it.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6576.jpg
+
+0: 448x640 (no detections), 2161.0ms
+Speed: 13.6ms preprocess, 2161.0ms inference, 8.5ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Street Photography (conf=0.59, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6576.jpg: Rating=1, Title='Dimly lit city street at night with street lights on both sides.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6647.jpg
+
+0: 640x480 7 persons, 1368.0ms
+Speed: 32.7ms preprocess, 1368.0ms inference, 480.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6647.jpg: Rating=4, Title='There are a lot of people that are standing on a stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6765.jpg
+
+0: 640x480 3 persons, 1207.8ms
+Speed: 5.7ms preprocess, 1207.8ms inference, 677.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6765.jpg: Rating=3, Title='There is a woman in a red dress holding a yellow and red flag.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6785-Enhanced-NR.jpg
+
+0: 512x640 1 person, 1334.0ms
+Speed: 17.3ms preprocess, 1334.0ms inference, 163.4ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6785-Enhanced-NR.jpg: Rating=2, Title='There are two women dressed in red and yellow with flowers on their heads.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6835-Enhanced-NR.jpg
+
+0: 448x640 1 person, 1291.9ms
+Speed: 10.8ms preprocess, 1291.9ms inference, 36.7ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6835-Enhanced-NR.jpg: Rating=1, Title='There is a woman in a red dress holding a yellow and red scarf.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6946.jpg
+
+0: 640x480 8 persons, 1295.9ms
+Speed: 4.9ms preprocess, 1295.9ms inference, 171.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6946.jpg: Rating=4, Title='There is a group of women in purple dresses posing for a picture.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7018.jpg
+
+0: 640x480 4 persons, 1013.9ms
+Speed: 4.4ms preprocess, 1013.9ms inference, 515.1ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7018.jpg: Rating=3, Title='There are a lot of people that are performing on the stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7177.jpg
+
+0: 640x480 2 persons, 732.9ms
+Speed: 2.9ms preprocess, 732.9ms inference, 628.6ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7177.jpg: Rating=1, Title='There is a man that is holding a yellow scarf in his hand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7253.jpg
+
+0: 640x480 2 persons, 1 umbrella, 1 kite, 1106.6ms
+Speed: 11.4ms preprocess, 1106.6ms inference, 414.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.67, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7253.jpg: Rating=3, Title='There are a lot of people that are dancing on the stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7347.jpg
+
+0: 640x480 1 person, 1073.0ms
+Speed: 2.4ms preprocess, 1073.0ms inference, 380.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7347.jpg: Rating=3, Title='There is a woman kneeling on the ground with a sword in her hand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7355.jpg
+
+0: 512x640 1 person, 680.7ms
+Speed: 6.4ms preprocess, 680.7ms inference, 149.2ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7355.jpg: Rating=1, Title='There are two women that are holding two swords in their hands.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7362.jpg
+
+0: 448x640 1 person, 776.8ms
+Speed: 4.8ms preprocess, 776.8ms inference, 51.4ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7362.jpg: Rating=3, Title='There is a woman in a red dress holding a pair of scissors.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7373.jpg
+
+0: 448x640 2 persons, 1046.3ms
+Speed: 9.9ms preprocess, 1046.3ms inference, 486.8ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7373.jpg: Rating=1, Title='This is a black and white photo of a woman in a dress.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7439.jpg
+
+0: 448x640 3 persons, 1135.4ms
+Speed: 3.2ms preprocess, 1135.4ms inference, 520.1ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7439.jpg: Rating=3, Title='There are three women that are performing a dance on a stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7445.jpg
+
+0: 640x480 4 persons, 1516.9ms
+Speed: 8.6ms preprocess, 1516.9ms inference, 195.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7445.jpg: Rating=3, Title='There are a lot of women that are performing on the stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7482.jpg
+
+0: 640x480 1 person, 980.5ms
+Speed: 33.2ms preprocess, 980.5ms inference, 255.3ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7482.jpg: Rating=1, Title='There is a woman that is standing on a stage with her hair in the air.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7538.jpg
+
+0: 640x480 1 person, 251.8ms
+Speed: 10.0ms preprocess, 251.8ms inference, 476.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7538.jpg: Rating=1, Title='There are a lot of women that are dancing together on stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7834.jpg
+
+0: 640x640 1 bird, 281.4ms
+Speed: 247.3ms preprocess, 281.4ms inference, 87.5ms postprocess per image at shape (1, 3, 640, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7834.jpg: Rating=2, Title='There is a small bird that is walking on the sand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7839.jpg
+
+0: 640x480 5 persons, 730.5ms
+Speed: 4.1ms preprocess, 730.5ms inference, 189.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7839.jpg: Rating=3, Title='There are a lot of women that are sitting on the floor.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7889.jpg
+
+0: 640x480 1 person, 1 umbrella, 1434.5ms
+Speed: 5.0ms preprocess, 1434.5ms inference, 590.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7889.jpg: Rating=3, Title='This is an image of a woman performing a belly dance.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7911.jpg
+
+0: 640x480 1 bird, 166.4ms
+Speed: 11.2ms preprocess, 166.4ms inference, 329.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7911.jpg: Rating=2, Title='There is a bird that is standing in the water with a fish.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7981-Enhanced-NR.jpg
+
+0: 448x640 3 persons, 198.8ms
+Speed: 5.3ms preprocess, 198.8ms inference, 124.0ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7981-Enhanced-NR.jpg: Rating=4, Title='There is a woman in a purple dress dancing on a stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7986.jpg
+
+0: 640x480 3 persons, 193.9ms
+Speed: 2.9ms preprocess, 193.9ms inference, 60.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7986.jpg: Rating=4, Title='There are three women in purple skirts dancing on a stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8067.jpg
+
+0: 384x640 3 persons, 2 umbrellas, 489.3ms
+Speed: 12.8ms preprocess, 489.3ms inference, 209.2ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Concert Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8067.jpg: Rating=1, Title='There are two women that are holding umbrellas in their hands.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8070.jpg
+
+0: 640x448 2 persons, 1 umbrella, 2112.0ms
+Speed: 11.0ms preprocess, 2112.0ms inference, 90.9ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.67, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8070.jpg: Rating=3, Title='There are a lot of people that are performing on the stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8074.jpg
+
+0: 384x640 4 persons, 1 umbrella, 1402.3ms
+Speed: 11.0ms preprocess, 1402.3ms inference, 239.5ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Concert Photography (conf=0.67, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8074.jpg: Rating=3, Title='There are a lot of people that are dancing on the stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8075.jpg
+
+0: 512x640 4 persons, 1 umbrella, 1 handbag, 1892.6ms
+Speed: 49.5ms preprocess, 1892.6ms inference, 465.5ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.67, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8075.jpg: Rating=3, Title='There is a woman that is standing on a stage with a fan.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8083.jpg
+
+0: 416x640 4 persons, 1401.3ms
+Speed: 25.7ms preprocess, 1401.3ms inference, 233.4ms postprocess per image at shape (1, 3, 416, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8083.jpg: Rating=3, Title='There are a lot of people that are performing on the stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8086.jpg
+
+0: 640x384 1 person, 1 umbrella, 1 kite, 1730.3ms
+Speed: 49.6ms preprocess, 1730.3ms inference, 207.3ms postprocess per image at shape (1, 3, 640, 384)
+  Genre: Concert Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8086.jpg: Rating=1, Title='There is a woman that is holding a blue and green umbrella.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8095.jpg
+
+0: 640x480 3 persons, 1533.7ms
+Speed: 15.1ms preprocess, 1533.7ms inference, 194.3ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8095.jpg: Rating=3, Title='There is a woman that is holding a sword in her hand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8103.jpg
+
+0: 640x480 1 person, 1 handbag, 1875.3ms
+Speed: 94.4ms preprocess, 1875.3ms inference, 1353.8ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8103.jpg: Rating=3, Title='There is a woman that is sitting on the ground in a skirt.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8105.jpg
+
+0: 512x640 4 persons, 1976.3ms
+Speed: 26.9ms preprocess, 1976.3ms inference, 439.7ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8105.jpg: Rating=1, Title='There is a group of women that are dancing on a stage.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8202.jpg
+
+0: 640x480 1 bird, 1186.5ms
+Speed: 67.7ms preprocess, 1186.5ms inference, 545.3ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8202.jpg: Rating=2, Title='There is a bird that is standing on the sand by the water.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8218-Enhanced-NR.jpg
+
+0: 640x480 1 person, 775.9ms
+Speed: 7.4ms preprocess, 775.9ms inference, 500.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8218-Enhanced-NR.jpg: Rating=2, Title='There is a woman that is standing on a stage in a black dress.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8240.jpg
+
+0: 384x640 13 persons, 2387.0ms
+Speed: 11.6ms preprocess, 2387.0ms inference, 450.9ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8240.jpg: Rating=4, Title='There is a man that is standing in front of a group of women.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8249.jpg
+
+0: 640x448 (no detections), 1639.8ms
+Speed: 69.0ms preprocess, 1639.8ms inference, 30.8ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8249.jpg: Rating=1, Title='There is a candle that is sitting on a table with petals.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8325.jpg
+
+0: 512x640 6 persons, 1542.1ms
+Speed: 21.0ms preprocess, 1542.1ms inference, 503.2ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.67, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8325.jpg: Rating=3, Title='There is a man that is playing a guitar in a crowd of people.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8540.jpg
+
+0: 640x480 1 person, 1334.1ms
+Speed: 46.5ms preprocess, 1334.1ms inference, 450.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8540.jpg: Rating=2, Title='There is a woman that is singing into a microphone on the street.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8780.jpg
+
+0: 640x480 1 bird, 1194.6ms
+Speed: 25.0ms preprocess, 1194.6ms inference, 472.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8780.jpg: Rating=2, Title='There is a white bird with a long beak standing in the water.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8899.jpg
+
+0: 640x448 1 person, 1982.6ms
+Speed: 21.4ms preprocess, 1982.6ms inference, 76.4ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.92, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8899.jpg: Rating=2, Title='There is a man that is sitting in a car talking on the phone.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8915.jpg
+
+0: 448x640 1 person, 1966.5ms
+Speed: 106.8ms preprocess, 1966.5ms inference, 25.4ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8915.jpg: Rating=2, Title='There is a man driving a car with a cell phone in his hand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8920.jpg
+
+0: 512x640 1 person, 1239.6ms
+Speed: 22.5ms preprocess, 1239.6ms inference, 365.4ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.91, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8920.jpg: Rating=2, Title='There is a man that is looking at himself in the rear view mirror.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8946.jpg
+
+0: 512x640 1 bird, 736.7ms
+Speed: 11.7ms preprocess, 736.7ms inference, 367.1ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8946.jpg: Rating=2, Title='There is a small yellow bird perched on a branch of a tree.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8949.jpg
+
+0: 640x448 1 person, 1 car, 1794.0ms
+Speed: 12.9ms preprocess, 1794.0ms inference, 145.8ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Street Photography (conf=0.49, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8949.jpg: Rating=3, Title='There is a man that is standing next to a car.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8964.jpg
+
+0: 640x480 1 person, 1 car, 2069.8ms
+Speed: 16.9ms preprocess, 2069.8ms inference, 517.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.49, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8964.jpg: Rating=3, Title='There is a man standing next to a car talking on a cell phone.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8993.jpg
+
+0: 640x448 1 person, 1758.4ms
+Speed: 20.5ms preprocess, 1758.4ms inference, 70.4ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.48, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8993.jpg: Rating=2, Title='There is a man that is sitting in the drivers seat of a car.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9012.jpg
+
+0: 640x448 1 person, 640.8ms
+Speed: 13.2ms preprocess, 640.8ms inference, 611.6ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9012.jpg: Rating=3, Title='There is a man that is sitting on the hood of a car.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9029.jpg
+
+0: 640x448 1 person, 1 car, 886.8ms
+Speed: 20.6ms preprocess, 886.8ms inference, 302.0ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Street Photography (conf=0.48, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9029.jpg: Rating=4, Title='There is a man that is sitting on the hood of a car.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9042.jpg
+
+0: 640x448 1 person, 1 car, 1429.8ms
+Speed: 13.0ms preprocess, 1429.8ms inference, 606.9ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Street Photography (conf=0.33, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9042.jpg: Rating=3, Title='There is a man that is sitting in the driver ' s seat of a car.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9044.jpg
+
+0: 384x640 1 bird, 1607.4ms
+Speed: 8.2ms preprocess, 1607.4ms inference, 330.6ms postprocess per image at shape (1, 3, 384, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9044.jpg: Rating=2, Title='Black and white photograph of a bird perched on a tree branch.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9048.jpg
+
+0: 640x512 1 bird, 1585.1ms
+Speed: 8.3ms preprocess, 1585.1ms inference, 361.0ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9048.jpg: Rating=2, Title='There is a yellow and black bird sitting on a tree branch.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9092.jpg
+
+0: 448x640 1 person, 1760.4ms
+Speed: 48.2ms preprocess, 1760.4ms inference, 81.0ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.73, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9092.jpg: Rating=2, Title='This is an image of a man sitting on a stone bench.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9151.jpg
+
+0: 640x448 1 person, 1613.1ms
+Speed: 22.2ms preprocess, 1613.1ms inference, 24.6ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.77, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9151.jpg: Rating=2, Title='There is a man that is standing in front of a wall.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9305.jpg
+
+0: 640x448 1 person, 1556.7ms
+Speed: 38.8ms preprocess, 1556.7ms inference, 301.2ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.82, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9305.jpg: Rating=2, Title='There is a man standing with his arms crossed in front of a wall.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9314.jpg
+
+0: 640x384 1 bird, 1318.7ms
+Speed: 23.1ms preprocess, 1318.7ms inference, 574.9ms postprocess per image at shape (1, 3, 640, 384)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9314.jpg: Rating=3, Title='There is a bird that is standing on the side of a tree.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9327.jpg
+
+0: 640x480 1 person, 2126.1ms
+Speed: 6.8ms preprocess, 2126.1ms inference, 325.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.47, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9327.jpg: Rating=2, Title='There is a man sitting on a cannon with his arms crossed.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9344.jpg
+
+0: 640x480 1 person, 817.1ms
+Speed: 27.5ms preprocess, 817.1ms inference, 368.9ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.88, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9344.jpg: Rating=2, Title='There is a woman that is standing in front of a stone wall.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9361.jpg
+
+0: 512x640 1 bird, 1530.9ms
+Speed: 20.4ms preprocess, 1530.9ms inference, 166.6ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Nature Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9361.jpg: Rating=3, Title='There is a bird that is sitting on the side of a tree.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9377.jpg
+
+0: 512x640 3 persons, 1 car, 1173.9ms
+Speed: 28.1ms preprocess, 1173.9ms inference, 1114.9ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Street Photography (conf=0.34, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9377.jpg: Rating=3, Title='There are three people sitting next to each other on a cannon.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9388.jpg
+
+0: 512x640 3 persons, 1224.2ms
+Speed: 30.1ms preprocess, 1224.2ms inference, 820.9ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.94, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9388.jpg: Rating=3, Title='There are three people sitting on a bench in a park.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9406.jpg
+
+0: 640x480 1 person, 1 bench, 1536.6ms
+Speed: 27.3ms preprocess, 1536.6ms inference, 380.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.48, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9406.jpg: Rating=3, Title='There is a man that is sitting on a bench in the grass.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9438.jpg
+
+0: 512x640 2 persons, 1290.9ms
+Speed: 18.2ms preprocess, 1290.9ms inference, 343.4ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.88, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9438.jpg: Rating=3, Title='There are two people that are sitting on a bench together.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9470.jpg
+
+0: 640x480 3 persons, 1618.4ms
+Speed: 42.6ms preprocess, 1618.4ms inference, 177.4ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Street Photography (conf=0.51, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9470.jpg: Rating=4, Title='There are two men and a woman standing in front of a building.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9486.jpg
+
+0: 640x512 3 persons, 1130.1ms
+Speed: 21.4ms preprocess, 1130.1ms inference, 161.5ms postprocess per image at shape (1, 3, 640, 512)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9486.jpg: Rating=4, Title='There are three people that are posing for a picture with a guitar.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9505.jpg
+
+0: 512x640 3 persons, 1 skateboard, 1214.5ms
+Speed: 12.4ms preprocess, 1214.5ms inference, 298.2ms postprocess per image at shape (1, 3, 512, 640)
+  Genre: Concert Photography (conf=0.68, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9505.jpg: Rating=3, Title='There are three people standing in front of a building with a guitar.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9522.jpg
+
+0: 640x448 1 person, 1 tie, 1381.5ms
+Speed: 12.0ms preprocess, 1381.5ms inference, 66.1ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9522.jpg: Rating=4, Title='There is a man that is holding a guitar in his hand.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9562.jpg
+
+0: 640x448 1 person, 1190.1ms
+Speed: 7.1ms preprocess, 1190.1ms inference, 198.1ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.81, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9562.jpg: Rating=2, Title='There is a woman sitting on a bench with a skateboard.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9579.jpg
+
+0: 640x480 3 persons, 1348.4ms
+Speed: 10.1ms preprocess, 1348.4ms inference, 377.1ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9579.jpg: Rating=3, Title='There are two men and a woman posing for a picture with a guitar.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9589.jpg
+
+0: 448x640 3 persons, 1 bench, 2 cups, 1465.7ms
+Speed: 29.6ms preprocess, 1465.7ms inference, 122.9ms postprocess per image at shape (1, 3, 448, 640)
+  Genre: Concert Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9589.jpg: Rating=4, Title='There are three people that are sitting in the grass with guitars.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9640.jpg
+
+0: 480x640 3 persons, 1172.4ms
+Speed: 8.8ms preprocess, 1172.4ms inference, 403.0ms postprocess per image at shape (1, 3, 480, 640)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9640.jpg: Rating=3, Title='There are three people that are sitting on a bench with a guitar.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9684.jpg
+
+0: 640x480 1 person, 1276.9ms
+Speed: 3.6ms preprocess, 1276.9ms inference, 153.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9684.jpg: Rating=2, Title='There is a woman that is making food in a kitchen.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9714.jpg
+
+0: 640x448 1 person, 2 bowls, 1808.6ms
+Speed: 7.9ms preprocess, 1808.6ms inference, 279.3ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9714.jpg: Rating=3, Title='There is a woman that is preparing food in a kitchen.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9724.jpg
+
+0: 480x640 (no detections), 1519.5ms
+Speed: 43.1ms preprocess, 1519.5ms inference, 10.0ms postprocess per image at shape (1, 3, 480, 640)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9724.jpg: Rating=1, Title='There is a spoon full of coffee beans sitting on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9734.jpg
+
+0: 640x480 (no detections), 1396.0ms
+Speed: 3.5ms preprocess, 1396.0ms inference, 3.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9734.jpg: Rating=1, Title='This is a close up of a coffee grinder filled with coffee beans.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9788.jpg
+
+0: 640x480 1 wine glass, 1 dining table, 1074.7ms
+Speed: 3.3ms preprocess, 1074.7ms inference, 770.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9788.jpg: Rating=3, Title='Chocolate sauce being poured over nuts on top of a pan.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9816.jpg
+
+0: 640x480 1 person, 1 spoon, 1 bowl, 1 cake, 1719.5ms
+Speed: 5.5ms preprocess, 1719.5ms inference, 670.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.33, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9816.jpg: Rating=3, Title='There is a person that is making something in a blender.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9819.jpg
+
+0: 640x480 1 person, 1 cake, 1 scissors, 1005.5ms
+Speed: 37.8ms preprocess, 1005.5ms inference, 386.7ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9819.jpg: Rating=3, Title='There is a woman cutting a piece of cake on a plate.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9825.jpg
+
+0: 640x480 1 person, 1065.0ms
+Speed: 6.3ms preprocess, 1065.0ms inference, 592.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9825.jpg: Rating=2, Title='There is a woman that is painting on a piece of paper.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9840.jpg
+
+0: 640x448 1 person, 1 cup, 1843.2ms
+Speed: 19.8ms preprocess, 1843.2ms inference, 211.7ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9840.jpg: Rating=3, Title='There is a woman that is pouring chocolate into a pot.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9849.jpg
+
+0: 640x480 3 cakes, 1 dining table, 1351.7ms
+Speed: 45.2ms preprocess, 1351.7ms inference, 330.3ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.69, status=review)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9849.jpg: Rating=3, Title='There are three desserts that are sitting on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9866.jpg
+
+0: 640x480 1 person, 1476.9ms
+Speed: 16.2ms preprocess, 1476.9ms inference, 512.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Portraits Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9866.jpg: Rating=2, Title='There is a person pouring something into a pan on a stove.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9879.jpg
+
+0: 640x480 1 person, 2 ovens, 1413.5ms
+Speed: 6.6ms preprocess, 1413.5ms inference, 367.2ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Portraits Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9879.jpg: Rating=3, Title='There is a person putting a tray of food into an oven.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9917.jpg
+
+0: 640x448 1 person, 1 dining table, 1490.2ms
+Speed: 43.4ms preprocess, 1490.2ms inference, 90.1ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9917.jpg: Rating=3, Title='There is a woman in a chef ' s uniform preparing food in a kitchen.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9932.jpg
+
+0: 640x480 1 cup, 1000.9ms
+Speed: 13.4ms preprocess, 1000.9ms inference, 354.5ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9932.jpg: Rating=2, Title='There is a spatula that has melted chocolate on top of it.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9934.jpg
+
+0: 640x416 1 person, 1 bowl, 1979.6ms
+Speed: 61.1ms preprocess, 1979.6ms inference, 152.5ms postprocess per image at shape (1, 3, 640, 416)
+  Genre: Product Photography (conf=0.50, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9934.jpg: Rating=3, Title='There is a woman that is making some doughnuts on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9953.jpg
+
+0: 640x448 2 persons, 1947.9ms
+Speed: 18.1ms preprocess, 1947.9ms inference, 57.2ms postprocess per image at shape (1, 3, 640, 448)
+  Genre: Concert Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9953.jpg: Rating=3, Title='There is a woman that is making some food in a kitchen.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9957.jpg
+
+0: 640x480 1 bottle, 1728.0ms
+Speed: 28.8ms preprocess, 1728.0ms inference, 649.0ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.95, status=auto)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9957.jpg: Rating=2, Title='There is a bottle of orange liquid sitting on a table.'
+Processing image: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9966.jpg
+
+0: 640x480 1 person, 3 knifes, 1 bowl, 1359.2ms
+Speed: 11.5ms preprocess, 1359.2ms inference, 623.3ms postprocess per image at shape (1, 3, 640, 480)
+  Genre: Product Photography (conf=0.33, status=skip)
+Finished /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9966.jpg: Rating=4, Title='There is a person mixing chocolate in a bowl with a spatula.'
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250115_165025.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.93)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250115_170810.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.91)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250118_074018.jpg: Rating=3, Genre=Nature Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250118_091144.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250403_180513.jpg: Rating=3, Genre=Street Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250406_150902.jpg: Rating=4, Genre=Street Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250414_185839.jpg: Rating=2, Genre=Nature Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250414_191548.jpg: Rating=1, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250426_181400.jpg: Rating=2, Genre=Street Photography (review, conf=0.62)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/20250426_182552.jpg: Rating=1, Genre=Concert Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0064.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0130.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0137.jpg: Rating=1, Genre=Nature Photography (auto, conf=0.81)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0190.jpg: Rating=1, Genre=Product Photography (review, conf=0.77)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0192.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0231.jpg: Rating=4, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0300.jpg: Rating=3, Genre=Product Photography (skip, conf=0.33)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0309.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0316.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0328.jpg: Rating=3, Genre=Portraits Photography (skip, conf=0.33)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0409.jpg: Rating=1, Genre=Product Photography (review, conf=0.64)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0442.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0466.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0487.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0509.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0533.jpg: Rating=1, Genre=Portraits Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0563.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0572.jpg: Rating=3, Genre=Product Photography (auto, conf=0.81)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0576.jpg: Rating=1, Genre=Product Photography (auto, conf=0.90)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0587.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0625.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0651.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0683.jpg: Rating=1, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_0696.jpg: Rating=4, Genre=Portraits Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_4590.jpg: Rating=3, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5065.jpg: Rating=1, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5090.jpg: Rating=3, Genre=Nature Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5349.jpg: Rating=3, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5354.jpg: Rating=2, Genre=Nature Photography (review, conf=0.75)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5419.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.84)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5502.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5504.jpg: Rating=1, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5540.jpg: Rating=1, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5587.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5588.jpg: Rating=2, Genre=Street Photography (skip, conf=0.33)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5630.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5633.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5641.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.91)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5925.jpg: Rating=3, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5934.jpg: Rating=3, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_5949.jpg: Rating=3, Genre=Street Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6006.jpg: Rating=1, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6047.jpg: Rating=2, Genre=Street Photography (auto, conf=0.93)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6056.jpg: Rating=2, Genre=Product Photography (review, conf=0.71)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6059.jpg: Rating=2, Genre=Street Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6065.jpg: Rating=2, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6152.jpg: Rating=1, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6241.jpg: Rating=3, Genre=Nature Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6284.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6291.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6303.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.94)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6322.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6339.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.88)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6445.jpg: Rating=1, Genre=Street Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6457.jpg: Rating=1, Genre=Portraits Photography (review, conf=0.64)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6567.jpg: Rating=1, Genre=Street Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6576.jpg: Rating=1, Genre=Street Photography (review, conf=0.59)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6647.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6765.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6785-Enhanced-NR.jpg: Rating=2, Genre=Concert Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6835-Enhanced-NR.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_6946.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7018.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7177.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7253.jpg: Rating=3, Genre=Concert Photography (review, conf=0.67)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7347.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7355.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7362.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7373.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7439.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7445.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7482.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7538.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7834.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7839.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7889.jpg: Rating=3, Genre=Concert Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7911.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7981-Enhanced-NR.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_7986.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8067.jpg: Rating=1, Genre=Concert Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8070.jpg: Rating=3, Genre=Concert Photography (review, conf=0.67)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8074.jpg: Rating=3, Genre=Concert Photography (review, conf=0.67)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8075.jpg: Rating=3, Genre=Concert Photography (review, conf=0.67)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8083.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8086.jpg: Rating=1, Genre=Concert Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8095.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8103.jpg: Rating=3, Genre=Concert Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8105.jpg: Rating=1, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8202.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8218-Enhanced-NR.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8240.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8249.jpg: Rating=1, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8325.jpg: Rating=3, Genre=Concert Photography (review, conf=0.67)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8540.jpg: Rating=2, Genre=Concert Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8780.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8899.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.92)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8915.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8920.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.91)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8946.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8949.jpg: Rating=3, Genre=Street Photography (skip, conf=0.49)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8964.jpg: Rating=3, Genre=Street Photography (skip, conf=0.49)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_8993.jpg: Rating=2, Genre=Concert Photography (skip, conf=0.48)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9012.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9029.jpg: Rating=4, Genre=Street Photography (skip, conf=0.48)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9042.jpg: Rating=3, Genre=Street Photography (skip, conf=0.33)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9044.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9048.jpg: Rating=2, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9092.jpg: Rating=2, Genre=Concert Photography (review, conf=0.73)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9151.jpg: Rating=2, Genre=Concert Photography (review, conf=0.77)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9305.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.82)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9314.jpg: Rating=3, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9327.jpg: Rating=2, Genre=Product Photography (skip, conf=0.47)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9344.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.88)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9361.jpg: Rating=3, Genre=Nature Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9377.jpg: Rating=3, Genre=Street Photography (skip, conf=0.34)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9388.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.94)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9406.jpg: Rating=3, Genre=Street Photography (skip, conf=0.48)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9438.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.88)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9470.jpg: Rating=4, Genre=Street Photography (skip, conf=0.51)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9486.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9505.jpg: Rating=3, Genre=Concert Photography (review, conf=0.68)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9522.jpg: Rating=4, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9562.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.81)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9579.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9589.jpg: Rating=4, Genre=Concert Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9640.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9684.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9714.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9724.jpg: Rating=1, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9734.jpg: Rating=1, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9788.jpg: Rating=3, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9816.jpg: Rating=3, Genre=Product Photography (skip, conf=0.33)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9819.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9825.jpg: Rating=2, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9840.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9849.jpg: Rating=3, Genre=Product Photography (review, conf=0.69)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9866.jpg: Rating=2, Genre=Portraits Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9879.jpg: Rating=3, Genre=Portraits Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9917.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9932.jpg: Rating=2, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9934.jpg: Rating=3, Genre=Product Photography (skip, conf=0.50)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9953.jpg: Rating=3, Genre=Concert Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9957.jpg: Rating=2, Genre=Product Photography (auto, conf=0.95)
+Done /Users/javierrangel/Pictures/Lightroom Saved Photos/export/IMG_9966.jpg: Rating=4, Genre=Product Photography (skip, conf=0.33)
