@@ -10,7 +10,7 @@ Usage:
         --output output/genre_review.csv
 
 Folder → label mapping:
-    city/       → Urban / Street Photography
+    city/       → Street Photography
     concert/    → Music Photography
     nature/     → Nature Photography
     portraits/  → Portrait Photography
@@ -32,7 +32,7 @@ from scene_classifier import SceneClassifier
 from genre_decision import make_genre_decision
 
 FOLDER_TO_LABEL = {
-    "city": "Urban / Street Photography",
+    "city": "Street Photography",
     "concert": "Music Photography",
     "nature": "Nature Photography",
     "portraits": "Portrait Photography",

@@ -99,13 +99,13 @@ def test_review_writes_genre_and_review_tag():
     """review_status == 'review' must write genre tag AND 'genre-needs-review'."""
     with tempfile.TemporaryDirectory() as tmp:
         genre_result = {
-            "genre": "Urban / Street Photography",
+            "genre": "Street Photography",
             "confidence": 0.65,
             "review_status": "review",
         }
         tags = _run_write(tmp, "review_test.jpg", genre_result)
 
-    assert "Urban / Street Photography" in tags, (
+    assert "Street Photography" in tags, (
         f"FAIL [review]: genre tag must be written, got tags={tags}"
     )
     assert "genre-needs-review" in tags, (

@@ -14,7 +14,7 @@ from device import get_device
 # Food & Wedding removed from primary SigLIP2 classification (demoted to
 # title-fallback only) to sharpen softmax distribution for core categories.
 GENRE_PROMPTS = {
-    "Urban / Street Photography": [
+    "Street Photography": [
         "a street photograph in an urban city environment",
         "candid street photography with people in a city or town",
         "documentary urban photo of city life, buildings, and streets",

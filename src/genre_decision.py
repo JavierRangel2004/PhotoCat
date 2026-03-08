@@ -4,16 +4,20 @@ genre_decision.py — Evidence fusion and confidence-gated write policy.
 Combines SigLIP2 classification with YOLO object cues, caption text, and OCR text
 to produce a final genre label and a write-policy status.
 
-Write policy (Phase 0 decision):
+Write policy:
   HIGH  (>= 0.80) → review_status = "auto"          → write genre to XMP
   MEDIUM (0.55-0.79) → review_status = "review"      → write genre + add 'genre-needs-review' tag
   LOW   (< 0.55)  → review_status = "title-inferred" → derive category from title; write + tag
+
+Margin gating: if top1-vs-top2 gap < 0.15, force "review" even if confidence >= HIGH.
 """
 
 # Boost amounts applied per detected evidence cue
 _BOOST = 0.12
 # Negative boost (demotion) for contradiction checks
 _DEMOTE = 0.10
+# Margin below which an otherwise-auto image is forced to review
+_MARGIN_THRESHOLD = 0.15
 
 # ---------------------------------------------------------------------------
 # Object label sets that boost specific genres
@@ -29,10 +33,15 @@ _NATURE_OBJECTS = {
     "sheep", "elephant", "bear", "zebra", "giraffe", "mountain",
     "plant", "leaf", "grass", "sky",
 }
+# Product objects include food-related YOLO labels (merged per Phase 1 plan)
 _PRODUCT_OBJECTS = {
     "bottle", "cell phone", "laptop", "mouse",
     "book", "clock", "vase", "scissors", "toothbrush",
     "sports ball", "tennis racket", "remote",
+    # Food objects merged into Product
+    "cake", "donut", "sandwich", "pizza", "hot dog", "carrot", "broccoli",
+    "apple", "orange", "banana", "wine glass", "cup", "bowl",
+    "fork", "knife", "spoon", "dining table", "oven",
 }
 _STREET_OBJECTS = {
     "car", "bus", "truck", "motorcycle", "bicycle",
@@ -52,9 +61,15 @@ _NATURE_KEYWORDS = {
     "nature", "forest", "mountain", "river", "lake", "ocean", "wildlife",
     "landscape", "sunset", "sunrise", "tree", "flower", "beach", "field",
 }
+# Product keywords include food-related terms (merged per Phase 1 plan)
 _PRODUCT_KEYWORDS = {
     "product", "bottle", "can", "brand", "studio", "commercial",
     "isolated", "white background", "packaging",
+    # Food keywords merged into Product
+    "food", "cook", "kitchen", "chef", "cake", "donut", "doughnut",
+    "meal", "eat", "dish", "bread", "dough", "bake", "dessert",
+    "pastry", "plate", "recipe", "restaurant", "ingredient",
+    "chocolate", "chefs",
 }
 _PORTRAIT_KEYWORDS = {
     "portrait", "face", "person", "smile", "close-up", "headshot", "model",
@@ -64,12 +79,12 @@ _STREET_KEYWORDS = {
     "candid", "town",
 }
 
-# Phase 2: Contradiction-check word sets
+# Contradiction-check word sets
 _PERSON_WORDS = {
     "woman", "man", "girl", "boy", "person", "people", "posing",
     "portrait", "dress", "suit", "wearing",
 }
-# Phase 4: Nature-indicator words for product disambiguation
+# Nature-indicator words for product disambiguation
 _NATURE_CAPTION_WORDS = {
     "shark", "fish", "bird", "moon", "sky", "ocean", "sea", "flying",
     "swimming", "sunset", "sunrise", "mountain", "forest", "wildlife",
@@ -80,22 +95,22 @@ HIGH_THRESHOLD = 0.80
 MEDIUM_THRESHOLD = 0.55
 
 # --- Title-based fallback category maps (used when confidence < MEDIUM_THRESHOLD) ---
-# These include demoted categories (Food, Wedding) that can still be assigned via
-# title-fallback when the primary classifier has low confidence.
 _TITLE_CATEGORY_RULES = [
-    # Wedding before Food/Event to catch wedding receptions
+    # Wedding kept as fallback-only
     ({"bride", "groom", "wedding", "bridal", "bouquet", "veil", "ceremony",
       "reception", "bridesmaid", "groomsmen", "married"},
      "Wedding Photography"),
+    # Food keywords route to Product Photography (merged per Phase 1 plan)
     ({"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish",
       "bread", "dough", "bake", "dessert", "pastry", "plate", "chocolate", "chefs", "frying",
       "ingredients", "stove", "oven", "restaurant"},
-     "Food Photography"),
+     "Product Photography"),
     ({"danc", "perform", "stage", "festival", "show", "sword", "folk", "cosplay",
       "costume", "parade", "cultural", "carnival"},
      "Event Photography"),
+    # Beach keywords route to Nature Photography (merged per Phase 1 plan)
     ({"beach", "ocean", "sea", "wave", "surf", "coastal", "shore", "bay"},
-     "Beach Photography"),
+     "Nature Photography"),
     ({"building", "church", "castle", "bridge", "tower", "landmark", "cathedral",
       "monument", "statue", "architecture", "hallway", "corridor"},
      "Architecture Photography"),
@@ -104,7 +119,7 @@ _TITLE_CATEGORY_RULES = [
      "Sports Photography"),
     ({"street", "city", "urban", "road", "sidewalk", "alley", "neon", "sign",
       "graffiti", "mural", "market"},
-     "Urban / Street Photography"),
+     "Street Photography"),
     ({"portrait", "face", "smile", "headshot", "selfie", "pose", "posing"},
      "Portrait Photography"),
     ({"nature", "forest", "mountain", "river", "lake", "wildlife", "landscape",
@@ -198,7 +213,7 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
         scores["Nature Photography"] = scores.get("Nature Photography", 0.0) + nature_obj_boost + nature_txt_boost
         evidence_log["nature_boost"] = nature_obj_boost + nature_txt_boost
 
-    # --- Product boosts ---
+    # --- Product boosts (includes food evidence) ---
     product_obj_boost = _object_boost(yolo_detections, _PRODUCT_OBJECTS)
     product_txt_boost = _keyword_boost(combined_text, _PRODUCT_KEYWORDS)
     if product_obj_boost or product_txt_boost:
@@ -211,11 +226,11 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
         scores["Portrait Photography"] = scores.get("Portrait Photography", 0.0) + portrait_txt_boost
         evidence_log["portrait_boost"] = portrait_txt_boost
 
-    # --- Urban / Street boosts ---
+    # --- Street boosts ---
     street_obj_boost = _object_boost(yolo_detections, _STREET_OBJECTS)
     street_txt_boost = _keyword_boost(combined_text, _STREET_KEYWORDS)
     if street_obj_boost or street_txt_boost:
-        scores["Urban / Street Photography"] = scores.get("Urban / Street Photography", 0.0) + street_obj_boost + street_txt_boost
+        scores["Street Photography"] = scores.get("Street Photography", 0.0) + street_obj_boost + street_txt_boost
         evidence_log["street_boost"] = street_obj_boost + street_txt_boost
 
     # ===================================================================
@@ -240,11 +255,11 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
                 evidence_log["portrait_demote_nature"] = _DEMOTE
 
         # Portrait wins but Street is close — check for street objects
-        if top_label == "Portrait Photography" and second_label == "Urban / Street Photography" and margin < 0.10:
+        if top_label == "Portrait Photography" and second_label == "Street Photography" and margin < 0.10:
             if bool(det_lower & _STREET_OBJECTS):
                 half_demote = _DEMOTE * 0.5
                 scores["Portrait Photography"] = max(scores["Portrait Photography"] - half_demote, 0.0)
-                scores["Urban / Street Photography"] = scores.get("Urban / Street Photography", 0.0) + half_demote
+                scores["Street Photography"] = scores.get("Street Photography", 0.0) + half_demote
                 evidence_log["portrait_demote_street"] = half_demote
 
         # Music context beats Portrait: stage/concert headshots are Music Photography
@@ -277,9 +292,17 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     genre = top_k[0][0]
     confidence = min(top_k[0][1], 0.95)  # cap at 0.95
 
+    # Compute margin between top-1 and top-2
+    margin = (top_k[0][1] - top_k[1][1]) if len(top_k) >= 2 else 1.0
+
     # Write policy
     if confidence >= HIGH_THRESHOLD:
-        review_status = "auto"
+        # Margin gating: if top1 vs top2 gap is too small, force review
+        if margin < _MARGIN_THRESHOLD:
+            review_status = "review"
+            evidence_log["margin_demotion"] = margin
+        else:
+            review_status = "auto"
     elif confidence >= MEDIUM_THRESHOLD:
         review_status = "review"
     else:
