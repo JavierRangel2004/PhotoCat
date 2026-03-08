@@ -10,10 +10,10 @@ Usage:
         --output output/genre_review.csv
 
 Folder → label mapping:
-    city/       → Street Photography
-    concert/    → Concert Photography
+    city/       → Urban / Street Photography
+    concert/    → Music Photography
     nature/     → Nature Photography
-    portraits/  → Portraits Photography
+    portraits/  → Portrait Photography
     product/    → Product Photography
 """
 
@@ -32,10 +32,10 @@ from scene_classifier import SceneClassifier
 from genre_decision import make_genre_decision
 
 FOLDER_TO_LABEL = {
-    "city": "Street Photography",
-    "concert": "Concert Photography",
+    "city": "Urban / Street Photography",
+    "concert": "Music Photography",
     "nature": "Nature Photography",
-    "portraits": "Portraits Photography",
+    "portraits": "Portrait Photography",
     "product": "Product Photography",
 }
 
@@ -148,6 +148,23 @@ def run_eval(portfolio_dir, output_csv, device=None):
         print("[PASS] Thresholds met — safe to enable automatic XMP genre writes.")
     else:
         print("[HOLD] Thresholds NOT met — do not enable automatic XMP writes yet.")
+
+    # Per-class confusion summary
+    from collections import Counter
+    print("\n=== Per-class Confusion Summary ===")
+    for label in all_labels:
+        indices = [i for i, t in enumerate(true_labels) if t == label]
+        if not indices:
+            continue
+        misclassified = Counter(
+            pred_labels[i] for i in indices if pred_labels[i] != label
+        )
+        if misclassified:
+            top_confusions = misclassified.most_common(3)
+            confusion_str = ", ".join(f"{lbl}={cnt}" for lbl, cnt in top_confusions)
+            print(f"  {label:<28} confused with: {confusion_str}")
+        else:
+            print(f"  {label:<28} no misclassifications")
 
     # Confidence distribution summary
     auto_count = sum(1 for r in rows if r["review_status"] == "auto")

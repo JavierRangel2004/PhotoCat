@@ -314,7 +314,9 @@ def _organize_into_dirs(input_dir, results):
         genre = genre_result.get("genre", "")
         if not genre:
             continue
-        dest_dir = os.path.join(input_dir, genre)
+        # Replace slashes in genre names to make filesystem-safe directory names
+        safe_genre = genre.replace(" / ", " - ")
+        dest_dir = os.path.join(input_dir, safe_genre)
         os.makedirs(dest_dir, exist_ok=True)
         fname = os.path.basename(img_path)
         dest_path = os.path.join(dest_dir, fname)

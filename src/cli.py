@@ -10,10 +10,10 @@ import os
 # Reserved directory names used for organized output.
 # collect_images() skips these to avoid re-processing already-categorized photos.
 CATEGORY_DIRS = {
-    "Street Photography",
-    "Concert Photography",
+    "Urban - Street Photography",
+    "Music Photography",
     "Nature Photography",
-    "Portraits Photography",
+    "Portrait Photography",
     "Product Photography",
     "Food Photography",
     "Wedding Photography",

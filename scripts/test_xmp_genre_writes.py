@@ -80,13 +80,13 @@ def test_skip_does_not_write_genre():
     """review_status == 'skip' must NOT add any genre tag."""
     with tempfile.TemporaryDirectory() as tmp:
         genre_result = {
-            "genre": "Concert Photography",
+            "genre": "Music Photography",
             "confidence": 0.40,
             "review_status": "skip",
         }
         tags = _run_write(tmp, "skip_test.jpg", genre_result)
 
-    assert "Concert Photography" not in tags, (
+    assert "Music Photography" not in tags, (
         f"FAIL [skip]: genre tag must NOT be written, got tags={tags}"
     )
     assert "genre-needs-review" not in tags, (
@@ -99,13 +99,13 @@ def test_review_writes_genre_and_review_tag():
     """review_status == 'review' must write genre tag AND 'genre-needs-review'."""
     with tempfile.TemporaryDirectory() as tmp:
         genre_result = {
-            "genre": "Street Photography",
+            "genre": "Urban / Street Photography",
             "confidence": 0.65,
             "review_status": "review",
         }
         tags = _run_write(tmp, "review_test.jpg", genre_result)
 
-    assert "Street Photography" in tags, (
+    assert "Urban / Street Photography" in tags, (
         f"FAIL [review]: genre tag must be written, got tags={tags}"
     )
     assert "genre-needs-review" in tags, (

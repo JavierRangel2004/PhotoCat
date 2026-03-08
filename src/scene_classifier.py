@@ -10,42 +10,34 @@ from PIL import Image
 from transformers import pipeline
 from device import get_device
 
-# Five target genres with prompt ensembles (Phase 0 research decision)
+# Phase 1 taxonomy: 5 primary genres with refined prompt ensembles.
+# Food & Wedding removed from primary SigLIP2 classification (demoted to
+# title-fallback only) to sharpen softmax distribution for core categories.
 GENRE_PROMPTS = {
-    "Street Photography": [
-        "a street photograph in an urban environment",
-        "candid street photography with people in a city",
-        "documentary street photo taken outdoors in town",
+    "Urban / Street Photography": [
+        "a street photograph in an urban city environment",
+        "candid street photography with people in a city or town",
+        "documentary urban photo of city life, buildings, and streets",
     ],
-    "Concert Photography": [
-        "a concert photograph with stage lighting",
-        "live music performance photography",
-        "concert scene with musician, stage, or audience",
+    "Music Photography": [
+        "a concert photograph with stage lighting and musicians",
+        "live music performance photography on stage",
+        "musician portrait or band promotional photograph",
     ],
     "Nature Photography": [
-        "a nature photograph of landscape, plants, or wildlife",
-        "outdoor nature photography",
-        "landscape or natural scene photography",
+        "a nature photograph of landscape, plants, or wildlife without people as the main subject",
+        "outdoor nature scenery photography of mountains, forests, or water",
+        "landscape or wildlife photograph in a natural setting",
     ],
-    "Portraits Photography": [
-        "a portrait photograph focused on a person",
-        "portrait photography with subject emphasis",
-        "close-up or posed portrait photo",
+    "Portrait Photography": [
+        "a portrait photograph focused on a person as the main subject",
+        "portrait photography with deliberate subject emphasis and posing",
+        "close-up or environmental portrait of a person",
     ],
     "Product Photography": [
         "a product photograph with isolated commercial presentation",
-        "product photography showing an object as the main subject",
-        "studio-style product shot",
-    ],
-    "Food Photography": [
-        "a food photography shot of a dish or meal",
-        "culinary photography with food as the main subject",
-        "close-up of food, cooking, or kitchen scene",
-    ],
-    "Wedding Photography": [
-        "a wedding photograph of bride and groom",
-        "wedding ceremony or reception photography",
-        "romantic couple photography at a wedding event",
+        "product photography showing a commercial object as the main subject",
+        "studio-style or commercial product shot with clean background",
     ],
 }
 
