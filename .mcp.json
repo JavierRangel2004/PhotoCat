@@ -6,7 +6,7 @@
         "/c",
         "npx",
         "-y",
-        "@claude-flow/cli@latest",
+        "claude-flow@latest",
         "mcp",
         "start"
       ],
