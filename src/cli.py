@@ -82,6 +82,24 @@ def build_parser():
         metavar="PATH",
         help="Write an audit CSV report to the given path (default: <input-dir>/photocat_audit.csv).",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=False,
+        help="With --organize: print what would be moved without moving anything.",
+    )
+    parser.add_argument(
+        "--no-cache",
+        action="store_true",
+        default=False,
+        help="Disable result cache; force full GPU reprocessing for every image.",
+    )
+    parser.add_argument(
+        "--cache-dir",
+        default=None,
+        metavar="PATH",
+        help="Directory for the SQLite cache (default: <input-dir>/.photocat_cache).",
+    )
 
     return parser
 

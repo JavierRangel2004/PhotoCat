@@ -34,6 +34,12 @@ from image_captioning import ImageCaptioner
 from scene_classifier import get_classifier
 from genre_decision import make_genre_decision
 from cli import build_parser, collect_images, CATEGORY_DIRS
+from cache import (
+    ImageCache,
+    build_full_payload,
+    build_genre_only_payload,
+    restore_siglip,
+)
 
 #####################
 # Lazy model singletons
@@ -201,15 +207,64 @@ def _clear_model_cache():
 
 def process_image(img_path, enable_blur=True, enable_exposure=True,
                   enable_object_detection=True, enable_genre=True,
-                  genre_only=False, idx=None, total=None):
+                  genre_only=False, idx=None, total=None, cache=None):
     t_start = time.perf_counter()
     tag = f"[{idx}/{total}] " if idx is not None else ""
     fname = os.path.basename(img_path)
+
+    # ------------------------------------------------------------------
+    # Cache lookup — skip all GPU work on hit
+    # ------------------------------------------------------------------
+    if cache is not None:
+        cached = cache.get(img_path)
+        if cached is not None:
+            # Only a genre_only payload cannot serve a full-pipeline request
+            if genre_only or cached.get("mode") == "full":
+                siglip_result = restore_siglip(cached["siglip_result"])
+
+                if genre_only:
+                    genre_result = make_genre_decision(siglip_result=siglip_result)
+                    elapsed = (time.perf_counter() - t_start) * 1000
+                    print(f"{tag}[cache] {fname}: Genre={genre_result['genre']} "
+                          f"(conf={genre_result['confidence']:.2f}, "
+                          f"status={genre_result['review_status']}, {elapsed:.0f}ms)")
+                    return None, None, None, genre_result, None
+
+                # Full pipeline from cache
+                objects_detected = cached.get("objects_detected", [])
+                caption = cached.get("caption", "")
+                ocr_result = cached.get("ocr_result", "")
+                title = cached.get("title", "")
+                genre_result = make_genre_decision(
+                    siglip_result=siglip_result,
+                    yolo_detections=objects_detected,
+                    caption=caption,
+                    ocr_text=ocr_result,
+                    title=title,
+                )
+                rating = cached.get("rating")
+                tags = cached.get("tags", [])
+                meta = {
+                    "is_blurry": cached.get("is_blurry"),
+                    "exposure": cached.get("exposure"),
+                    "objects_detected": objects_detected,
+                    "ocr_result": ocr_result,
+                    "caption": caption,
+                }
+                elapsed = (time.perf_counter() - t_start) * 1000
+                print(f"{tag}[cache] {fname}: Genre={genre_result['genre']} "
+                      f"(conf={genre_result['confidence']:.2f}, "
+                      f"status={genre_result['review_status']}, {elapsed:.0f}ms)")
+                return rating, tags, title, genre_result, meta
+
+    # ------------------------------------------------------------------
+    # Full pipeline (cache miss or cache disabled)
+    # ------------------------------------------------------------------
     print(f"{tag}Processing: {fname}")
     image = load_image(img_path)
     if image is None:
         print(f"{tag}Skipping {fname} (load failure)")
-        return None, None, None, None
+        return None, None, None, None, None
 
     image = preprocess_image(image, apply_noise_reduction=True)
 
@@ -224,7 +279,9 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
               f"(conf={genre_result['confidence']:.2f}, status={genre_result['review_status']})")
         _clear_model_cache()
         print(f"{tag}Done {fname}: Genre-only ({elapsed:.0f}ms)")
-        return None, None, None, genre_result
+        if cache is not None:
+            cache.set(img_path, build_genre_only_payload(siglip_result))
+        return None, None, None, genre_result, None
 
     is_image_blurry = is_blurry(image) if enable_blur else False
     exposure = check_exposure(image) if enable_exposure else 'normal'
@@ -241,6 +298,14 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
     tags = generate_tags_from_all(objects_detected, image, has_beverage, identified_brand, caption)
     title = refine_title(caption, objects_detected, has_beverage, identified_brand)
 
+    meta = {
+        "is_blurry": is_image_blurry,
+        "exposure": exposure,
+        "objects_detected": objects_detected,
+        "ocr_result": ocr_result,
+        "caption": caption,
+    }
+
     genre_result = None
     if enable_genre:
         from PIL import Image as PILImage
@@ -255,77 +320,149 @@ def process_image(img_path, enable_blur=True, enable_exposure=True,
         )
         print(f"{tag}  Genre: {genre_result['genre']} "
               f"(conf={genre_result['confidence']:.2f}, status={genre_result['review_status']})")
+        if cache is not None:
+            cache.set(img_path, build_full_payload(
+                objects_detected=objects_detected,
+                caption=caption,
+                siglip_result=siglip_result,
+                ocr_result=ocr_result,
+                is_blurry=is_image_blurry,
+                exposure=exposure,
+                rating=rating,
+                tags=tags,
+                title=title,
+            ))
 
     _clear_model_cache()
 
     elapsed = (time.perf_counter() - t_start) * 1000
     print(f"{tag}Done {fname}: Rating={rating}, Title='{title}' ({elapsed:.0f}ms)")
-    return rating, tags, title, genre_result
+    return rating, tags, title, genre_result, meta
 
 
 def process_and_write(args):
-    img_path, write_xmp, genre_only, idx, total = args
-    rating, tags, title, genre_result = process_image(
+    img_path, write_xmp, genre_only, idx, total, cache = args
+    rating, tags, title, genre_result, meta = process_image(
         img_path, enable_genre=True, genre_only=genre_only, idx=idx, total=total,
+        cache=cache,
     )
     if genre_only:
         if write_xmp and genre_result:
             write_xmp_sidecar(img_path, None, None, None, genre_result=genre_result)
-        return (img_path, None, None, None, genre_result)
+        return (img_path, None, None, None, genre_result, None)
     if rating is None:
-        return (img_path, None, None, None, None)
+        return (img_path, None, None, None, None, None)
     if write_xmp:
         write_xmp_sidecar(img_path, rating, tags, title, genre_result=genre_result)
-    return (img_path, rating, tags, title, genre_result)
+    return (img_path, rating, tags, title, genre_result, meta)
 
 
 def _write_audit_csv(csv_path, results):
-    """Write an audit CSV with final genre, raw model predictions, and review status."""
+    """Write an audit CSV with final genre, raw model predictions, review status, and full meta."""
+    import json
+
+    # Detect whether any result has meta (full pipeline) to decide header set
+    has_meta = any(len(r) >= 6 and r[5] is not None for r in results)
+
+    base_cols = [
+        "filename", "rating", "final_genre", "review_status",
+        "model_1st", "model_1st_conf", "model_2nd", "model_2nd_conf", "title",
+    ]
+    rich_cols = [
+        "is_blurry", "exposure", "objects_detected", "caption", "ocr_text", "evidence_log",
+    ]
+    header = base_cols + (rich_cols if has_meta else [])
+
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
-        writer.writerow([
-            "filename", "rating", "final_genre", "review_status",
-            "model_1st", "model_1st_conf", "model_2nd", "model_2nd_conf", "title",
-        ])
-        for img_path, rating, tags, title, genre_result in results:
+        writer.writerow(header)
+
+        for row in results:
+            img_path = row[0]
+            rating   = row[1]
+            tags     = row[2]
+            title    = row[3]
+            genre_result = row[4]
+            meta     = row[5] if len(row) >= 6 else None
+
             fname = os.path.basename(img_path)
+
             if genre_result is None:
-                writer.writerow([fname, rating, "", "skipped", "", "", "", "", title or ""])
+                base = [fname, rating or "", "", "skipped", "", "", "", "", title or ""]
+                if has_meta:
+                    base += ["", "", "", "", "", ""]
+                writer.writerow(base)
                 continue
+
             top2 = genre_result.get("top2", [])
             m1 = top2[0][0] if len(top2) > 0 else ""
             c1 = f"{top2[0][1]:.4f}" if len(top2) > 0 else ""
             m2 = top2[1][0] if len(top2) > 1 else ""
             c2 = f"{top2[1][1]:.4f}" if len(top2) > 1 else ""
-            writer.writerow([
+
+            base = [
                 fname, rating or "",
                 genre_result.get("genre", ""),
                 genre_result.get("review_status", ""),
                 m1, c1, m2, c2, title or "",
-            ])
+            ]
+
+            if has_meta:
+                if meta:
+                    objects_str = "; ".join(meta.get("objects_detected") or [])
+                    evidence_str = json.dumps(genre_result.get("evidence_log", {}), ensure_ascii=False)
+                    base += [
+                        "yes" if meta.get("is_blurry") else "no",
+                        meta.get("exposure", ""),
+                        objects_str,
+                        meta.get("caption", ""),
+                        meta.get("ocr_result", ""),
+                        evidence_str,
+                    ]
+                else:
+                    base += ["", "", "", "", "", ""]
+
+            writer.writerow(base)
 
 
-def _organize_into_dirs(input_dir, results):
+def _organize_into_dirs(input_dir, results, dry_run=False):
     """Move images into genre subdirectories. Returns count of moved files."""
-    moved = 0
-    for img_path, _rating, _tags, _title, genre_result in results:
+    from collections import defaultdict
+    plan = defaultdict(list)  # genre → [fname, ...]
+
+    for row in results:
+        img_path, genre_result = row[0], row[4]
         if genre_result is None:
             continue
         genre = genre_result.get("genre", "")
         if not genre:
             continue
-        dest_dir = os.path.join(input_dir, genre)
-        os.makedirs(dest_dir, exist_ok=True)
         fname = os.path.basename(img_path)
-        dest_path = os.path.join(dest_dir, fname)
+        dest_path = os.path.join(input_dir, genre, fname)
         if os.path.abspath(img_path) == os.path.abspath(dest_path):
             continue
-        # Move the image and any co-located sidecar (.xmp) file
-        shutil.move(img_path, dest_path)
-        moved += 1
-        xmp_src = os.path.splitext(img_path)[0] + ".xmp"
-        if os.path.exists(xmp_src):
-            shutil.move(xmp_src, os.path.join(dest_dir, os.path.basename(xmp_src)))
+        plan[genre].append((img_path, dest_path))
+
+    if dry_run:
+        total_planned = sum(len(v) for v in plan.values())
+        print(f"\n[dry-run] Would move {total_planned} image(s) into {len(plan)} genre folder(s):\n")
+        for genre in sorted(plan):
+            print(f"  {genre}/  ({len(plan[genre])} files)")
+            for img_path, _ in plan[genre]:
+                print(f"    {os.path.basename(img_path)}")
+        print()
+        return 0
+
+    moved = 0
+    for genre, items in plan.items():
+        dest_dir = os.path.join(input_dir, genre)
+        os.makedirs(dest_dir, exist_ok=True)
+        for img_path, dest_path in items:
+            shutil.move(img_path, dest_path)
+            moved += 1
+            xmp_src = os.path.splitext(img_path)[0] + ".xmp"
+            if os.path.exists(xmp_src):
+                shutil.move(xmp_src, os.path.join(dest_dir, os.path.basename(xmp_src)))
     return moved
 
 
@@ -353,17 +490,39 @@ def main():
 
     total = len(image_files)
     write_xmp = args.write_xmp
+
+    # ------------------------------------------------------------------
+    # Cache setup
+    # ------------------------------------------------------------------
+    use_cache = not args.no_cache
+    cache = None
+    if use_cache:
+        cache_dir = args.cache_dir or os.path.join(input_dir, ".photocat_cache")
+        cache = ImageCache(cache_dir)
+        print(f"Cache: {cache_dir}")
+    else:
+        print("Cache: disabled (--no-cache)")
+
     print(f"Found {total} image(s). write-xmp={write_xmp}, workers={args.workers}")
     print()
 
     task_args = [
-        (f, write_xmp, args.genre_only, i + 1, total)
+        (f, write_xmp, args.genre_only, i + 1, total, cache)
         for i, f in enumerate(image_files)
     ]
 
     batch_start = time.perf_counter()
 
     if args.workers > 1:
+        # Cache is not safe to share across processes; disable it for multi-worker runs.
+        if cache is not None:
+            print("[WARNING] Cache disabled for multi-worker runs (workers > 1).")
+            cache.close()
+            cache = None
+        task_args = [
+            (f, write_xmp, args.genre_only, i + 1, total, None)
+            for i, f in enumerate(image_files)
+        ]
         from multiprocessing import Pool
         with Pool(args.workers) as p:
             results = p.map(process_and_write, task_args)
@@ -371,6 +530,11 @@ def main():
         results = [process_and_write(a) for a in task_args]
 
     batch_elapsed = time.perf_counter() - batch_start
+
+    if cache is not None:
+        stats = cache.stats()
+        cache.close()
+        print(f"Cache: {stats['hits']} hits, {stats['misses']} misses")
 
     print()
     print(f"{'='*60}")
@@ -391,8 +555,9 @@ def main():
 
     # --- Organize into genre subdirectories ---
     if args.organize:
-        moved = _organize_into_dirs(input_dir, results)
-        print(f"Organized: {moved} image(s) moved into category directories.")
+        moved = _organize_into_dirs(input_dir, results, dry_run=args.dry_run)
+        if not args.dry_run:
+            print(f"Organized: {moved} image(s) moved into category directories.")
 
 
 # Required on Windows to prevent recursive spawning of worker processes
