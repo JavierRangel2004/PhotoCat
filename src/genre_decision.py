@@ -92,7 +92,7 @@ _NATURE_CAPTION_WORDS = {
 }
 
 HIGH_THRESHOLD = 0.80
-MEDIUM_THRESHOLD = 0.55
+MEDIUM_THRESHOLD = 0.50  # lowered from 0.55 — fewer images fall to title-inferred with no caption
 
 # --- Title-based fallback category maps (used when confidence < MEDIUM_THRESHOLD) ---
 _TITLE_CATEGORY_RULES = [
@@ -306,10 +306,21 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     elif confidence >= MEDIUM_THRESHOLD:
         review_status = "review"
     else:
-        # Low confidence: derive category from title instead of leaving unlabeled
-        genre = _title_based_category(title or caption)
-        review_status = "title-inferred"
-        evidence_log["title_fallback"] = title or caption
+        # Low confidence: try title/caption keywords first.
+        # If no keywords match (returns "Other Photography") and there's no text to
+        # work from, use the model's top-1 prediction with "review" status so the
+        # image still lands in a real genre folder rather than "Other Photography".
+        fallback_text = title or caption
+        inferred = _title_based_category(fallback_text)
+        if inferred == "Other Photography" and not fallback_text.strip():
+            # No caption/title available (genre-only mode) — trust model top-1
+            genre = top_k[0][0]
+            review_status = "review"
+            evidence_log["model_top1_fallback"] = confidence
+        else:
+            genre = inferred
+            review_status = "title-inferred"
+            evidence_log["title_fallback"] = fallback_text
 
     return {
         "genre": genre,
