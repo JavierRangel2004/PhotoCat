@@ -3,11 +3,19 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "workspaces": [
+    "apps/backend",
+    "apps/desktop"
+  ],
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "diff:log": "tsx scripts/generateDiff.ts"
+    "diff:log": "tsx scripts/generateDiff.ts",
+    "dev": "npm run dev:backend",
+    "dev:backend": "npm --workspace @photocat/backend run dev",
+    "dev:desktop": "npm --workspace @photocat/desktop run dev",
+    "typecheck": "npm --workspace @photocat/backend run typecheck && npm --workspace @photocat/desktop run typecheck"
   },
   "devDependencies": {
     "tsx": "^4.20.5",
