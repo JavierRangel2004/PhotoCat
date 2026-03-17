@@ -60,6 +60,25 @@ class GenreDecisionPhase2Tests(unittest.TestCase):
         self.assertEqual(result["genre"], "Wedding Photography")
         self.assertIn("wedding_override", result["evidence_log"])
 
+    def test_formal_group_portrait_without_explicit_wedding_still_routes_to_wedding(self):
+        result = make_genre_decision(
+            build_siglip("Branding & Portrait", 0.56, "Events & Music", 0.32),
+            yolo_detections=["person", "person", "person", "person", "person", "person"],
+            caption="There are a lot of women standing together in dresses for a group portrait.",
+        )
+        self.assertEqual(result["genre"], "Wedding Photography")
+        self.assertEqual(result["evidence_log"]["wedding_override"], "context")
+        self.assertIn("wedding_context_signals", result["evidence_log"])
+
+    def test_formal_mens_group_routes_to_wedding_context(self):
+        result = make_genre_decision(
+            build_siglip("Branding & Portrait", 0.67, "Events & Music", 0.25),
+            yolo_detections=["person", "person", "person", "person", "tie", "tie"],
+            caption="A group of men in suits and ties posing for a picture.",
+        )
+        self.assertEqual(result["genre"], "Wedding Photography")
+        self.assertEqual(result["evidence_log"]["wedding_override"], "context")
+
     # ------------------------------------------------------------------
     # Street Documentary (market scene demotes product)
     # ------------------------------------------------------------------
@@ -129,6 +148,16 @@ class GenreDecisionPhase2Tests(unittest.TestCase):
         self.assertEqual(result["genre"], "Events & Music")
         self.assertIn("music_boost", result["evidence_log"])
 
+    def test_audio_production_scene_demotes_product_to_events(self):
+        result = make_genre_decision(
+            build_siglip("Food & Product", 0.99, "Events & Music", 0.01),
+            yolo_detections=["bottle"],
+            caption="There is a close up of a sound board with a laptop in the background.",
+            title="Sound board and laptop backstage",
+        )
+        self.assertEqual(result["genre"], "Events & Music")
+        self.assertIn("product_demote_music_production", result["evidence_log"])
+
     # ------------------------------------------------------------------
     # Jewelry → Food & Product
     # ------------------------------------------------------------------
@@ -140,6 +169,22 @@ class GenreDecisionPhase2Tests(unittest.TestCase):
         )
         self.assertEqual(result["genre"], "Food & Product")
         self.assertIn("portrait_demote_product_jewelry", result["evidence_log"])
+
+    def test_jewelry_rule_not_triggered_by_during_word(self):
+        result = make_genre_decision(
+            build_siglip("Branding & Portrait", 0.72, "Events & Music", 0.16),
+            yolo_detections=["person"],
+            caption="A performer speaks during a concert intermission.",
+        )
+        self.assertNotIn("portrait_demote_product_jewelry", result["evidence_log"])
+
+    def test_nature_boost_not_triggered_by_street_word(self):
+        result = make_genre_decision(
+            build_siglip("Street Documentary", 0.74, "Branding & Portrait", 0.12),
+            yolo_detections=["person", "person"],
+            caption="Two people crossing the street near a bus stop.",
+        )
+        self.assertNotIn("nature_boost", result["evidence_log"])
 
     # ------------------------------------------------------------------
     # Street Documentary without human context → forced review

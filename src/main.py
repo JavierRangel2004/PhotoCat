@@ -357,21 +357,28 @@ def process_and_write(args):
     return (img_path, rating, tags, title, genre_result, meta)
 
 
-def _write_audit_csv(csv_path, results):
-    """Write an audit CSV with final genre, raw model predictions, review status, and full meta."""
+def _write_audit_csv(csv_path, results, input_dir=""):
+    """Write an audit CSV with final genre, raw model predictions, review status, and full meta.
+
+    Includes source_path and relative_input_path for path-safe organize workflows.
+    """
     import json
 
     # Detect whether any result has meta (full pipeline) to decide header set
     has_meta = any(len(r) >= 6 and r[5] is not None for r in results)
 
     base_cols = [
-        "filename", "rating", "final_genre", "review_status",
+        "source_path", "relative_input_path", "filename",
+        "rating", "final_genre", "review_status",
         "model_1st", "model_1st_conf", "model_2nd", "model_2nd_conf", "title",
     ]
     rich_cols = [
         "is_blurry", "exposure", "objects_detected", "caption", "ocr_text", "evidence_log",
     ]
     header = base_cols + (rich_cols if has_meta else [])
+
+    # Resolve input_dir for reliable relative-path computation
+    abs_input_dir = os.path.abspath(input_dir) if input_dir else ""
 
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
@@ -385,10 +392,13 @@ def _write_audit_csv(csv_path, results):
             genre_result = row[4]
             meta     = row[5] if len(row) >= 6 else None
 
+            abs_img_path = os.path.abspath(img_path)
             fname = os.path.basename(img_path)
+            rel_path = os.path.relpath(abs_img_path, abs_input_dir) if abs_input_dir else fname
 
             if genre_result is None:
-                base = [fname, rating or "", "", "skipped", "", "", "", "", title or ""]
+                base = [abs_img_path, rel_path, fname,
+                        rating or "", "", "skipped", "", "", "", "", title or ""]
                 if has_meta:
                     base += ["", "", "", "", "", ""]
                 writer.writerow(base)
@@ -401,7 +411,8 @@ def _write_audit_csv(csv_path, results):
             c2 = f"{top2[1][1]:.4f}" if len(top2) > 1 else ""
 
             base = [
-                fname, rating or "",
+                abs_img_path, rel_path, fname,
+                rating or "",
                 genre_result.get("genre", ""),
                 genre_result.get("review_status", ""),
                 m1, c1, m2, c2, title or "",
@@ -550,7 +561,7 @@ def main():
     if csv_path is None:
         # Always generate CSV by default into input dir
         csv_path = os.path.join(input_dir, "photocat_audit.csv")
-    _write_audit_csv(csv_path, results)
+    _write_audit_csv(csv_path, results, input_dir=input_dir)
     print(f"Audit CSV written to: {csv_path}")
 
     # --- Organize into genre subdirectories ---

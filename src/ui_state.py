@@ -90,6 +90,8 @@ class UIState:
             df["user_genre"] = ""
         if "user_label" not in df.columns:
             df["user_label"] = ""
+        if "user_portfolio_category" not in df.columns:
+            df["user_portfolio_category"] = ""
 
         self.base_df = df
         self.csv_path = csv_path
@@ -371,10 +373,40 @@ class UIState:
         return f"Marked '{label}' for {fname}"
 
     # ------------------------------------------------------------------
+    # Row key helpers
+    # ------------------------------------------------------------------
+    def _row_key(self, idx) -> str:
+        """Return a stable row key.  Prefer source_path > relative_input_path > filename."""
+        if self.base_df is None:
+            return ""
+        row = self.base_df.loc[idx]
+        sp = str(row.get("source_path", ""))
+        if sp and sp not in ("", "nan", "NaN", "None"):
+            return sp
+        rp = str(row.get("relative_input_path", ""))
+        if rp and rp not in ("", "nan", "NaN", "None"):
+            return rp
+        return str(row.get("filename", ""))
+
+    def _build_key_to_idx(self) -> dict:
+        """Build a mapping from row key -> DataFrame index for correction lookups."""
+        if self.base_df is None:
+            return {}
+        mapping = {}
+        for idx in self.base_df.index:
+            key = self._row_key(idx)
+            mapping[key] = idx
+            # Also index by filename as fallback for backward-compat
+            fname = str(self.base_df.at[idx, "filename"])
+            if fname not in mapping:
+                mapping[fname] = idx
+        return mapping
+
+    # ------------------------------------------------------------------
     # Export
     # ------------------------------------------------------------------
     def export_corrected_csv(self, output_path: str = "") -> str:
-        """Write corrected CSV preserving all original columns + user_genre, user_label."""
+        """Write corrected CSV with materialized organizing columns."""
         if self.base_df is None:
             return "No data to export."
 
@@ -382,9 +414,58 @@ class UIState:
             base = os.path.splitext(self.csv_path)[0]
             output_path = f"{base}_corrected.csv"
 
+        # Materialize derived columns before export
+        self._materialize_organizing_columns()
+
         self.base_df.to_csv(output_path, index=False, encoding="utf-8")
         n_corrected = int((self.base_df["user_genre"] != "").sum())
         return f"Exported {len(self.base_df)} rows ({n_corrected} corrected) to {output_path}"
+
+    def _materialize_organizing_columns(self) -> None:
+        """Compute effective_genre, portfolio_category, portfolio_group, export_include, dest_relpath."""
+        if self.base_df is None:
+            return
+
+        try:
+            from portfolio_mapping import map_genre_to_portfolio, compute_dest_relpath
+        except ImportError:
+            # portfolio_mapping not yet available — skip materialization
+            return
+
+        df = self.base_df
+
+        # effective_genre: user override wins
+        ug = df["user_genre"].fillna("")
+        fg = df["final_genre"].fillna("") if "final_genre" in df.columns else pd.Series("", index=df.index)
+        df["effective_genre"] = ug.where(ug != "", fg)
+
+        # user_portfolio_category may have been set in the review UI
+        if "user_portfolio_category" not in df.columns:
+            df["user_portfolio_category"] = ""
+        upc = df["user_portfolio_category"].fillna("")
+
+        portfolio_cats = []
+        portfolio_groups = []
+        export_includes = []
+        dest_relpaths = []
+
+        for idx in df.index:
+            eg = str(df.at[idx, "effective_genre"])
+            upc_val = str(upc.at[idx]) if upc.at[idx] else ""
+            fname = str(df.at[idx, "filename"])
+
+            result = map_genre_to_portfolio(eg, user_portfolio_category=upc_val)
+            portfolio_cats.append(result["portfolio_category"])
+            portfolio_groups.append(result["portfolio_group"])
+            export_includes.append(result["export_include"])
+            dest_relpaths.append(compute_dest_relpath(
+                result["portfolio_category"], fname, effective_genre=eg,
+            ))
+
+        df["portfolio_category"] = portfolio_cats
+        df["portfolio_group"] = portfolio_groups
+        df["export_include"] = export_includes
+        df["dest_relpath"] = dest_relpaths
 
     # ------------------------------------------------------------------
     # Autosave
@@ -396,7 +477,7 @@ class UIState:
             self._autosave()
 
     def _autosave(self) -> None:
-        """Save user corrections to a temp JSON file."""
+        """Save user corrections to a temp JSON file, keyed by path-safe row key."""
         if self.base_df is None or not self._autosave_path:
             return
 
@@ -404,9 +485,13 @@ class UIState:
         for idx in self.base_df.index:
             ug = self.base_df.at[idx, "user_genre"]
             ul = self.base_df.at[idx, "user_label"]
-            if ug or ul:
-                fname = self.base_df.at[idx, "filename"]
-                corrections[fname] = {"user_genre": ug, "user_label": ul}
+            upc = self.base_df.at[idx, "user_portfolio_category"] if "user_portfolio_category" in self.base_df.columns else ""
+            if ug or ul or upc:
+                key = self._row_key(idx)
+                entry = {"user_genre": ug, "user_label": ul}
+                if upc:
+                    entry["user_portfolio_category"] = upc
+                corrections[key] = entry
 
         if corrections:
             try:
@@ -429,15 +514,17 @@ class UIState:
             return 0
 
         count = 0
-        fname_to_idx = {self.base_df.at[i, "filename"]: i for i in self.base_df.index}
-        for fname, corr in corrections.items():
-            if fname in fname_to_idx:
-                idx = fname_to_idx[fname]
+        key_to_idx = self._build_key_to_idx()
+        for key, corr in corrections.items():
+            if key in key_to_idx:
+                idx = key_to_idx[key]
                 if corr.get("user_genre"):
                     self.base_df.at[idx, "user_genre"] = corr["user_genre"]
                     count += 1
                 if corr.get("user_label"):
                     self.base_df.at[idx, "user_label"] = corr["user_label"]
+                if corr.get("user_portfolio_category") and "user_portfolio_category" in self.base_df.columns:
+                    self.base_df.at[idx, "user_portfolio_category"] = corr["user_portfolio_category"]
         return count
 
     def clear_autosave(self) -> None:
@@ -451,12 +538,25 @@ class UIState:
     # ------------------------------------------------------------------
     # Organize helpers
     # ------------------------------------------------------------------
-    def get_organize_preview(self) -> str:
-        """Return a dry-run preview of what organize would do with corrections applied."""
+    def get_organize_preview(self) -> dict | str:
+        """Return a preview of what organize would do with corrections applied.
+
+        Returns a structured dict when portfolio_mapping is available,
+        otherwise falls back to a plain text summary for backward compat.
+        """
         if self.base_df is None:
             return "No data loaded."
 
         from collections import Counter
+
+        # Try structured preview via portfolio mapping
+        try:
+            from portfolio_mapping import map_genre_to_portfolio, compute_dest_relpath
+            return self._structured_organize_preview()
+        except ImportError:
+            pass
+
+        # Fallback: plain text summary
         plan = Counter()
         override_count = 0
 
@@ -475,6 +575,68 @@ class UIState:
         for genre, n in plan.most_common():
             lines.append(f"  {genre}/  ({n} files)")
         return "\n".join(lines)
+
+    def _structured_organize_preview(self) -> dict:
+        """Build a structured organize preview using portfolio mapping."""
+        from portfolio_mapping import map_genre_to_portfolio, compute_dest_relpath
+        from collections import Counter
+
+        df = self.base_df
+        moves = []
+        excluded = []
+        missing = []
+        needs_review = 0
+        counts_by_category = Counter()
+        dest_paths = Counter()
+
+        for idx in df.index:
+            ug = str(df.at[idx, "user_genre"] or "")
+            fg = str(df.at[idx, "final_genre"]) if "final_genre" in df.columns else ""
+            eg = ug if ug else fg
+            upc = str(df.at[idx, "user_portfolio_category"] or "") if "user_portfolio_category" in df.columns else ""
+            fname = str(df.at[idx, "filename"])
+            source = str(df.at[idx, "source_path"]) if "source_path" in df.columns else os.path.join(self.img_dir, fname)
+
+            result = map_genre_to_portfolio(eg, user_portfolio_category=upc)
+            dest_rel = compute_dest_relpath(result["portfolio_category"], fname, effective_genre=eg)
+
+            if not os.path.isfile(source):
+                missing.append({"source_path": source, "filename": fname})
+                continue
+
+            if result["needs_review"]:
+                needs_review += 1
+
+            entry = {
+                "source_path": source,
+                "filename": fname,
+                "effective_genre": eg,
+                "portfolio_category": result["portfolio_category"],
+                "dest_relpath": dest_rel,
+                "export_include": result["export_include"],
+            }
+
+            if result["export_include"]:
+                moves.append(entry)
+                counts_by_category[result["portfolio_category"]] += 1
+                dest_paths[dest_rel] += 1
+            else:
+                excluded.append(entry)
+
+        conflicts = [
+            {"dest_relpath": path, "count": count}
+            for path, count in dest_paths.items() if count > 1
+        ]
+
+        return {
+            "moves": len(moves),
+            "excluded": len(excluded),
+            "missing": missing,
+            "conflicts": conflicts,
+            "needs_review": needs_review,
+            "counts_by_category": dict(counts_by_category),
+            "total": len(df),
+        }
 
     def get_unique_genres(self) -> list[str]:
         """Return sorted list of unique genres found in the CSV."""

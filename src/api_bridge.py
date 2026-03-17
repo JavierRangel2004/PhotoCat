@@ -10,10 +10,9 @@ import json
 import os
 import sys
 
-from ui_state import UIState
+def _load_state(csv_path: str, image_dir: str, corrections_path: str = ""):
+    from ui_state import UIState
 
-
-def _load_state(csv_path: str, image_dir: str, corrections_path: str = "") -> UIState:
     state = UIState()
     msg = state.load_csv(csv_path, image_dir)
     if msg.startswith("File not found") or msg.startswith("Error") or msg.startswith("CSV missing"):
@@ -25,7 +24,7 @@ def _load_state(csv_path: str, image_dir: str, corrections_path: str = "") -> UI
     return state
 
 
-def _apply_corrections(state: UIState, corrections_path: str) -> None:
+def _apply_corrections(state, corrections_path: str) -> None:
     if not corrections_path or not os.path.isfile(corrections_path):
         return
 
@@ -35,25 +34,27 @@ def _apply_corrections(state: UIState, corrections_path: str) -> None:
     if state.base_df is None:
         return
 
-    filename_to_index = {
-        str(state.base_df.at[idx, "filename"]): idx for idx in state.base_df.index
-    }
+    # Use path-safe key lookup (falls back to filename for old CSVs)
+    key_to_idx = state._build_key_to_idx()
 
-    for filename, payload in corrections.items():
-        idx = filename_to_index.get(filename)
+    for key, payload in corrections.items():
+        idx = key_to_idx.get(key)
         if idx is None:
             continue
         user_genre = payload.get("user_genre", "")
         user_label = payload.get("user_label", "")
+        user_portfolio = payload.get("user_portfolio_category", "")
         if user_genre:
             state.base_df.at[idx, "user_genre"] = user_genre
         if user_label:
             state.base_df.at[idx, "user_label"] = user_label
+        if user_portfolio and "user_portfolio_category" in state.base_df.columns:
+            state.base_df.at[idx, "user_portfolio_category"] = user_portfolio
 
     state._rebuild_visible()
 
 
-def _session_payload(state: UIState, csv_path: str, image_dir: str) -> dict:
+def _session_payload(state, csv_path: str, image_dir: str) -> dict:
     if state.base_df is None:
         return {
             "csvPath": csv_path,
@@ -73,13 +74,43 @@ def _session_payload(state: UIState, csv_path: str, image_dir: str) -> dict:
         }
 
     items = []
+    try:
+        from portfolio_mapping import map_genre_to_portfolio, compute_dest_relpath
+    except ImportError:
+        map_genre_to_portfolio = None
+        compute_dest_relpath = None
+
     for row_index in state.base_df.index:
         row = state.base_df.loc[row_index]
         filename = str(row.get("filename", ""))
-        image_path = os.path.join(state.img_dir, filename)
+        source_path = _clean(row.get("source_path", ""))
+        relative_input_path = _clean(row.get("relative_input_path", ""))
+        image_candidates = [
+            source_path,
+            os.path.join(state.img_dir, relative_input_path) if relative_input_path else "",
+            os.path.join(state.img_dir, filename),
+        ]
+        image_path = next((candidate for candidate in image_candidates if candidate and os.path.isfile(candidate)), "")
+        image_path_display = image_path or source_path or image_candidates[-1]
         user_genre = str(row.get("user_genre", ""))
         final_genre = str(row.get("final_genre", ""))
         effective_genre = user_genre if user_genre else final_genre
+        user_portfolio_category = _clean(row.get("user_portfolio_category", ""))
+
+        portfolio_category = ""
+        portfolio_group = ""
+        export_include = False
+        dest_relpath = ""
+        portfolio_needs_review = False
+        portfolio_mapping_source = ""
+        if map_genre_to_portfolio and compute_dest_relpath:
+            portfolio = map_genre_to_portfolio(effective_genre, user_portfolio_category)
+            portfolio_category = _clean(portfolio.get("portfolio_category", ""))
+            portfolio_group = _clean(portfolio.get("portfolio_group", ""))
+            export_include = bool(portfolio.get("export_include", False))
+            dest_relpath = compute_dest_relpath(portfolio_category, filename, effective_genre=effective_genre)
+            portfolio_needs_review = bool(portfolio.get("needs_review", False))
+            portfolio_mapping_source = _clean(portfolio.get("mapping_source", ""))
 
         siglip_scores = []
         model_1st = str(row.get("model_1st", ""))
@@ -100,13 +131,17 @@ def _session_payload(state: UIState, csv_path: str, image_dir: str) -> dict:
 
         items.append({
             "id": str(row_index),
+            "rowKey": state._row_key(row_index),
             "filename": filename,
-            "imagePath": image_path if os.path.isfile(image_path) else "",
-            "imagePathDisplay": image_path,
+            "sourcePath": source_path,
+            "relativeInputPath": relative_input_path,
+            "imagePath": image_path,
+            "imagePathDisplay": image_path_display,
             "finalGenre": final_genre,
             "effectiveGenre": effective_genre,
             "userGenre": user_genre,
             "userLabel": str(row.get("user_label", "")),
+            "userPortfolioCategory": user_portfolio_category,
             "reviewStatus": str(row.get("review_status", "")),
             "rating": _clean(row.get("rating", "")),
             "isBlurry": _clean(row.get("is_blurry", "")),
@@ -118,6 +153,12 @@ def _session_payload(state: UIState, csv_path: str, image_dir: str) -> dict:
             "evidence": str(evidence),
             "modelFirstConf": _to_number(model_1st_conf),
             "modelSecondConf": _to_number(model_2nd_conf),
+            "portfolioCategory": portfolio_category,
+            "portfolioGroup": portfolio_group,
+            "exportInclude": export_include,
+            "destRelpath": dest_relpath,
+            "portfolioNeedsReview": portfolio_needs_review,
+            "portfolioMappingSource": portfolio_mapping_source,
         })
 
     summary = state.get_summary()
@@ -172,31 +213,85 @@ def main() -> int:
     organize_preview = subparsers.add_parser("organize-preview")
     add_common_args(organize_preview)
 
+    organize_csv_preview = subparsers.add_parser("organize-from-csv-preview")
+    organize_csv_preview.add_argument("--csv-path", required=True)
+    organize_csv_preview.add_argument("--output-dir", required=True)
+
+    organize_csv_commit = subparsers.add_parser("organize-from-csv-commit")
+    organize_csv_commit.add_argument("--csv-path", required=True)
+    organize_csv_commit.add_argument("--output-dir", required=True)
+    organize_csv_commit.add_argument("--dry-run", action="store_true", default=False)
+    organize_csv_commit.add_argument(
+        "--include-excluded",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
+
+    restore_manifest = subparsers.add_parser("restore-from-manifest")
+    restore_manifest.add_argument("--manifest-path", required=True)
+    restore_manifest.add_argument("--dry-run", action="store_true", default=False)
+
     args = parser.parse_args()
 
+    ui_state_commands = {"load-session", "export-corrected", "organize-preview"}
+
+    if args.command in ui_state_commands:
+        try:
+            state = _load_state(args.csv_path, args.image_dir, getattr(args, "corrections_path", ""))
+
+            if args.command == "load-session":
+                print(json.dumps(_session_payload(state, args.csv_path, args.image_dir)))
+                return 0
+
+            if args.command == "export-corrected":
+                output_path = args.output_path or f"{os.path.splitext(args.csv_path)[0]}_corrected.csv"
+                message = state.export_corrected_csv(output_path)
+                print(json.dumps({
+                    "ok": True,
+                    "message": message,
+                    "csvPath": args.csv_path,
+                    "outputPath": output_path,
+                }))
+                return 0
+
+            if args.command == "organize-preview":
+                preview = state.get_organize_preview()
+                print(json.dumps({
+                    "ok": True,
+                    "preview": preview,
+                    "csvPath": args.csv_path,
+                }))
+                return 0
+
+        except Exception as exc:
+            print(json.dumps({"ok": False, "error": str(exc)}))
+            return 1
+
+    # --- Commands that do NOT need UIState ---
     try:
-        state = _load_state(args.csv_path, args.image_dir, getattr(args, "corrections_path", ""))
-
-        if args.command == "load-session":
-            print(json.dumps(_session_payload(state, args.csv_path, args.image_dir)))
+        if args.command == "organize-from-csv-preview":
+            from organize_from_csv import organize_preview as csv_preview
+            result = csv_preview(args.csv_path, args.output_dir)
+            print(json.dumps({"ok": True, **result}, default=str))
             return 0
 
-        if args.command == "export-corrected":
-            message = state.export_corrected_csv(args.output_path)
-            print(json.dumps({
-                "ok": True,
-                "message": message,
-                "csvPath": args.csv_path,
-            }))
+        if args.command == "organize-from-csv-commit":
+            from organize_from_csv import organize_commit as csv_commit
+            result = csv_commit(
+                args.csv_path,
+                args.output_dir,
+                dry_run=args.dry_run,
+                include_excluded=args.include_excluded,
+            )
+            ok = not result.get("errors")
+            print(json.dumps({"ok": ok, **result}, default=str))
             return 0
 
-        if args.command == "organize-preview":
-            preview = state.get_organize_preview()
-            print(json.dumps({
-                "ok": True,
-                "preview": preview,
-                "csvPath": args.csv_path,
-            }))
+        if args.command == "restore-from-manifest":
+            from organize_from_csv import restore_from_manifest
+            result = restore_from_manifest(args.manifest_path, dry_run=args.dry_run)
+            ok = not result.get("errors")
+            print(json.dumps({"ok": ok, **result}, default=str))
             return 0
 
     except Exception as exc:

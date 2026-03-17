@@ -22,6 +22,7 @@ Other Photography gate:
 """
 
 from collections import Counter
+import re
 
 # Boost amounts applied per detected evidence cue
 _BOOST = 0.12
@@ -80,6 +81,10 @@ _EVENTS_MUSIC_KEYWORDS = {
     "live", "performance", "festival", "musician", "singer", "rapper",
     "dj", "artist backstage", "recording",
 }
+_AUDIO_PRODUCTION_KEYWORDS = {
+    "sound board", "mixing board", "mixing console", "audio mixer",
+    "audio console", "dj controller", "control board", "sound desk",
+}
 _NATURE_KEYWORDS = {
     "nature", "forest", "mountain", "river", "lake", "ocean", "wildlife",
     "landscape", "sunset", "sunrise", "tree", "flower", "beach", "field",
@@ -113,6 +118,8 @@ _TRAVEL_ARCHITECTURE_KEYWORDS = {
     "statue", "monument", "hallway", "corridor", "cityscape", "skyline",
     "cathedral", "church", "castle", "bridge", "landmark", "spire",
     "plaza", "square", "gate", "gates", "bell tower",
+    "towers", "buildings", "facades", "windows", "statues", "monuments",
+    "cathedrals", "churches", "bridges", "landmarks", "plazas", "squares",
     # Travel terms now included as primary evidence
     "travel", "city view", "rooftop", "panorama", "aerial",
 }
@@ -125,6 +132,17 @@ _WEDDING_CONTEXT_KEYWORDS = {
     "dance", "dancing", "speech", "toast", "family", "formal", "dress",
     "suit", "kiss", "kissing", "rings", "flowers", "place setting",
     "group photo", "first dance", "reception hall", "couple",
+}
+_WEDDING_FORMAL_KEYWORDS = {
+    "suit", "suits", "tie", "ties", "dress", "dresses", "formal",
+    "bouquet", "veil", "confetti",
+}
+_WEDDING_GROUP_KEYWORDS = {
+    "group", "group photo", "family", "wedding party", "groomsmen",
+    "bridesmaid", "bridesmaids", "standing together", "posing for a picture",
+}
+_WEDDING_ROMANCE_KEYWORDS = {
+    "holding hands", "kiss", "kissing", "first dance", "couple",
 }
 _CANDID_STREET_KEYWORDS = {
     "candid", "pedestrian", "commuter", "crosswalk", "public", "street life",
@@ -141,6 +159,16 @@ _MARKET_DOCUMENTARY_KEYWORDS = {
     "market", "vendor", "stall", "street food", "worker", "working",
     "selling", "serving", "documentary", "public life", "bazaar",
     "shopfront", "shop front", "food stall",
+}
+_WEDDING_IMPLICIT_KEYWORDS = {
+    "formal", "couple", "gown", "tuxedo", "ceremony", "celebration",
+    "toast", "confetti", "bouquet toss", "first dance", "group photo",
+    "family portrait", "formalwear",
+}
+_SERVICE_PROFESSIONAL_KEYWORDS = {
+    "chef", "barista", "baker", "cook", "bartender", "sommelier",
+    "server", "waiter", "waitress", "preparing", "serving food",
+    "plating", "crafting",
 }
 _JEWELRY_KEYWORDS = {
     "ring", "rings", "necklace", "chain", "jewelry", "jewellery",
@@ -170,7 +198,9 @@ MEDIUM_THRESHOLD = 0.50
 _TITLE_CATEGORY_RULES = [
     # Wedding kept as fallback-only
     ({"bride", "groom", "wedding", "bridal", "bouquet", "veil", "ceremony",
-      "reception", "bridesmaid", "groomsmen", "married"},
+      "reception", "bridesmaid", "groomsmen", "married", "holding hands",
+      "kiss", "kissing", "dresses", "ties", "group portrait", "confetti",
+      "toast", "speech"},
      "Wedding Photography"),
     # Food keywords route to Food & Product
     ({"food", "cook", "kitchen", "chef", "cake", "donut", "doughnut", "meal", "eat", "dish",
@@ -179,7 +209,8 @@ _TITLE_CATEGORY_RULES = [
      "Food & Product"),
     ({"danc", "perform", "stage", "festival", "show", "sword", "folk", "cosplay",
       "costume", "parade", "cultural", "carnival", "concert", "band", "music",
-      "guitar", "microphone", "singer", "musician", "rapper", "dj"},
+      "guitar", "microphone", "singer", "musician", "rapper", "dj", "backstage",
+      "sound board", "mixing board", "mixing console", "audio mixer"},
      "Events & Music"),
     ({"ship", "boat", "boats", "ferry", "port", "harbor", "industrial", "warehouse",
       "dock", "pier", "road", "highway", "fog", "mist", "minimalist"},
@@ -217,20 +248,32 @@ def _title_based_category(title: str) -> str:
     return "Other Photography"
 
 
+def _normalize_for_keyword_match(text: str) -> str:
+    """Normalize text so keyword checks do phrase-aware matching, not raw substrings."""
+    return " " + re.sub(r"[^a-z0-9]+", " ", text.lower()).strip() + " "
+
+
+def _keyword_present(text: str, keyword: str) -> bool:
+    """Match whole words/phrases after normalization to avoid accidental substrings."""
+    normalized_text = _normalize_for_keyword_match(text)
+    normalized_keyword = re.sub(r"[^a-z0-9]+", " ", keyword.lower()).strip()
+    if not normalized_keyword:
+        return False
+    return f" {normalized_keyword} " in normalized_text
+
+
 def _keyword_boost(text, keywords):
     """Return _BOOST if any keyword appears in text, else 0."""
     if not text:
         return 0.0
-    text_lower = text.lower()
-    return _BOOST if any(kw in text_lower for kw in keywords) else 0.0
+    return _BOOST if any(_keyword_present(text, kw) for kw in keywords) else 0.0
 
 
 def _keyword_hits(text, keywords):
     """Count how many keywords appear in text (case-insensitive substring match)."""
     if not text:
         return 0
-    text_lower = text.lower()
-    return sum(1 for kw in keywords if kw in text_lower)
+    return sum(1 for kw in keywords if _keyword_present(text, kw))
 
 
 def _object_boost(detections, object_set):
@@ -245,8 +288,7 @@ def _has_any_word(text, word_set):
     """Check if any word from word_set appears in text (case-insensitive)."""
     if not text:
         return False
-    text_lower = text.lower()
-    return any(w in text_lower for w in word_set)
+    return any(_keyword_present(text, w) for w in word_set)
 
 
 def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_text="", title=""):
@@ -296,9 +338,11 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     # --- Events & Music boosts ---
     music_obj_boost = _object_boost(yolo_detections, _EVENTS_MUSIC_OBJECTS)
     music_txt_boost = _keyword_boost(combined_text, _EVENTS_MUSIC_KEYWORDS)
-    if music_obj_boost or music_txt_boost:
-        scores["Events & Music"] = scores.get("Events & Music", 0.0) + music_obj_boost + music_txt_boost
-        evidence_log["music_boost"] = music_obj_boost + music_txt_boost
+    audio_production_boost = _keyword_boost(combined_text, _AUDIO_PRODUCTION_KEYWORDS)
+    total_music_boost = music_obj_boost + music_txt_boost + audio_production_boost
+    if total_music_boost:
+        scores["Events & Music"] = scores.get("Events & Music", 0.0) + total_music_boost
+        evidence_log["music_boost"] = total_music_boost
         boosted_genres.add("Events & Music")
 
     # --- Nature & Landscape boosts ---
@@ -349,9 +393,26 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
     # --- Wedding boosts (title-fallback only, but still participates in scoring when explicit) ---
     wedding_hits = _keyword_hits(combined_text, _WEDDING_KEYWORDS)
     wedding_context_hits = _keyword_hits(combined_text, _WEDDING_CONTEXT_KEYWORDS)
+    wedding_formal_hits = _keyword_hits(combined_text, _WEDDING_FORMAL_KEYWORDS)
+    wedding_group_hits = _keyword_hits(combined_text, _WEDDING_GROUP_KEYWORDS)
+    wedding_romance_hits = _keyword_hits(combined_text, _WEDDING_ROMANCE_KEYWORDS)
     wedding_obj_boost = _object_boost(yolo_detections, _WEDDING_OBJECTS) if person_count > 0 else 0.0
     explicit_wedding = wedding_hits > 0
-    wedding_context = person_count >= 2 and wedding_context_hits >= 2 and wedding_obj_boost > 0
+    wedding_scene_objects = bool(det_lower & _WEDDING_OBJECTS)
+    wedding_formal_objects = "tie" in det_lower
+    music_evidence = bool(det_lower & _EVENTS_MUSIC_OBJECTS) or _has_any_word(
+        combined_text,
+        _EVENTS_MUSIC_KEYWORDS | _AUDIO_PRODUCTION_KEYWORDS,
+    )
+    wedding_context = (
+        person_count >= 2
+        and not music_evidence
+        and (
+            (wedding_context_hits >= 2 and (wedding_scene_objects or wedding_formal_hits > 0 or wedding_romance_hits > 0))
+            or (wedding_romance_hits > 0 and (wedding_formal_hits > 0 or wedding_scene_objects or wedding_formal_objects))
+            or (person_count >= 4 and wedding_group_hits > 0 and (wedding_formal_hits > 0 or wedding_formal_objects or wedding_scene_objects))
+        )
+    )
     if explicit_wedding or wedding_context:
         wedding_boost = wedding_obj_boost
         if explicit_wedding:
@@ -360,9 +421,24 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
                 _OVERRIDE_BOOST + _BOOST,
             )
         else:
-            wedding_boost += _STRONG_BOOST
+            wedding_boost += min(
+                _OVERRIDE_BOOST
+                + min(wedding_formal_hits, 2) * (_BOOST * 0.25)
+                + min(wedding_group_hits, 2) * (_BOOST * 0.2)
+                + min(wedding_romance_hits, 1) * (_BOOST * 0.2),
+                _OVERRIDE_BOOST + _BOOST,
+            )
         scores["Wedding Photography"] = scores.get("Wedding Photography", 0.0) + wedding_boost
         evidence_log["wedding_boost"] = wedding_boost
+        boosted_genres.add("Wedding Photography")
+        if wedding_context and not explicit_wedding:
+            evidence_log["wedding_context_signals"] = {
+                "context_hits": wedding_context_hits,
+                "formal_hits": wedding_formal_hits,
+                "group_hits": wedding_group_hits,
+                "romance_hits": wedding_romance_hits,
+                "person_count": person_count,
+            }
 
     # --- Other boosts for travel / industrial scenes ---
     travel_other_hits = _keyword_hits(combined_text, _TRAVEL_OTHER_KEYWORDS)
@@ -456,6 +532,19 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
         evidence_log["product_demote_street"] = shift
         boosted_genres.add("Street Documentary")
 
+    # Audio-production scenes are event coverage, not product stills.
+    audio_production_hits = _keyword_hits(combined_text, _AUDIO_PRODUCTION_KEYWORDS)
+    if audio_production_hits and scores.get("Food & Product", 0.0) > 0:
+        shift = min(
+            _OVERRIDE_BOOST + min(audio_production_hits, 2) * (_BOOST * 0.5),
+            scores["Food & Product"],
+        )
+        if shift > 0:
+            scores["Food & Product"] = max(scores["Food & Product"] - shift, 0.0)
+            scores["Events & Music"] = scores.get("Events & Music", 0.0) + shift + _STRONG_BOOST
+            evidence_log["product_demote_music_production"] = shift
+            boosted_genres.add("Events & Music")
+
     # Jewelry detail shots are usually product/editorial objects, not portraits.
     if _has_any_word(combined_text, _JEWELRY_KEYWORDS):
         shift = min(scores.get("Branding & Portrait", 0.0), _DEMOTE * (2 if not has_person_words else 1))
@@ -472,6 +561,52 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
             scores["Nature & Landscape"] = max(scores.get("Nature & Landscape", 0.0) - shift, 0.0)
             scores["Other Photography"] = scores.get("Other Photography", 0.0) + shift
             evidence_log["nature_demote_other"] = shift
+
+    # --- Phase 2 targeted rules (gpurun17_03_0949 error patterns) ---
+
+    # Rule 1: Wedding reception detail vs Food & Product confusion.
+    # Wedding frames with cakes, table settings, wine glasses are incorrectly
+    # routed to Food & Product. When Food & Product leads but wedding context
+    # is present and people are in the frame, shift score to Wedding.
+    top_after_checks = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    if top_after_checks and top_after_checks[0][0] == "Food & Product":
+        has_wedding_kw = _has_any_word(combined_text, _WEDDING_KEYWORDS)
+        has_wedding_ctx = _has_any_word(combined_text, _WEDDING_CONTEXT_KEYWORDS)
+        if (has_wedding_kw or has_wedding_ctx) and has_dominant_person:
+            shift = min(_STRONG_BOOST, scores.get("Food & Product", 0.0))
+            scores["Food & Product"] = max(scores["Food & Product"] - shift, 0.0)
+            scores["Wedding Photography"] = scores.get("Wedding Photography", 0.0) + shift
+            evidence_log["product_demote_wedding_reception"] = shift
+            boosted_genres.add("Wedding Photography")
+
+    # Rule 2: Couple/event frames without explicit wedding text.
+    # Wedding frames with couples in formalwear but no explicit "bride"/"groom"
+    # are going to Branding & Portrait or Events & Music. When person_count >= 2
+    # and multiple implicit wedding keywords match without strong music evidence,
+    # boost Wedding Photography.
+    implicit_wedding_hits = _keyword_hits(combined_text, _WEDDING_IMPLICIT_KEYWORDS)
+    if person_count >= 2 and implicit_wedding_hits >= 2 and not music_evidence:
+        scores["Wedding Photography"] = scores.get("Wedding Photography", 0.0) + _BOOST
+        evidence_log["wedding_implicit_boost"] = {
+            "implicit_hits": implicit_wedding_hits,
+            "person_count": person_count,
+        }
+        boosted_genres.add("Wedding Photography")
+
+    # Rule 3: Food & Product vs Branding & Portrait for service/work scenes.
+    # When a person is the main subject AND is working/serving (chef, barista,
+    # etc.), it should route to Branding & Portrait, not Food & Product.
+    # The market documentary check above handles street/documentary routing;
+    # this handles professional service subjects.
+    top_after_checks2 = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    if top_after_checks2 and top_after_checks2[0][0] == "Food & Product":
+        service_hits = _keyword_hits(combined_text, _SERVICE_PROFESSIONAL_KEYWORDS)
+        if service_hits > 0 and person_count > 0:
+            shift = min(_STRONG_BOOST, scores.get("Food & Product", 0.0))
+            scores["Food & Product"] = max(scores["Food & Product"] - shift, 0.0)
+            scores["Branding & Portrait"] = scores.get("Branding & Portrait", 0.0) + shift
+            evidence_log["product_demote_branding_service"] = shift
+            boosted_genres.add("Branding & Portrait")
 
     # ===================================================================
     # SCORING — normalize and pick winner
@@ -523,6 +658,10 @@ def make_genre_decision(siglip_result, yolo_detections=None, caption="", ocr_tex
                 genre = top_k[0][0]
                 review_status = "review"
                 evidence_log["rule_top1_preferred"] = inferred
+            elif inferred == top_k[0][0] and inferred in boosted_genres:
+                genre = inferred
+                review_status = "review"
+                evidence_log["boosted_low_confidence_review"] = inferred
             elif inferred == "Other Photography" and not fallback_text.strip():
                 # No caption/title available (genre-only mode) — trust model top-1
                 genre = top_k[0][0]
