@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount, onDestroy } from "svelte";
   import { desktopApi } from "../../lib/api";
   import DecisionRail from "../../lib/components/DecisionRail.svelte";
   import EvidenceCard from "../../lib/components/EvidenceCard.svelte";
@@ -7,6 +8,7 @@
   import PrimaryButton from "../../lib/components/PrimaryButton.svelte";
   import SecondaryButton from "../../lib/components/SecondaryButton.svelte";
   import { activeItem, approveModelDecision, exportCorrected, refreshOrganizePreview, selectItem, session, setGenre, visibleItems } from "../../lib/stores/review";
+  import Combobox from "../../lib/components/Combobox.svelte";
 
   let selectedGenre = "";
   let activeIndex = -1;
@@ -31,6 +33,29 @@
     if (!$activeItem) return;
     setGenre($activeItem.id, selectedGenre);
   }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      move(-1);
+    } else if (event.key === "ArrowRight") {
+      event.preventDefault();
+      move(1);
+    } else if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      if ($activeItem) {
+        approveModelDecision($activeItem.id);
+      }
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener("keydown", handleKeydown);
+  });
+
+  onDestroy(() => {
+    window.removeEventListener("keydown", handleKeydown);
+  });
 </script>
 
 <div class="inspector">
@@ -39,7 +64,10 @@
       <div class="workspace">
         <div class="stage">
           {#if imageUrl}
-            <img src={imageUrl} alt={$activeItem.filename} />
+            <div class="img-wrap">
+              <img src={imageUrl} alt={$activeItem.filename} />
+              <div class="protect-overlay" aria-hidden="true" />
+            </div>
           {:else}
             <div class="missing">Image missing at {$activeItem.imagePathDisplay}</div>
           {/if}
@@ -53,17 +81,11 @@
           />
 
           <div class="control-card">
-            <label>
-              <span>Override Genre</span>
-              <div class="select-wrap">
-                <select bind:value={selectedGenre}>
-                  <option value={$activeItem.finalGenre}>Use model genre: {$activeItem.finalGenre}</option>
-                  {#each $session?.genres ?? [] as genre}
-                    <option value={genre}>{genre}</option>
-                  {/each}
-                </select>
-              </div>
-            </label>
+            <Combobox
+              label="Override Genre"
+              options={[$activeItem.finalGenre, ...($session?.genres ?? [])]}
+              bind:value={selectedGenre}
+            />
 
             <p class="helper">
               If you choose a different genre than the model assigned, PhotoCat automatically marks
@@ -128,7 +150,7 @@
 <style>
   .workspace {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) 360px;
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -138,6 +160,21 @@
     border-radius: var(--pc-radius-lg);
     overflow: hidden;
     background: rgba(255, 255, 255, 0.03);
+  }
+
+  .img-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .protect-overlay {
+    position: absolute;
+    inset: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: auto;
+    z-index: 1;
   }
 
   img,
@@ -159,9 +196,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    position: sticky;
-    top: 6rem;
-    align-self: start;
+    position: static;
   }
 
   label,
@@ -184,33 +219,6 @@
 
   span {
     color: var(--pc-text-muted);
-  }
-
-  .select-wrap {
-    position: relative;
-  }
-
-  select {
-    width: 100%;
-    appearance: none;
-    border: 1px solid var(--pc-border);
-    border-radius: var(--pc-radius-sm);
-    padding: 0.95rem 2.8rem 0.95rem 0.95rem;
-    color: var(--pc-text);
-    background:
-      linear-gradient(180deg, rgba(34, 20, 42, 0.94), rgba(24, 13, 31, 0.94));
-    font-weight: 600;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  }
-
-  .select-wrap::after {
-    content: "▾";
-    position: absolute;
-    right: 0.95rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--pc-text-soft);
-    pointer-events: none;
   }
 
   .helper {
@@ -242,7 +250,7 @@
 
   .nav-row {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.7rem;
   }
 
@@ -288,9 +296,14 @@
     line-height: 1.35;
   }
 
+  .nav-button:focus-visible {
+    outline: 2px solid var(--pc-primary);
+    outline-offset: 2px;
+  }
+
   .evidence-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
     margin-top: 1rem;
   }
@@ -306,23 +319,25 @@
     color: var(--pc-text-muted);
   }
 
-  @media (max-width: 1120px) {
-    .workspace {
-      grid-template-columns: 1fr;
-    }
-
-    .rail {
-      position: static;
-    }
-  }
-
-  @media (max-width: 720px) {
+  @media (min-width: 720px) {
     .evidence-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .nav-row {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1120px) {
+    .workspace {
+      grid-template-columns: minmax(0, 1.4fr) 360px;
+    }
+
+    .rail {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
     }
   }
 </style>

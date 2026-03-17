@@ -47,7 +47,7 @@
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -77,9 +77,14 @@
     margin-top: 1rem;
   }
 
-  @media (max-width: 900px) {
+  input:focus-visible {
+    outline: 2px solid var(--pc-primary);
+    outline-offset: 2px;
+  }
+
+  @media (min-width: 900px) {
     .grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

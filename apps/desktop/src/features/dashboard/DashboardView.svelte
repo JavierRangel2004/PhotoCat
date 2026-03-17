@@ -32,7 +32,7 @@
       {#if $visibleItems.length}
         <div class="grid">
           {#each $visibleItems.slice(0, 8) as item}
-            <button class="tile-button" on:click={() => selectItem(item.id)}>
+            <button class="tile-button" aria-label="{item.filename} — {item.effectiveGenre || item.finalGenre || 'Unassigned'}" on:click={() => selectItem(item.id)}>
               <ImageTile item={item} selected={item.id === currentItemId} />
             </button>
           {/each}
@@ -53,13 +53,13 @@
 
   .layout {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -69,6 +69,12 @@
     background: transparent;
     cursor: pointer;
     text-align: left;
+  }
+
+  .tile-button:focus-visible {
+    outline: 2px solid var(--pc-primary);
+    outline-offset: 2px;
+    border-radius: var(--pc-radius-md);
   }
 
   .quick {
@@ -89,19 +95,19 @@
     place-items: center;
   }
 
-  @media (max-width: 1120px) {
-    .layout {
-      grid-template-columns: 1fr;
-    }
-
+  @media (min-width: 720px) {
     .grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  @media (max-width: 720px) {
+  @media (min-width: 1120px) {
+    .layout {
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
     .grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

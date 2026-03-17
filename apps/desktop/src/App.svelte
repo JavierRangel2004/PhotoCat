@@ -97,7 +97,7 @@
 
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.45fr) 360px;
+    grid-template-columns: 1fr;
     gap: 1rem;
     align-items: stretch;
   }
@@ -159,7 +159,7 @@
 
   .view-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.5fr) 400px;
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
@@ -178,10 +178,13 @@
     line-height: 1.5;
   }
 
-  @media (max-width: 1180px) {
-    .hero,
+  @media (min-width: 1180px) {
+    .hero {
+      grid-template-columns: minmax(0, 1.45fr) 360px;
+    }
+
     .view-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1.5fr) 400px;
     }
   }
 </style>
