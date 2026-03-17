@@ -2,12 +2,26 @@ import Fastify from "fastify";
 import { backendConfig } from "./config.js";
 import { registerAssetRoutes } from "./routes/assets.js";
 import { registerPipelineRoutes } from "./routes/pipeline.js";
+import { LogBuffer } from "./services/logBuffer.js";
 import { registerReviewRoutes } from "./routes/review.js";
 import { PipelineManager } from "./services/pipelineManager.js";
 import { ReviewSessionService } from "./services/reviewSession.js";
 
-const app = Fastify({ logger: true });
-const pipelineManager = new PipelineManager();
+const debugLogBuffer = new LogBuffer();
+const app = Fastify({
+  logger: {
+    stream: {
+      write(message: string) {
+        process.stdout.write(message);
+        debugLogBuffer.append({
+          channel: "system",
+          line: message,
+        });
+      },
+    },
+  },
+});
+const pipelineManager = new PipelineManager(debugLogBuffer);
 const reviewService = new ReviewSessionService();
 
 app.addHook("onRequest", async (request, reply) => {
@@ -20,7 +34,7 @@ app.addHook("onRequest", async (request, reply) => {
   }
 });
 
-await registerPipelineRoutes(app, pipelineManager);
+await registerPipelineRoutes(app, pipelineManager, debugLogBuffer);
 await registerReviewRoutes(app, reviewService);
 await registerAssetRoutes(app, reviewService);
 

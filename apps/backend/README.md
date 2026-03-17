@@ -72,8 +72,11 @@ Current routes include:
 - `/api/review/session`
 - `/api/review/item/genre`
 - `/api/review/item/label`
+- `/api/review/item/portfolio-category`
 - `/api/review/export`
-- `/api/review/organize-preview`
+- `/api/review/organize-from-csv/preview`
+- `/api/review/organize-from-csv/commit`
+- `/api/review/restore-from-manifest`
 - `/api/assets/image`
 
 ## Notes
