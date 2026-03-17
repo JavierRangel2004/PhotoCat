@@ -48,7 +48,7 @@ npm run typecheck
 | Variable | Default | Purpose |
 |---|---|---|
 | `PHOTOCAT_BACKEND_HOST` | `127.0.0.1` | Host for Fastify |
-| `PHOTOCAT_BACKEND_PORT` | `8787` | Port for Fastify |
+| `PHOTOCAT_BACKEND_PORT` | `8797` | Port for Fastify |
 | `PHOTOCAT_PYTHON_CMD` | `python` | Python executable used to call the bridge and pipeline |
 
 ## Python Boundary

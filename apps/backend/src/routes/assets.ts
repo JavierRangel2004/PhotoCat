@@ -1,6 +1,7 @@
 import { createReadStream } from "node:fs";
 import path from "node:path";
 import type { FastifyInstance } from "fastify";
+import sharp from "sharp";
 import { ReviewSessionService } from "../services/reviewSession.js";
 
 const MIME_BY_EXT: Record<string, string> = {
@@ -12,7 +13,7 @@ const MIME_BY_EXT: Record<string, string> = {
 };
 
 export async function registerAssetRoutes(app: FastifyInstance, reviewService: ReviewSessionService) {
-  app.get<{ Querystring: { path?: string } }>("/api/assets/image", async (request, reply) => {
+  app.get<{ Querystring: { path?: string; w?: string } }>("/api/assets/image", async (request, reply) => {
     const imagePath = request.query.path;
     if (!imagePath) {
       reply.code(400);
@@ -25,6 +26,15 @@ export async function registerAssetRoutes(app: FastifyInstance, reviewService: R
     if (!allowed) {
       reply.code(403);
       return { error: "Image path is outside the active review roots." };
+    }
+
+    const requestedWidth = request.query.w ? parseInt(request.query.w, 10) : null;
+    const shouldResize = requestedWidth !== null && requestedWidth > 0 && requestedWidth <= 2000;
+
+    if (shouldResize) {
+      reply.header("Content-Type", "image/jpeg");
+      const resized = sharp(normalized).resize(requestedWidth).jpeg({ quality: 82 });
+      return reply.send(resized);
     }
 
     const ext = path.extname(normalized).toLowerCase();
