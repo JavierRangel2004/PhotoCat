@@ -4,6 +4,6 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [svelte()],
   server: {
-    port: 4173,
+    port: Number(process.env.PHOTOCAT_DESKTOP_PORT ?? "4173"),
   },
 });

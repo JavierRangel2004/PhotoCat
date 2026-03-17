@@ -54,12 +54,13 @@ npm run typecheck
 
 This app expects the local backend bridge to be running at:
 
-- `http://127.0.0.1:8787`
+- `http://127.0.0.1:8797`
 
 The current frontend API helper is:
 - [src/lib/api.ts](/C:/Users/javar/GITHUB/PhotoCat/apps/desktop/src/lib/api.ts)
 
-If the backend host or port changes, update that file or centralize the config there.
+The frontend API helper reads `VITE_PHOTOCAT_API_BASE_URL` and falls back to `http://127.0.0.1:8797`.
+When you use the root `npm run dev` command, that value is injected automatically and follows the selected backend port.
 
 ## Electron
 
