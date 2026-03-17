@@ -219,12 +219,8 @@ PhotoCat/
     backend/           # Fastify bridge over Python
     desktop/           # Svelte/Vite frontend scaffold
   docs/
-    FRONTEND_EXECUTION_CHECKLIST.md
-    FRONTEND_IMPLEMENTATION_PLAN.md
-    NODE_MIGRATION_PLAN.md
-    UI_GUIDE.md
-    UI_PLAN.md
-    UI_UX_REFACTOR_ANALYSIS.md
+    ARCHITECTURE.md    # System architecture and roadmap
+    TAXONOMY.md        # Photography category definitions
   shared/
     types/             # Shared Node types
   src/
@@ -236,12 +232,9 @@ PhotoCat/
 
 ## Documentation
 
-- [Frontend Execution Checklist](/C:/Users/javar/GITHUB/PhotoCat/docs/FRONTEND_EXECUTION_CHECKLIST.md) - live implementation tracker for the Node frontend migration
-- [Frontend Implementation Plan](/C:/Users/javar/GITHUB/PhotoCat/docs/FRONTEND_IMPLEMENTATION_PLAN.md)
-- [Node Migration Plan](/C:/Users/javar/GITHUB/PhotoCat/docs/NODE_MIGRATION_PLAN.md)
-- [UI UX Refactor Analysis](/C:/Users/javar/GITHUB/PhotoCat/docs/UI_UX_REFACTOR_ANALYSIS.md)
-- [UI Guide](/C:/Users/javar/GITHUB/PhotoCat/docs/UI_GUIDE.md)
-- [UI Plan](/C:/Users/javar/GITHUB/PhotoCat/docs/UI_PLAN.md)
+- [Architecture & Implementation Roadmap](docs/ARCHITECTURE.md) - System architecture and development roadmap.
+- [Taxonomy Strategy](docs/TAXONOMY.md) - Detailed guide to the 6-category photography taxonomy.
+- [UI/UX Guidelines](apps/desktop/docs/UI_UX_GUIDELINES.md) - Design rules and checklist for the Svelte desktop frontend.
 
 ## Work Allocation
 

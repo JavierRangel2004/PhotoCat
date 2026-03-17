@@ -1,130 +1,153 @@
 # CLAUDE.md
 
-This repository must use a Ruflo-first workflow for non-trivial work.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-In this project, "Ruflo" means the Claude Flow V3 + RuVector + agent swarm stack already configured in:
+## Build & Run Commands
 
-- `.mcp.json`
-- `.claude/`
-- `.claude-flow/`
-
-## Non-Negotiable Rules
-
-1. Do not start feature work in direct single-agent coding mode.
-2. Do not use `claude-flow claude spawn` for implementation in this repository.
-3. The top-level assistant acts as the operator and coordinator, not the primary coder.
-4. All feature work must go through agents and swarm orchestration first:
-   - research
-   - architecture
-   - implementation
-   - testing
-   - review
-   - documentation
-5. Before code changes, store the task goal, constraints, and model decision in Claude Flow memory.
-6. For this repository, prefer `npx @claude-flow/cli@latest ...` over ad hoc custom wrappers.
-
-## Current Project Context
-
-PhotoCat is currently a batch pipeline driven by [src/main.py](/C:/Users/javar/GITHUB/PhotoCat/src/main.py). The active stages are:
-
-1. Load image from `images/`
-2. Blur and exposure checks
-3. YOLO object detection via [src/object_detection.py](/C:/Users/javar/GITHUB/PhotoCat/src/object_detection.py)
-4. OCR with Tesseract
-5. Captioning with BLIP via [src/image_captioning.py](/C:/Users/javar/GITHUB/PhotoCat/src/image_captioning.py)
-6. Rating, tags, title generation
-7. XMP writing via [src/metadata_writer.py](/C:/Users/javar/GITHUB/PhotoCat/src/metadata_writer.py)
-
-Important implementation detail: YOLO is currently loaded inside `detect_objects()` on every call, which is inefficient for large batches.
-
-## Target Feature
-
-Add support for analyzing a user-specified directory of Lightroom-exported JPG files and classify each image into one of:
-
-- Street Photography
-- Concert Photography
-- Nature Photography
-- Portraits Photography
-- Product Photography
-
-## Recommended Technical Direction
-
-Do not treat this as an object-detection-only problem. These categories are scene and intent categories, so the primary classifier should be a vision-language embedding model, with detector/caption outputs used as supporting evidence.
-
-Recommended stack:
-
-1. Primary classifier: SigLIP 2 zero-shot or embedding-based classifier
-2. Secondary evidence: Florence-2 caption / scene description
-3. Object cues: YOLO11 or YOLO-World for stage, microphone, person, tree, product-like object evidence
-4. Optional tie-breaker only: Qwen2.5-VL-3B or InternVL3-2B
-
-Use a small labeled local dataset from the user's own catalog to calibrate or train a lightweight classifier on top of embeddings before trusting automatic metadata writes.
-
-Full guide: [docs/RUFLO_IMPLEMENTATION_GUIDE.md](/C:/Users/javar/GITHUB/PhotoCat/docs/RUFLO_IMPLEMENTATION_GUIDE.md)
-
-## Ruflo Execution Workflow
-
-### 1. Start and validate Claude Flow
+### Python pipeline
 
 ```bash
+# Activate venv first
+source venv/bin/activate  # Windows: venv\Scripts\activate
+
+# Genre-only classification (fastest)
+python src/main.py --input-dir /path/to/photos --genre-only
+
+# Full pipeline with XMP writing and file organization
+python src/main.py --input-dir /path/to/photos --write-xmp --organize
+
+# Dry-run organization (preview moves without acting)
+python src/main.py --input-dir /path/to/photos --organize --dry-run
+
+# Gradio review UI
+python src/ui.py
+```
+
+### Node workspace
+
+```bash
+npm install                # from repo root (installs both workspaces)
+npm run dev                # starts backend + frontend together
+npm run dev:backend        # Fastify bridge only (127.0.0.1:8797)
+npm run dev:desktop        # Svelte/Vite frontend only (localhost:4173)
+npm run typecheck          # TypeScript checks for both workspaces
+```
+
+### Python dependencies
+
+```bash
+pip install -r requirements.txt
+# Optional CUDA:
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+```
+
+## Architecture
+
+PhotoCat is a hybrid Python + Node system. The hard boundary: **all ML/photo processing stays in Python; Node is only the UI and bridge layer**.
+
+### Python layer (`src/`)
+
+The processing pipeline flows through `src/main.py`:
+1. Image loading and preprocessing (`image_analysis.py`)
+2. Blur/exposure quality checks (`image_analysis.py`)
+3. YOLO object detection (`object_detection.py`) — loaded via `detect_objects()`
+4. OCR via Tesseract (`main.py:ocr_text()`)
+5. BLIP captioning (`image_captioning.py` — `ImageCaptioner` class, lazy singleton)
+6. SigLIP2 zero-shot genre classification (`scene_classifier.py` — `SceneClassifier` class, lazy singleton)
+7. Evidence fusion and confidence-gated write policy (`genre_decision.py` — `make_genre_decision()`)
+8. Rating, tags, title generation (`main.py`)
+9. XMP sidecar writing (`metadata_writer.py`)
+10. Audit CSV output and optional file organization into genre subdirectories
+
+Key design decisions:
+- Models are lazy singletons (`_get_captioner()`, `_get_scene_clf()`) to avoid loading multi-GB models in every Windows spawn worker
+- `scene_classifier.py` uses a 3-prompt-per-genre ensemble averaged to produce genre scores
+- `genre_decision.py` fuses SigLIP2 scores with YOLO object cues, caption keywords, and OCR text via boost/demote rules, then applies confidence thresholds (HIGH >= 0.80 auto-write, MEDIUM 0.50-0.79 needs review, LOW < 0.50 title-inferred fallback)
+- Cache layer (`cache.py` — SQLite-backed `ImageCache`) skips GPU work on cache hits; disabled for multi-worker runs
+- `cli.py` defines `CATEGORY_DIRS` set which `collect_images()` skips to avoid re-processing organized folders
+
+### Node layer (`apps/`)
+
+- `apps/backend/` — Fastify server (`@photocat/backend`) bridges frontend requests to Python via `pythonBridge.ts`
+  - `pythonBridge.ts:execPythonJson()` calls `src/api_bridge.py` subcommands (load-session, export-corrected, organize-preview)
+  - `pythonBridge.ts:spawnPipeline()` spawns `src/main.py` as a child process for live pipeline runs
+  - `pipelineManager.ts` manages pipeline lifecycle and SSE streaming of logs to frontend
+  - `reviewSession.ts` wraps review session state
+- `apps/desktop/` — Svelte 5 + Vite frontend (`@photocat/desktop`)
+  - Features: `features/dashboard/`, `features/inspector/`, `features/pipeline/`, `features/session/`
+  - Stores: `lib/stores/app.ts`, `lib/stores/review.ts`, `lib/stores/pipeline.ts`
+  - API client: `lib/api.ts`
+- `shared/types/` — TypeScript types shared between backend and desktop (ReviewItem, ReviewSession, PipelineRunRequest, PipelineStatus)
+
+### Python bridge contract (`src/api_bridge.py`)
+
+The bridge exposes `UIState` (from `ui_state.py`) operations as JSON CLI subcommands:
+- `load-session --csv-path --image-dir` — returns full session payload with items, summary, genres, statuses
+- `export-corrected --csv-path --image-dir --corrections-path --output-path` — exports corrected CSV
+- `organize-preview --csv-path --image-dir --corrections-path` — returns move preview
+
+### Genre taxonomy (Phase 2)
+
+6 primary categories + 2 fallback/special:
+- Branding & Portrait, Events & Music, Street Documentary, Food & Product, Nature & Landscape, Travel & Architecture
+- Other Photography (algorithmic fallback when confidence is too low)
+- Wedding Photography (title-inferred fallback only, not in SigLIP2 primary classification)
+
+## Environment Variables
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `PHOTOCAT_BACKEND_HOST` | `127.0.0.1` | Fastify host |
+| `PHOTOCAT_BACKEND_PORT` | `8797` | Fastify port |
+| `VITE_PHOTOCAT_API_BASE_URL` | `http://127.0.0.1:8797` | Frontend API base URL |
+| `PHOTOCAT_PYTHON_CMD` | `python` | Python executable used by the bridge |
+
+## Ruflo Workflow (Non-Negotiable for Feature Work)
+
+This repository uses a Ruflo-first workflow for non-trivial work. "Ruflo" means the Claude Flow V3 + RuVector + agent swarm stack configured in `.mcp.json`, `.claude/`, and `.claude-flow/`.
+
+### Rules
+
+1. Do not start feature work in direct single-agent coding mode.
+2. Do not use `claude-flow claude spawn` for implementation.
+3. The top-level assistant acts as the operator and coordinator, not the primary coder.
+4. All feature work goes through agents and swarm orchestration: research -> architecture -> implementation -> testing -> review -> documentation.
+5. Before code changes, store the task goal, constraints, and model decision in Claude Flow memory.
+6. Prefer `npx @claude-flow/cli@latest ...` over ad hoc custom wrappers.
+
+### Execution
+
+```bash
+# 1. Validate
 npx @claude-flow/cli@latest doctor --fix
 npx @claude-flow/cli@latest memory init --force
 npx @claude-flow/cli@latest swarm init --topology hierarchical --max-agents 7 --strategy specialized
+
+# 2. Store task context
+npx @claude-flow/cli@latest memory store --key "photocat/goal" --value "..." --namespace project
+
+# 3. Run agent phases in order
+# planner/researcher -> system-architect -> coder -> tester -> reviewer -> api-docs
 ```
 
-### 2. Store the task before implementation
+### Required checkpoints
 
-```bash
-npx @claude-flow/cli@latest memory store --key "photocat/goal" --value "Add local JPG directory genre classification for street, concert, nature, portraits, product." --namespace project
-npx @claude-flow/cli@latest memory store --key "photocat/constraint" --value "Free, local-only inference on user hardware. No paid APIs." --namespace project
-```
+1. **Research** — save model choice, fallback models, and reasons in memory
+2. **Architecture** — save module plan and CLI contract in memory
+3. **Evaluation** — save per-class metrics before enabling automatic XMP writes
 
-### 3. Run agent phases in order
+### Anti-drift guardrails
 
-1. `planner` or `researcher`: model selection and success criteria
-2. `system-architect`: pipeline placement, CLI, module boundaries
-3. `coder`: implementation only after architecture is approved
-4. `tester`: evaluation harness, confidence thresholds, regression checks
-5. `reviewer`: verify no metadata regressions and no direct-mode drift
-6. `api-docs` or documenter: usage guide and examples
+- No coding until research and architecture outputs exist
+- No replacing the whole pipeline with a large VLM by default
+- No writing genre metadata automatically until confidence thresholds are defined
+- No silent fallback to generic labels without confidence recording
+- No hard-coding `images/` as the only input path for new features
 
-### 4. Required implementation checkpoints
+## Project Priorities
 
-1. Research checkpoint
-   Save model choice, fallback models, and reasons in memory.
-2. Architecture checkpoint
-   Save module plan and CLI contract in memory.
-3. Evaluation checkpoint
-   Save per-class metrics before enabling automatic XMP writes for the new genre label.
-
-## Default Task Template
-
-Use this kind of swarm task description:
-
-```text
-Research and implement a local-only photography genre classifier for PhotoCat.
-Constraints:
-- JPG input from arbitrary user directory
-- categories: street, concert, nature, portraits, product
-- free local models only
-- use SigLIP2 as primary classifier candidate
-- use Florence-2 and YOLO11/YOLO-World as supporting signals
-- no direct single-agent coding
-- store decisions in Claude Flow memory
-```
-
-## Anti-Drift Guardrails
-
-1. No coding until research and architecture outputs exist.
-2. No replacing the whole pipeline with a large VLM by default.
-3. No writing genre metadata automatically until confidence thresholds are defined.
-4. No silent fallback to generic "best guess" labels without confidence recording.
-5. No hard-coding `images/` as the only input path for the new feature.
-
-## Project-Specific Priorities
-
-1. Local execution over cloud accuracy.
-2. Predictable batch throughput over flashy one-off demos.
-3. Confidence + reviewability over forced labels.
-4. Backward-compatible XMP writing.
-5. Reuse existing dependencies where reasonable, but replace weak model choices if they block quality.
+1. Local execution over cloud accuracy
+2. Predictable batch throughput over flashy one-off demos
+3. Confidence + reviewability over forced labels
+4. Backward-compatible XMP writing
+5. Reuse existing dependencies where reasonable, but replace weak model choices if they block quality
