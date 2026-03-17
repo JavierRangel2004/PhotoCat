@@ -9,17 +9,27 @@ import os
 
 # Reserved directory names used for organized output.
 # collect_images() skips these to avoid re-processing already-categorized photos.
+# Includes both new taxonomy names AND old names for backward-compat with
+# previously organized folders.
 CATEGORY_DIRS = {
+    # New Phase 2 taxonomy
+    "Branding & Portrait",
+    "Events & Music",
+    "Street Documentary",
+    "Food & Product",
+    "Nature & Landscape",
+    "Travel & Architecture",
+    "Other Photography",
+    "Wedding Photography",
+    # Old Phase 1 names (backward-compat — skip existing organized folders)
     "Street Photography",
     "Music Photography",
     "Nature Photography",
     "Portrait Photography",
     "Product Photography",
-    "Wedding Photography",
     "Architecture Photography",
     "Event Photography",
     "Sports Photography",
-    "Other Photography",
 }
 
 

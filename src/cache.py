@@ -14,7 +14,8 @@ import sqlite3
 
 # Bump this when the payload schema or model set changes.
 # Old entries with a different version are treated as cache misses.
-CACHE_SCHEMA_VERSION = "1"
+# v2: Phase 2 taxonomy migration — 6 categories + Other fallback gate.
+CACHE_SCHEMA_VERSION = "2"
 
 _CREATE_TABLE = """
 CREATE TABLE IF NOT EXISTS image_cache (
