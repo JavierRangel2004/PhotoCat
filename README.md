@@ -17,7 +17,7 @@ What is working now:
 - Python pipeline CLI works
 - Python bridge CLI works
 - Node workspace installs
-- Fastify backend bridge runs on `127.0.0.1:8787`
+- Fastify backend bridge runs on `127.0.0.1:8797`
 - Svelte/Vite frontend scaffold runs on `localhost:4173`
 - browser-to-backend communication works
 
@@ -152,7 +152,7 @@ python src/ui.py --browser
 npm run dev:backend
 ```
 
-This starts the Fastify bridge on `127.0.0.1:8787`.
+This starts the Fastify bridge on `127.0.0.1:8797`.
 
 ### Node frontend scaffold
 
@@ -174,8 +174,10 @@ npm run typecheck
 ```
 
 Notes:
-- `npm run dev` starts the backend workspace only
-- the frontend expects the backend to already be running
+- `npm run dev` starts the backend and frontend together
+- `npm run dev:backend` and `npm run dev:desktop` still work independently
+- the combined dev command prefers backend `127.0.0.1:8797` and frontend `127.0.0.1:4173`
+- if either preferred port is already in use, the launcher picks the next free port automatically
 
 ## Configuration
 
@@ -203,7 +205,8 @@ The Node backend uses these optional environment variables:
 | Variable | Default | Purpose |
 |---|---|---|
 | `PHOTOCAT_BACKEND_HOST` | `127.0.0.1` | Fastify host |
-| `PHOTOCAT_BACKEND_PORT` | `8787` | Fastify port |
+| `PHOTOCAT_BACKEND_PORT` | `8797` | Fastify port |
+| `VITE_PHOTOCAT_API_BASE_URL` | `http://127.0.0.1:8797` | Frontend API base URL |
 | `PHOTOCAT_PYTHON_CMD` | `python` | Python executable used by the bridge |
 
 The bridge script path is currently [src/api_bridge.py](/C:/Users/javar/GITHUB/PhotoCat/src/api_bridge.py).
