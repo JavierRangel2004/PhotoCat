@@ -8,11 +8,12 @@ from genre_decision import make_genre_decision
 
 
 ALL_GENRES = [
-    "Street Photography",
-    "Music Photography",
-    "Nature Photography",
-    "Portrait Photography",
-    "Product Photography",
+    "Branding & Portrait",
+    "Events & Music",
+    "Street Documentary",
+    "Food & Product",
+    "Nature & Landscape",
+    "Travel & Architecture",
 ]
 
 
@@ -24,66 +25,156 @@ def build_siglip(top1, top1_score, top2, top2_score):
     return {"top_k": top_k}
 
 
-class GenreDecisionPlanTests(unittest.TestCase):
-    def test_architecture_overrides_generic_street_city_scene(self):
+class GenreDecisionPhase2Tests(unittest.TestCase):
+    """Tests for the Phase 2 taxonomy migration (6 categories + Other gate)."""
+
+    # ------------------------------------------------------------------
+    # Travel & Architecture (formerly Architecture Photography)
+    # ------------------------------------------------------------------
+    def test_travel_architecture_overrides_street_for_city_scene(self):
         result = make_genre_decision(
-            build_siglip("Street Photography", 0.82, "Portrait Photography", 0.11),
+            build_siglip("Street Documentary", 0.82, "Branding & Portrait", 0.11),
             caption="There are two towers that have a clock on each of them.",
             title="Clock towers over a city plaza",
         )
-
-        self.assertEqual(result["genre"], "Architecture Photography")
+        self.assertEqual(result["genre"], "Travel & Architecture")
         self.assertIn("street_demote_architecture", result["evidence_log"])
 
+    def test_travel_cityscape_classified_correctly(self):
+        result = make_genre_decision(
+            build_siglip("Travel & Architecture", 0.65, "Street Documentary", 0.20),
+            caption="A panoramic view of a cathedral and historic plaza at sunset.",
+            title="Cathedral skyline panorama",
+        )
+        self.assertEqual(result["genre"], "Travel & Architecture")
+
+    # ------------------------------------------------------------------
+    # Wedding (title-fallback only, but explicit keywords override)
+    # ------------------------------------------------------------------
     def test_explicit_wedding_language_overrides_portrait(self):
         result = make_genre_decision(
-            build_siglip("Portrait Photography", 0.78, "Music Photography", 0.12),
+            build_siglip("Branding & Portrait", 0.78, "Events & Music", 0.12),
             yolo_detections=["person", "person", "wine glass", "cake"],
             caption="Bride and groom share their first dance at the wedding reception.",
         )
-
         self.assertEqual(result["genre"], "Wedding Photography")
         self.assertIn("wedding_override", result["evidence_log"])
 
+    # ------------------------------------------------------------------
+    # Street Documentary (market scene demotes product)
+    # ------------------------------------------------------------------
     def test_documentary_market_scene_demotes_product(self):
         result = make_genre_decision(
-            build_siglip("Product Photography", 0.74, "Street Photography", 0.18),
+            build_siglip("Food & Product", 0.74, "Street Documentary", 0.18),
             yolo_detections=["person", "person", "bottle"],
             caption="A vendor serves drinks from a busy market street food stall.",
         )
-
-        self.assertEqual(result["genre"], "Street Photography")
+        self.assertEqual(result["genre"], "Street Documentary")
         self.assertIn("product_demote_street", result["evidence_log"])
 
+    def test_street_documentary_market_scene(self):
+        result = make_genre_decision(
+            build_siglip("Street Documentary", 0.70, "Food & Product", 0.15),
+            yolo_detections=["person", "person", "backpack"],
+            caption="A busy market vendor selling goods on a crowded sidewalk.",
+        )
+        self.assertEqual(result["genre"], "Street Documentary")
+
+    # ------------------------------------------------------------------
+    # Other Photography gate
+    # ------------------------------------------------------------------
     def test_travel_industrial_scene_falls_to_other(self):
         result = make_genre_decision(
-            build_siglip("Nature Photography", 0.76, "Street Photography", 0.14),
+            build_siglip("Nature & Landscape", 0.76, "Street Documentary", 0.14),
             caption="A ship sits in fog near an industrial harbor at dawn.",
             title="Industrial harbor in heavy mist",
         )
-
         self.assertEqual(result["genre"], "Other Photography")
         self.assertIn("nature_demote_other", result["evidence_log"])
 
+    def test_other_gate_fires_on_ambiguous_scores(self):
+        """All categories score roughly equally → Other Photography via score gate."""
+        # Build an evenly-distributed SigLIP result
+        even_score = 1.0 / len(ALL_GENRES)
+        scores = {genre: even_score for genre in ALL_GENRES}
+        top_k = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+        siglip = {"top_k": top_k}
+
+        result = make_genre_decision(siglip, caption="", title="")
+        self.assertEqual(result["genre"], "Other Photography")
+        self.assertIn("other_gate", result["evidence_log"])
+
+    # ------------------------------------------------------------------
+    # Branding & Portrait
+    # ------------------------------------------------------------------
+    def test_branding_portrait_chef_session(self):
+        result = make_genre_decision(
+            build_siglip("Branding & Portrait", 0.72, "Food & Product", 0.15),
+            yolo_detections=["person"],
+            caption="A chef working in a kitchen preparing dishes for a branding session.",
+            title="Chef portrait in kitchen",
+        )
+        self.assertEqual(result["genre"], "Branding & Portrait")
+        self.assertIn("branding_portrait_boost", result["evidence_log"])
+
+    # ------------------------------------------------------------------
+    # Events & Music
+    # ------------------------------------------------------------------
+    def test_events_music_concert_photo(self):
+        result = make_genre_decision(
+            build_siglip("Events & Music", 0.75, "Branding & Portrait", 0.12),
+            yolo_detections=["person", "microphone"],
+            caption="A singer performing on stage at a live concert with bright spotlights.",
+        )
+        self.assertEqual(result["genre"], "Events & Music")
+        self.assertIn("music_boost", result["evidence_log"])
+
+    # ------------------------------------------------------------------
+    # Jewelry → Food & Product
+    # ------------------------------------------------------------------
     def test_jewelry_detail_demotes_portrait(self):
         result = make_genre_decision(
-            build_siglip("Portrait Photography", 0.70, "Product Photography", 0.20),
+            build_siglip("Branding & Portrait", 0.70, "Food & Product", 0.20),
             caption="A close-up of a gold necklace and ring jewelry set.",
             title="Gold necklace product detail",
         )
-
-        self.assertEqual(result["genre"], "Product Photography")
+        self.assertEqual(result["genre"], "Food & Product")
         self.assertIn("portrait_demote_product_jewelry", result["evidence_log"])
 
+    # ------------------------------------------------------------------
+    # Street Documentary without human context → forced review
+    # ------------------------------------------------------------------
     def test_street_without_human_context_is_forced_to_review(self):
         result = make_genre_decision(
-            build_siglip("Street Photography", 0.90, "Nature Photography", 0.05),
+            build_siglip("Street Documentary", 0.90, "Nature & Landscape", 0.05),
             caption="An empty city street at dawn.",
         )
-
-        self.assertEqual(result["genre"], "Street Photography")
+        self.assertEqual(result["genre"], "Street Documentary")
         self.assertEqual(result["review_status"], "review")
         self.assertTrue(result["evidence_log"]["street_requires_human_context"])
+
+    # ------------------------------------------------------------------
+    # Nature & Landscape
+    # ------------------------------------------------------------------
+    def test_nature_landscape_clear_image(self):
+        result = make_genre_decision(
+            build_siglip("Nature & Landscape", 0.85, "Travel & Architecture", 0.08),
+            caption="A mountain landscape with wildflowers in a meadow at sunset.",
+        )
+        self.assertEqual(result["genre"], "Nature & Landscape")
+
+    # ------------------------------------------------------------------
+    # Other Photography always gets review status
+    # ------------------------------------------------------------------
+    def test_other_photography_always_review(self):
+        """Other Photography should never have 'auto' review_status."""
+        result = make_genre_decision(
+            build_siglip("Nature & Landscape", 0.76, "Street Documentary", 0.14),
+            caption="A ship sits in fog near an industrial harbor at dawn.",
+            title="Industrial harbor in heavy mist",
+        )
+        self.assertEqual(result["genre"], "Other Photography")
+        self.assertEqual(result["review_status"], "review")
 
 
 if __name__ == "__main__":

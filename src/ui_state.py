@@ -17,18 +17,16 @@ from pathlib import Path
 
 import pandas as pd
 
-# All taxonomy categories used across the pipeline
+# All taxonomy categories used across the pipeline (Phase 2 — JRMGraphy aligned)
 GENRE_CATEGORIES = [
-    "Street Photography",
-    "Music Photography",
-    "Nature Photography",
-    "Portrait Photography",
-    "Product Photography",
-    "Wedding Photography",
-    "Architecture Photography",
-    "Event Photography",
-    "Sports Photography",
+    "Branding & Portrait",
+    "Events & Music",
+    "Street Documentary",
+    "Food & Product",
+    "Nature & Landscape",
+    "Travel & Architecture",
     "Other Photography",
+    "Wedding Photography",
 ]
 
 _AUTOSAVE_INTERVAL = 10  # save temp file every N corrections
