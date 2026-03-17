@@ -7,14 +7,29 @@
   import Panel from "../../lib/components/Panel.svelte";
   import PrimaryButton from "../../lib/components/PrimaryButton.svelte";
   import SecondaryButton from "../../lib/components/SecondaryButton.svelte";
-  import { activeItem, approveModelDecision, exportCorrected, refreshOrganizePreview, selectItem, session, setGenre, visibleItems } from "../../lib/stores/review";
   import Combobox from "../../lib/components/Combobox.svelte";
+  import { joinOutputPath, PORTFOLIO_CATEGORY_OPTIONS } from "../../lib/review/portfolioMapping";
+  import {
+    activeItem,
+    approveModelDecision,
+    exportCorrected,
+    organizeCanPreview,
+    organizeFlow,
+    requestOrganizePreview,
+    selectItem,
+    session,
+    setGenre,
+    setPortfolioCategory,
+    visibleItems,
+  } from "../../lib/stores/review";
 
   let selectedGenre = "";
+  let selectedPortfolioCategory = "auto";
   let activeIndex = -1;
 
   $: if ($activeItem) {
     selectedGenre = $activeItem.userGenre || $activeItem.finalGenre;
+    selectedPortfolioCategory = $activeItem.userPortfolioCategory || "auto";
   }
 
   $: imageUrl = $activeItem?.imagePath ? desktopApi.assetUrl($activeItem.imagePath) : "";
@@ -32,6 +47,11 @@
   function applySelectedGenre() {
     if (!$activeItem) return;
     setGenre($activeItem.id, selectedGenre);
+  }
+
+  function applyPortfolioCategory() {
+    if (!$activeItem) return;
+    setPortfolioCategory($activeItem.id, selectedPortfolioCategory === "auto" ? "" : selectedPortfolioCategory);
   }
 
   function handleKeydown(event: KeyboardEvent) {
@@ -66,7 +86,7 @@
           {#if imageUrl}
             <div class="img-wrap">
               <img src={imageUrl} alt={$activeItem.filename} />
-              <div class="protect-overlay" aria-hidden="true" />
+              <div class="protect-overlay" aria-hidden="true"></div>
             </div>
           {:else}
             <div class="missing">Image missing at {$activeItem.imagePathDisplay}</div>
@@ -87,10 +107,23 @@
               bind:value={selectedGenre}
             />
 
+            <Combobox
+              label="Portfolio Category"
+              options={PORTFOLIO_CATEGORY_OPTIONS}
+              bind:value={selectedPortfolioCategory}
+            />
+
             <p class="helper">
               If you choose a different genre than the model assigned, PhotoCat automatically marks
               the original decision as wrong and keeps your override active.
             </p>
+
+            {#if $activeItem.portfolioNeedsReview}
+              <p class="helper warning">
+                This item still needs a portfolio mapping decision. Without an override it will stay
+                excluded from the portfolio export.
+              </p>
+            {/if}
 
             <div class="action-row">
               <PrimaryButton on:click={() => approveModelDecision($activeItem.id)}>Keep Model Genre</PrimaryButton>
@@ -99,9 +132,15 @@
               </SecondaryButton>
             </div>
 
+            <div class="action-row">
+              <SecondaryButton on:click={applyPortfolioCategory}>
+                {selectedPortfolioCategory === "auto" ? "Use Auto Mapping" : "Apply Portfolio Category"}
+              </SecondaryButton>
+            </div>
+
             <div class="utility-row">
               <SecondaryButton on:click={exportCorrected}>Export Corrected CSV</SecondaryButton>
-              <SecondaryButton on:click={refreshOrganizePreview}>Refresh Preview</SecondaryButton>
+              <SecondaryButton disabled={!$organizeCanPreview} on:click={requestOrganizePreview}>Run Preview</SecondaryButton>
             </div>
           </div>
 
@@ -125,8 +164,22 @@
           </div>
 
           <div class="path-card">
-            <span>Resolved Path</span>
+            <span>Source Path</span>
             <strong>{$activeItem.imagePathDisplay}</strong>
+          </div>
+
+          <div class="path-card">
+            <span>Destination Category</span>
+            <strong>{$activeItem.portfolioCategory || "exclude"}</strong>
+            <small>
+              group={$activeItem.portfolioGroup || "exclude"} | source={$activeItem.portfolioMappingSource || "default-exclude"} | {$activeItem.exportInclude ? "included" : "excluded"}
+            </small>
+          </div>
+
+          <div class="path-card">
+            <span>Destination Preview</span>
+            <strong>{joinOutputPath($organizeFlow.outputDir, $activeItem.destRelpath || $activeItem.filename)}</strong>
+            <small>{$activeItem.destRelpath}</small>
           </div>
         </div>
       </div>
@@ -199,7 +252,6 @@
     position: static;
   }
 
-  label,
   .control-card,
   .navigator,
   .path-card {
@@ -227,6 +279,10 @@
     line-height: 1.45;
   }
 
+  .warning {
+    color: #ffe7b8;
+  }
+
   .action-row,
   .utility-row {
     display: flex;
@@ -242,10 +298,15 @@
   }
 
   .nav-head strong,
-  .path-card strong {
+  .path-card strong,
+  .path-card small {
     color: var(--pc-text);
     line-height: 1.35;
     word-break: break-word;
+  }
+
+  .path-card small {
+    color: var(--pc-text-muted);
   }
 
   .nav-row {
@@ -341,3 +402,4 @@
     }
   }
 </style>
+

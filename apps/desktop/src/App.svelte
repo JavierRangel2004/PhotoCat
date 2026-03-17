@@ -2,15 +2,17 @@
   import { onMount } from "svelte";
   import AppNav from "./lib/components/AppNav.svelte";
   import Panel from "./lib/components/Panel.svelte";
+  import PipelineProgressCard from "./lib/components/PipelineProgressCard.svelte";
   import ToastRegion from "./lib/components/ToastRegion.svelte";
   import "./lib/theme/tokens.css";
   import DashboardView from "./features/dashboard/DashboardView.svelte";
   import InspectorView from "./features/inspector/InspectorView.svelte";
+  import OrganizePanel from "./features/organize/OrganizePanel.svelte";
   import PipelineView from "./features/pipeline/PipelineView.svelte";
   import SessionLoader from "./features/session/SessionLoader.svelte";
   import { currentView, pushToast, toasts, type ViewId } from "./lib/stores/app";
   import { connectPipelineEvents, hydratePipeline, pipelineStatus } from "./lib/stores/pipeline";
-  import { activeItemId, backendHealth, checkHealth, hydrateSession, organizePreview, session } from "./lib/stores/review";
+  import { activeItemId, backendHealth, checkHealth, hydrateSession, session } from "./lib/stores/review";
 
   onMount(() => {
     checkHealth();
@@ -53,6 +55,17 @@
       {#if $session}
         <p class="detail">Loaded session: {$session.csvPath}</p>
       {/if}
+      <div class="bridge-progress">
+        <PipelineProgressCard
+          state={$pipelineStatus.state}
+          progress={$pipelineStatus.progress}
+          total={$pipelineStatus.total}
+          pythonLogLines={$pipelineStatus.pythonLogLines}
+          systemLogLines={$pipelineStatus.systemLogLines}
+          message={$pipelineStatus.message}
+          error={$pipelineStatus.error}
+        />
+      </div>
     </Panel>
   </section>
 
@@ -76,9 +89,7 @@
       {#if $currentView !== "pipeline"}
         <PipelineView />
       {/if}
-      <Panel eyebrow="Organize" title="Preview Surface">
-        <pre>{$organizePreview || "Load a session and request organize preview to inspect the current dry run output."}</pre>
-      </Panel>
+      <OrganizePanel />
     </div>
   </section>
 </div>
@@ -157,6 +168,10 @@
     color: #ffc4d0;
   }
 
+  .bridge-progress {
+    margin-top: 1rem;
+  }
+
   .view-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -169,15 +184,6 @@
     flex-direction: column;
     gap: 1rem;
   }
-
-  pre {
-    margin: 0;
-    white-space: pre-wrap;
-    color: var(--pc-text-soft);
-    font-family: var(--pc-font-body);
-    line-height: 1.5;
-  }
-
   @media (min-width: 1180px) {
     .hero {
       grid-template-columns: minmax(0, 1.45fr) 360px;
