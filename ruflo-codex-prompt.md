@@ -26,10 +26,33 @@ codex --version
 
 ```bash
 codex mcp list
-codex mcp add ruflo -- npx ruflo mcp start
+codex mcp add claude-flow -- npx @claude-flow/cli@latest mcp start
 ```
 
-If your environment standardizes on `claude-flow@alpha` naming, keep the MCP command aligned to that installation pattern.
+This repository uses the `claude-flow` MCP server name. Do not register it as `ruflo` if Codex is configured to call `mcp__claude-flow__...` tools.
+
+If Codex reports:
+
+```text
+MCP client for `claude-flow` timed out after 10 seconds
+MCP startup incomplete (failed: claude-flow)
+```
+
+increase the startup timeout in your Codex config:
+
+```toml
+[mcp_servers.claude-flow]
+startup_timeout_sec = 30
+```
+
+If you need to re-add the server cleanly, use the same `claude-flow` name and command:
+
+```bash
+codex mcp remove claude-flow
+codex mcp add claude-flow -- npx @claude-flow/cli@latest mcp start
+```
+
+If your machine uses a different Claude Flow entrypoint, keep the server name as `claude-flow` and only change the command.
 
 ---
 
@@ -151,4 +174,3 @@ Use template pipelines for repeatable stages; use explicit `codex ... &` workers
 - [Non-Interactive Mode](https://github.com/ruvnet/ruflo/wiki/Non-Interactive-Mode)
 - [Installation Guide](https://github.com/ruvnet/ruflo/wiki/Installation-Guide)
 - [Quick Start](https://github.com/ruvnet/ruflo/wiki/Quick-Start)
-
