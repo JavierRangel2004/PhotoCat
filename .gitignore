@@ -176,6 +176,7 @@ cython_debug/
 # Claude/Cursor generated orchestration artifacts
 .claude/
 .claude-flow/
+.codex-local/
 node_modules/
 logs/
 
