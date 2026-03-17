@@ -178,3 +178,6 @@ cython_debug/
 .claude-flow/
 node_modules/
 logs/
+
+# Machine-specific MCP server config (each machine maintains its own)
+.mcp.json
