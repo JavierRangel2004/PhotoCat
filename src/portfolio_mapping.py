@@ -11,13 +11,18 @@ Safe automatic mappings (one-to-one, no human decision needed):
     Food & Product       -> product
     Nature & Landscape   -> nature
 
-Ambiguous mappings (require a user_portfolio_category override or default
-to exclude with needs_review=True):
-    Branding & Portrait  -> portraits | exclude  (default: needs review)
-    Street Documentary   -> city | exclude        (default: needs review)
-    Travel & Architecture -> city | travel-cityscape | exclude (default: needs review)
-    Wedding Photography  -> exclude               (default, no portfolio category)
-    Other Photography    -> exclude               (always)
+Auto-inferred ambiguous mappings (assigned automatically but still flagged
+for review with needs_review=True so the user can override):
+    Branding & Portrait  -> portraits
+    Street Documentary   -> city
+    Travel & Architecture -> travel-cityscape
+
+Excluded by default (no natural portfolio bucket):
+    Wedding Photography  -> exclude
+    Other Photography    -> exclude
+
+A user_portfolio_category override always takes priority over any automatic
+mapping and clears needs_review.
 
 Portfolio groups (derived from portfolio_category):
     branding       -> portraits, product
@@ -46,13 +51,18 @@ SAFE_MAPPINGS = {
     "Nature & Landscape": "nature",
 }
 
-# Genres where automatic mapping is risky -- a user_portfolio_category
-# override is expected. Without one, the image defaults to "exclude"
-# with needs_review=True.
-AMBIGUOUS_GENRES = {
-    "Branding & Portrait",
-    "Street Documentary",
-    "Travel & Architecture",
+# Genres that have a natural default portfolio category but the mapping
+# is not 100% certain -- they auto-map with needs_review=True so the
+# user can still override if the default is wrong.
+DEFAULT_AMBIGUOUS_MAPPINGS = {
+    "Branding & Portrait": "portraits",
+    "Street Documentary": "city",
+    "Travel & Architecture": "travel-cityscape",
+}
+
+# Genres that have NO natural portfolio bucket -- they always default
+# to exclude with needs_review=True.
+EXCLUDED_GENRES = {
     "Wedding Photography",
     "Other Photography",
 }
@@ -108,13 +118,13 @@ def map_genre_to_portfolio(effective_genre, user_portfolio_category=""):
         source = "auto"
         needs_review = False
 
-    # --- Path 3: ambiguous genre without override -> exclude ---
-    elif effective_genre in AMBIGUOUS_GENRES:
-        category = "exclude"
-        source = "default-exclude"
+    # --- Path 3: ambiguous genre with a natural default ---
+    elif effective_genre in DEFAULT_AMBIGUOUS_MAPPINGS:
+        category = DEFAULT_AMBIGUOUS_MAPPINGS[effective_genre]
+        source = "auto"
         needs_review = True
 
-    # --- Path 4: unknown genre -> exclude ---
+    # --- Path 4: excluded genre or unknown -> exclude ---
     else:
         category = "exclude"
         source = "default-exclude"
