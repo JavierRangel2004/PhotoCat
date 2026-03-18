@@ -24,12 +24,14 @@
   } from "../../lib/stores/review";
 
   let selectedGenre = "";
-  let selectedPortfolioCategory = "auto";
+  let selectedPortfolioCategory = "";
   let activeIndex = -1;
 
   $: if ($activeItem) {
     selectedGenre = $activeItem.userGenre || $activeItem.finalGenre;
-    selectedPortfolioCategory = $activeItem.userPortfolioCategory || "auto";
+    // Show the resolved (auto-inferred) category so the user can see what the
+    // auto mapping chose. If the user has an explicit override, show that instead.
+    selectedPortfolioCategory = $activeItem.userPortfolioCategory || $activeItem.portfolioCategory || "exclude";
   }
 
   $: imageUrl = $activeItem?.imagePath ? desktopApi.assetUrl($activeItem.imagePath) : "";
@@ -51,7 +53,11 @@
 
   function applyPortfolioCategory() {
     if (!$activeItem) return;
-    setPortfolioCategory($activeItem.id, selectedPortfolioCategory === "auto" ? "" : selectedPortfolioCategory);
+    // If the user chose the value that auto-mapping would already produce,
+    // treat it as "clear the override" (same UX as clearing a genre override).
+    const autoResolved = $activeItem.portfolioCategory || "exclude";
+    const isRedundant = selectedPortfolioCategory === autoResolved && !$activeItem.userPortfolioCategory;
+    setPortfolioCategory($activeItem.id, isRedundant ? "" : selectedPortfolioCategory);
   }
 
   function handleKeydown(event: KeyboardEvent) {
@@ -112,16 +118,20 @@
               options={PORTFOLIO_CATEGORY_OPTIONS}
               bind:value={selectedPortfolioCategory}
             />
+            <p class="helper">
+              Showing the auto-inferred category. Select a different one and click
+              "Apply Portfolio Category" to override it.
+            </p>
 
             <p class="helper">
               If you choose a different genre than the model assigned, PhotoCat automatically marks
               the original decision as wrong and keeps your override active.
             </p>
 
-            {#if $activeItem.portfolioNeedsReview}
+            {#if $activeItem.portfolioNeedsReview && !$activeItem.exportInclude}
               <p class="helper warning">
-                This item still needs a portfolio mapping decision. Without an override it will stay
-                excluded from the portfolio export.
+                This genre has no default portfolio category. Override below to include it in
+                the portfolio export.
               </p>
             {/if}
 
@@ -134,7 +144,13 @@
 
             <div class="action-row">
               <SecondaryButton on:click={applyPortfolioCategory}>
-                {selectedPortfolioCategory === "auto" ? "Use Auto Mapping" : "Apply Portfolio Category"}
+                {$activeItem?.userPortfolioCategory
+                  ? selectedPortfolioCategory === ($activeItem?.portfolioCategory || "exclude")
+                    ? "Clear Override"
+                    : "Apply Portfolio Category"
+                  : selectedPortfolioCategory !== ($activeItem?.portfolioCategory || "exclude")
+                  ? "Apply Portfolio Category"
+                  : "Use Auto Mapping"}
               </SecondaryButton>
             </div>
 
