@@ -13,6 +13,7 @@ import signal
 import subprocess
 import sys
 import threading
+from typing import Optional
 
 # Pattern to extract progress from log lines like "[142/274]"
 _PROGRESS_RE = re.compile(r"\[(\d+)/(\d+)\]")
@@ -23,7 +24,7 @@ class PipelineRunner:
 
     def __init__(self):
         self.state: str = "idle"  # idle | running | stopping | done | error
-        self.process: subprocess.Popen | None = None
+        self.process: Optional[subprocess.Popen] = None
         self.progress: int = 0
         self.total: int = 0
         self.error_msg: str = ""

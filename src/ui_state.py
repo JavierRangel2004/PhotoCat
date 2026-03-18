@@ -14,6 +14,7 @@ import json
 import os
 import tempfile
 from pathlib import Path
+from typing import Optional, Union
 
 import pandas as pd
 
@@ -43,7 +44,7 @@ class UIState:
     """
 
     def __init__(self):
-        self.base_df: pd.DataFrame | None = None
+        self.base_df: Optional[pd.DataFrame] = None
         self.csv_path: str = ""
         self.img_dir: str = ""  # directory containing the images
 
@@ -274,7 +275,7 @@ class UIState:
     # ------------------------------------------------------------------
     # Inspector: get row data
     # ------------------------------------------------------------------
-    def get_inspector_data(self, position: int | None = None) -> dict:
+    def get_inspector_data(self, position: Optional[int] = None) -> dict:
         """Return full data for the image at the given position in visible_indices."""
         if self.base_df is None or not self.visible_indices:
             return {"empty": True}
@@ -538,7 +539,7 @@ class UIState:
     # ------------------------------------------------------------------
     # Organize helpers
     # ------------------------------------------------------------------
-    def get_organize_preview(self) -> dict | str:
+    def get_organize_preview(self) -> Union[dict, str]:
         """Return a preview of what organize would do with corrections applied.
 
         Returns a structured dict when portfolio_mapping is available,

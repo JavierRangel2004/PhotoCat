@@ -11,6 +11,7 @@ Invalidation: file mtime + size mismatch OR cache_version bump
 import json
 import os
 import sqlite3
+from typing import Optional
 
 # Bump this when the payload schema or model set changes.
 # Old entries with a different version are treated as cache misses.
@@ -62,7 +63,7 @@ class ImageCache:
     # Public API
     # ------------------------------------------------------------------
 
-    def get(self, path: str) -> dict | None:
+    def get(self, path: str) -> Optional[dict]:
         """
         Return cached payload dict if the file at `path` still matches
         the stored mtime, size, and schema version. Returns None on miss.
