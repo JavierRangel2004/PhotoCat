@@ -1,0 +1,105 @@
+:root {
+  color-scheme: dark;
+  --pc-bg: #0a0510;
+  --pc-bg-elevated: #12081a;
+  --pc-surface: rgba(20, 10, 22, 0.9);
+  --pc-surface-strong: rgba(26, 15, 32, 0.96);
+  --pc-surface-soft: rgba(21, 14, 29, 0.7);
+  --pc-surface-glass: linear-gradient(180deg, rgba(30, 17, 37, 0.92), rgba(15, 8, 21, 0.88));
+  --pc-border: rgba(147, 122, 173, 0.22);
+  --pc-border-strong: rgba(158, 27, 50, 0.34);
+  --pc-text: #f7f2fc;
+  --pc-text-muted: #a6a0b7;
+  --pc-text-soft: #cfc8da;
+  --pc-primary: #9e1b32;
+  --pc-primary-strong: #bf2742;
+  --pc-secondary: #5d2a7a;
+  --pc-success: #e14b73;
+  --pc-warning: #c9903f;
+  --pc-danger: #d84b5f;
+  --pc-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  --pc-shadow-soft: 0 12px 36px rgba(0, 0, 0, 0.2);
+  --pc-glow: 0 0 0 1px rgba(158, 27, 50, 0.18), 0 0 36px rgba(225, 75, 115, 0.18);
+  --pc-radius-xl: 28px;
+  --pc-radius-lg: 20px;
+  --pc-radius-md: 14px;
+  --pc-radius-sm: 10px;
+  --pc-space-1: 0.25rem;
+  --pc-space-2: 0.5rem;
+  --pc-space-3: 0.75rem;
+  --pc-space-4: 1rem;
+  --pc-space-5: 1.5rem;
+  --pc-space-6: 2rem;
+  --pc-space-7: 3rem;
+  --pc-duration-fast: 140ms;
+  --pc-duration-normal: 220ms;
+  --pc-duration-slow: 320ms;
+  --pc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --pc-font-display: "Montserrat", "Segoe UI", sans-serif;
+  --pc-font-body: "Inter", "Segoe UI", sans-serif;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--pc-font-body);
+  color: var(--pc-text);
+  background:
+    radial-gradient(circle at top left, rgba(158, 27, 50, 0.18), transparent 24%),
+    radial-gradient(circle at top right, rgba(93, 42, 122, 0.22), transparent 22%),
+    linear-gradient(180deg, #09040e 0%, #0d0714 54%, #09040d 100%);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  color: var(--pc-text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+select,
+textarea,
+input {
+  accent-color: var(--pc-primary);
+}
+
+select:focus,
+textarea:focus,
+input:focus,
+button:focus-visible {
+  outline: 2px solid rgba(191, 39, 66, 0.52);
+  outline-offset: 2px;
+}
+
+select option,
+select optgroup {
+  color: #f7f2fc;
+  background: #1a1022;
+}
+
+select option:checked,
+select option:hover {
+  color: #fff7fb;
+  background: #7f213d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(191, 39, 66, 0.4);
+  color: #fff8fc;
+}
