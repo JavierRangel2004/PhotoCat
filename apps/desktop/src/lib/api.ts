@@ -130,12 +130,16 @@ export const desktopApi = {
     request<ExportResponse>("/api/review/export", {
       method: "POST",
     }),
-  organizeFromCsvPreview: (csvPath: string, outputDir: string) =>
+  organizeFromCsvPreview: (csvPath: string, outputDir: string, options?: { mode?: string }) =>
     request<OrganizePreviewResult>("/api/review/organize-from-csv/preview", {
       method: "POST",
-      body: JSON.stringify({ csvPath, outputDir }),
+      body: JSON.stringify({ csvPath, outputDir, mode: options?.mode }),
     }),
-  organizeFromCsvCommit: (csvPath: string, outputDir: string, options?: { dryRun?: boolean; includeExcluded?: boolean }) =>
+  organizeFromCsvCommit: (
+    csvPath: string,
+    outputDir: string,
+    options?: { dryRun?: boolean; includeExcluded?: boolean; mode?: string },
+  ) =>
     request<OrganizeCommitResult>("/api/review/organize-from-csv/commit", {
       method: "POST",
       body: JSON.stringify({ csvPath, outputDir, ...options }),

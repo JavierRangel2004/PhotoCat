@@ -105,8 +105,9 @@ export function deriveReviewItemOrganizeFields(item: {
 
 export function joinOutputPath(outputDir: string, destRelpath: string) {
   const trimmedRoot = outputDir.trim().replace(/[\\/]+$/, "");
+  const rel = destRelpath.replace(/\\/g, "/").replace(/^\/+/, "");
   if (!trimmedRoot) {
-    return destRelpath;
+    return rel;
   }
-  return `${trimmedRoot}\\${destRelpath.replaceAll("/", "\\")}`;
+  return `${trimmedRoot.replace(/\\/g, "/").replace(/\/+$/, "")}/${rel}`;
 }
