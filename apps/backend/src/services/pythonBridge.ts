@@ -66,21 +66,29 @@ export async function exportCorrectedCsv(
   ]);
 }
 
-export async function organizeFromCsvPreview(csvPath: string, outputDir: string) {
-  return execPythonJson([
+export async function organizeFromCsvPreview(
+  csvPath: string,
+  outputDir: string,
+  options: { organizeMode?: string } = {},
+) {
+  const args = [
     backendConfig.pythonBridgePath,
     "organize-from-csv-preview",
     "--csv-path",
     csvPath,
     "--output-dir",
     outputDir,
-  ]);
+  ];
+  if (options.organizeMode) {
+    args.push("--organize-mode", options.organizeMode);
+  }
+  return execPythonJson(args);
 }
 
 export async function organizeFromCsvCommit(
   csvPath: string,
   outputDir: string,
-  options: { dryRun?: boolean; includeExcluded?: boolean } = {},
+  options: { dryRun?: boolean; includeExcluded?: boolean; organizeMode?: string } = {},
 ) {
   const args = [
     backendConfig.pythonBridgePath,
@@ -93,6 +101,9 @@ export async function organizeFromCsvCommit(
   if (options.dryRun) args.push("--dry-run");
   if (options.includeExcluded === false) args.push("--no-include-excluded");
   else if (options.includeExcluded === true) args.push("--include-excluded");
+  if (options.organizeMode) {
+    args.push("--organize-mode", options.organizeMode);
+  }
   return execPythonJson(args);
 }
 
