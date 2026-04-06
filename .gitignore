@@ -179,7 +179,21 @@ cython_debug/
 .codex-local/
 node_modules/
 logs/
+.agent/
+.github/prompts/
+.codex/
+.codebuddy/
+.continue/
+.cursor/
+.gemini/
+.kiro/
+.opencode/
+.roo/
+.trae/
+.windsurf/
+.qoder/
 
 # Machine-specific MCP server config (each machine maintains its own)
 .mcp.json
 deprecated/
+.DS_Store
