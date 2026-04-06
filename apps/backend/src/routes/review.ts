@@ -5,6 +5,7 @@ import {
   organizeFromCsvCommit,
   restoreFromManifest,
 } from "../services/pythonBridge.js";
+import { resolveAbsolutePath } from "../utils/normalizeFsPath.js";
 
 export async function registerReviewRoutes(app: FastifyInstance, reviewService: ReviewSessionService) {
   app.post<{ Body: { csvPath: string; imageDir: string } }>("/api/review/load", async (request) => {
@@ -38,22 +39,34 @@ export async function registerReviewRoutes(app: FastifyInstance, reviewService: 
   );
 
   // --- Organize from corrected CSV ---
-  app.post<{ Body: { csvPath: string; outputDir: string } }>(
+  app.post<{ Body: { csvPath: string; outputDir: string; mode?: string } }>(
     "/api/review/organize-from-csv/preview",
     async (request) => {
-      return organizeFromCsvPreview(request.body.csvPath, request.body.outputDir);
-    },
-  );
-
-  app.post<{ Body: { csvPath: string; outputDir: string; dryRun?: boolean; includeExcluded?: boolean } }>(
-    "/api/review/organize-from-csv/commit",
-    async (request) => {
-      return organizeFromCsvCommit(request.body.csvPath, request.body.outputDir, {
-        dryRun: request.body.dryRun,
-        includeExcluded: request.body.includeExcluded,
+      const csvPath = resolveAbsolutePath(request.body.csvPath);
+      const outputDir = resolveAbsolutePath(request.body.outputDir);
+      return organizeFromCsvPreview(csvPath, outputDir, {
+        organizeMode: request.body.mode,
       });
     },
   );
+
+  app.post<{
+    Body: {
+      csvPath: string;
+      outputDir: string;
+      dryRun?: boolean;
+      includeExcluded?: boolean;
+      mode?: string;
+    };
+  }>("/api/review/organize-from-csv/commit", async (request) => {
+    const csvPath = resolveAbsolutePath(request.body.csvPath);
+    const outputDir = resolveAbsolutePath(request.body.outputDir);
+    return organizeFromCsvCommit(csvPath, outputDir, {
+      dryRun: request.body.dryRun,
+      includeExcluded: request.body.includeExcluded,
+      organizeMode: request.body.mode,
+    });
+  });
 
   app.post<{ Body: { manifestPath: string; dryRun?: boolean } }>(
     "/api/review/restore-from-manifest",

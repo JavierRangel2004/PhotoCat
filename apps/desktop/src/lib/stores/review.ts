@@ -1,6 +1,7 @@
 import { derived, get, writable } from "svelte/store";
 import type {
   OrganizeCommitResult,
+  OrganizeMode,
   OrganizePreviewResult,
   RestoreResult,
   ReviewItem,
@@ -8,12 +9,15 @@ import type {
   UserLabel,
 } from "../../../../shared/types/review.js";
 import { desktopApi } from "../api";
+import { defaultOutputDirFromCsv, normalizeOrganizePath } from "../pathUtils";
 import { deriveReviewItemOrganizeFields } from "../review/portfolioMapping";
 import { pushToast } from "./app";
 
 type OrganizeFlowState = {
   correctedCsvPath: string;
   outputDir: string;
+  organizeMode: OrganizeMode;
+  replaceAcknowledged: boolean;
   includeExcluded: boolean;
   preview: OrganizePreviewResult | null;
   previewState: "idle" | "loading" | "ready" | "error";
@@ -31,6 +35,8 @@ type OrganizeFlowState = {
 const initialOrganizeFlow = (): OrganizeFlowState => ({
   correctedCsvPath: "",
   outputDir: "",
+  organizeMode: "append_dedupe",
+  replaceAcknowledged: false,
   includeExcluded: true,
   preview: null,
   previewState: "idle",
@@ -66,17 +72,6 @@ export const activeItemId = writable<string | null>(null);
 export const isSessionLoading = writable(false);
 export const organizeFlow = writable<OrganizeFlowState>(initialOrganizeFlow());
 
-function dirnameForPath(filePath: string) {
-  const normalized = filePath.replaceAll("/", "\\");
-  const lastSlash = normalized.lastIndexOf("\\");
-  return lastSlash >= 0 ? normalized.slice(0, lastSlash) : "";
-}
-
-function defaultOutputDir(csvPath: string) {
-  const directory = dirnameForPath(csvPath);
-  return directory ? `${directory}\\photocat_portfolio_ready` : "";
-}
-
 function enrichItem(item: ReviewItem): ReviewItem {
   return {
     ...item,
@@ -99,7 +94,7 @@ function enrichSessionPayload(payload: ReviewSession): ReviewSession {
 function resetOrganizeFlow(csvPath = "") {
   organizeFlow.set({
     ...initialOrganizeFlow(),
-    outputDir: csvPath ? defaultOutputDir(csvPath) : "",
+    outputDir: csvPath ? defaultOutputDirFromCsv(csvPath) : "",
   });
 }
 
@@ -112,6 +107,7 @@ function markOrganizeFlowDirty() {
     previewError: "",
     commitResult: null,
     restoreResult: null,
+    replaceAcknowledged: false,
   }));
 }
 
@@ -157,7 +153,9 @@ export const organizeCanCommit = derived([organizeFlow, organizeCanPreview], ([$
     $flow.preview &&
     $flow.preview.contract_valid &&
     $flow.preview.errors.length === 0 &&
-    !$flow.isCommitting,
+    !$flow.isCommitting &&
+    ($flow.organizeMode === "append_dedupe" ||
+      ($flow.organizeMode === "replace" && $flow.replaceAcknowledged)),
   ),
 );
 
@@ -249,12 +247,32 @@ export function selectItem(itemId: string) {
 export function setOrganizeOutputDir(outputDir: string) {
   organizeFlow.update((flow) => ({
     ...flow,
-    outputDir,
+    outputDir: normalizeOrganizePath(outputDir),
     preview: null,
     previewState: "idle",
     previewError: "",
     commitResult: null,
     restoreResult: null,
+    replaceAcknowledged: false,
+  }));
+}
+
+export function setOrganizeMode(mode: OrganizeMode) {
+  organizeFlow.update((flow) => ({
+    ...flow,
+    organizeMode: mode,
+    replaceAcknowledged: false,
+    preview: null,
+    previewState: "idle",
+    previewError: "",
+    commitResult: null,
+  }));
+}
+
+export function setReplaceModeAcknowledged(acknowledged: boolean) {
+  organizeFlow.update((flow) => ({
+    ...flow,
+    replaceAcknowledged: acknowledged,
   }));
 }
 
@@ -266,6 +284,7 @@ export function setIncludeExcluded(includeExcluded: boolean) {
     previewState: "idle",
     previewError: "",
     commitResult: null,
+    replaceAcknowledged: false,
   }));
 }
 
@@ -411,7 +430,9 @@ export async function requestOrganizePreview() {
   }));
 
   try {
-    const result = await desktopApi.organizeFromCsvPreview(flow.correctedCsvPath, flow.outputDir);
+    const result = await desktopApi.organizeFromCsvPreview(flow.correctedCsvPath, flow.outputDir, {
+      mode: flow.organizeMode,
+    });
     organizeFlow.update((current) => ({
       ...current,
       preview: result,
@@ -457,6 +478,7 @@ export async function commitOrganize() {
   try {
     const result = await desktopApi.organizeFromCsvCommit(flow.correctedCsvPath, flow.outputDir, {
       includeExcluded: flow.includeExcluded,
+      mode: flow.organizeMode,
     });
     organizeFlow.update((current) => ({
       ...current,

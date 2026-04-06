@@ -86,6 +86,14 @@ export type OrganizeInvalidDestination = {
   reason: string;
 };
 
+export type OrganizeMode = "append_dedupe" | "replace";
+
+export type OrganizeDedupeSkipped = {
+  source_path: string;
+  reason: string;
+  existing_relpath: string | null;
+};
+
 export type OrganizePreviewResult = {
   ok: boolean;
   moves: OrganizeMoveEntry[];
@@ -100,6 +108,14 @@ export type OrganizePreviewResult = {
   contract_valid: boolean;
   allowed_photo_categories: string[];
   present_photo_categories: string[];
+  resolved_output_dir?: string;
+  resolved_csv_path?: string;
+  mode?: OrganizeMode;
+  dedupe_new?: number;
+  dedupe_skipped_duplicate?: number;
+  dedupe_renamed_collision?: number;
+  dedupe_skipped?: OrganizeDedupeSkipped[];
+  dedupe_skipped_truncated?: number;
 };
 
 export type OrganizeCommitResult = {
@@ -110,6 +126,14 @@ export type OrganizeCommitResult = {
   conflicts: number;
   manifest_path: string;
   errors: string[];
+  resolved_output_dir?: string;
+  resolved_csv_path?: string;
+  mode?: OrganizeMode;
+  dedupe_new?: number;
+  dedupe_skipped_duplicate?: number;
+  dedupe_renamed_collision?: number;
+  dedupe_skipped?: OrganizeDedupeSkipped[];
+  dedupe_skipped_truncated?: number;
 };
 
 export type RestoreResult = {
