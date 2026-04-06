@@ -1,47 +1,46 @@
 <script lang="ts">
   import FilterSidebar from "../../lib/components/FilterSidebar.svelte";
   import ImageTile from "../../lib/components/ImageTile.svelte";
-  import Panel from "../../lib/components/Panel.svelte";
   import QueueSummaryCard from "../../lib/components/QueueSummaryCard.svelte";
-  import SecondaryButton from "../../lib/components/SecondaryButton.svelte";
-  import { correctedItems, lowConfidenceItems, reviewOnlyItems, selectItem, session, visibleItems } from "../../lib/stores/review";
+  import { correctedItems, lowConfidenceItems, reviewOnlyItems, selectItem, session, visibleItems, reviewFilters } from "../../lib/stores/review";
 
   export let currentItemId: string | null = null;
 </script>
 
 <div class="dashboard">
-  <Panel eyebrow="Queue" title="Review Dashboard">
-    <QueueSummaryCard session={$session} />
-  </Panel>
+  <header class="dash-header">
+    <div class="header-left">
+      <h1>Review</h1>
+      <QueueSummaryCard session={$session} />
+    </div>
+  </header>
 
-  <div class="layout">
-    <Panel title="Filters">
-      <FilterSidebar
-        genres={$session?.genres ?? []}
-        statuses={$session?.statuses ?? []}
-      />
-      <div class="quick">
-        <SecondaryButton disabled>Review-first view later</SecondaryButton>
-        <small>Low confidence now: {$lowConfidenceItems.length}</small>
-        <small>Review queue now: {$reviewOnlyItems.length}</small>
-        <small>Corrected now: {$correctedItems.length}</small>
-      </div>
-    </Panel>
+  <FilterSidebar
+    genres={$session?.genres ?? []}
+    statuses={$session?.statuses ?? []}
+    bind:selectedGenre={$reviewFilters.genre}
+    bind:selectedStatus={$reviewFilters.status}
+    bind:search={$reviewFilters.search}
+  />
 
-    <Panel title="Queue Grid">
-      {#if $visibleItems.length}
-        <div class="grid">
-          {#each $visibleItems.slice(0, 8) as item}
-            <button class="tile-button" aria-label="{item.filename} — {item.effectiveGenre || item.finalGenre || 'Unassigned'}" on:click={() => selectItem(item.id)}>
-              <ImageTile item={item} selected={item.id === currentItemId} />
-            </button>
-          {/each}
-        </div>
-      {:else}
-        <div class="empty">Load a review session to populate the queue.</div>
-      {/if}
-    </Panel>
-  </div>
+  {#if $visibleItems.length}
+    <div class="grid">
+      {#each $visibleItems as item}
+        <button class="tile-button" aria-label="{item.filename}" on:click={() => selectItem(item.id)}>
+          <ImageTile {item} selected={item.id === currentItemId} />
+        </button>
+      {/each}
+    </div>
+  {:else}
+    <div class="empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <polyline points="21 15 16 10 5 21" />
+      </svg>
+      <p>Load a review session to populate the queue.</p>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -51,16 +50,32 @@
     gap: 1rem;
   }
 
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr;
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
   }
 
   .tile-button {
@@ -69,6 +84,7 @@
     background: transparent;
     cursor: pointer;
     text-align: left;
+    width: 100%;
   }
 
   .tile-button:focus-visible {
@@ -77,37 +93,30 @@
     border-radius: var(--pc-radius-md);
   }
 
-  .quick {
+  .empty {
+    min-height: 24rem;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    margin-top: 1rem;
-  }
-
-  small,
-  .empty {
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
     color: var(--pc-text-muted);
   }
 
-  .empty {
-    min-height: 16rem;
-    display: grid;
-    place-items: center;
+  .empty p {
+    margin: 0;
+    font-size: 0.9rem;
   }
 
   @media (min-width: 720px) {
     .grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
-  @media (min-width: 1120px) {
-    .layout {
-      grid-template-columns: 280px minmax(0, 1fr);
-    }
-
+  @media (min-width: 1200px) {
     .grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 </style>
