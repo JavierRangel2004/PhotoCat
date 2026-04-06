@@ -13,14 +13,12 @@
     ? `${desktopApi.thumbnailUrl(item.imagePath, 400)} 400w, ${desktopApi.thumbnailUrl(item.imagePath, 800)} 800w`
     : undefined;
 
-  // P1: Skeleton loading state — reset whenever imageUrl changes
   let imageLoaded = false;
   $: {
     imageUrl;
     imageLoaded = false;
   }
 
-  // P2: Intersection Observer fade-in
   let tileEl: HTMLElement;
   let inView = false;
 
@@ -43,19 +41,19 @@
   <div class="preview">
     {#if imageUrl}
       {#if !imageLoaded}
-        <div class="skeleton" />
+        <div class="skeleton"></div>
       {/if}
       <img
         src={imageUrl}
         srcset={imageSrcset}
-        sizes="(min-width: 1120px) 33vw, (min-width: 720px) 50vw, 100vw"
+        sizes="(min-width: 1120px) 25vw, (min-width: 720px) 33vw, 50vw"
         alt={item.filename}
         loading="lazy"
         class:loaded={imageLoaded}
         on:load={() => (imageLoaded = true)}
       />
     {:else}
-      <div class="missing">Missing image</div>
+      <div class="missing">No image</div>
     {/if}
   </div>
 
@@ -72,16 +70,17 @@
   .tile {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
     border: 1px solid var(--pc-border);
     border-radius: var(--pc-radius-md);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--pc-bg-elevated);
     overflow: hidden;
     opacity: 0;
-    transform: translateY(12px);
-    transition:
-      opacity 0.4s ease,
-      transform 0.4s ease;
+    transform: translateY(8px);
+    transition: opacity 0.35s ease,
+                transform 0.35s ease,
+                border-color var(--pc-duration-fast) var(--pc-ease),
+                box-shadow var(--pc-duration-fast) var(--pc-ease);
+    cursor: pointer;
   }
 
   .tile.in-view {
@@ -89,25 +88,25 @@
     transform: translateY(0);
   }
 
+  .tile:hover {
+    border-color: var(--pc-border-strong);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
   .selected {
-    border-color: rgba(191, 39, 66, 0.48);
-    box-shadow: var(--pc-glow);
+    border-color: var(--pc-primary) !important;
+    box-shadow: var(--pc-glow) !important;
   }
 
   .preview {
     position: relative;
     aspect-ratio: 4 / 3;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--pc-surface);
   }
 
   @keyframes skeleton-pulse {
-    0%,
-    100% {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-    50% {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
+    0%, 100% { background-color: var(--pc-surface); }
+    50%      { background-color: var(--pc-surface-strong); }
   }
 
   .skeleton {
@@ -136,24 +135,28 @@
     display: grid;
     place-items: center;
     color: var(--pc-text-muted);
+    font-size: 0.8rem;
   }
 
   .meta {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    padding: 0 0.9rem 0.9rem;
+    gap: 0.4rem;
+    padding: 0.6rem 0.7rem;
   }
 
   .row {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   strong {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 0.82rem;
+    font-weight: 600;
   }
 </style>

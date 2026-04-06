@@ -4,73 +4,86 @@
   export let selectedGenre = "All";
   export let selectedStatus = "All";
   export let search = "";
-  export let maxConfidence = 1;
 </script>
 
-<div class="sidebar">
-  <label>
-    <span>Search</span>
-    <input bind:value={search} placeholder="filename, caption" readonly />
-  </label>
+<div class="filter-bar">
+  <div class="search-wrap">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+    <input
+      type="text"
+      bind:value={search}
+      placeholder="Search by filename or caption..."
+    />
+  </div>
 
-  <label>
-    <span>Genre</span>
-    <select bind:value={selectedGenre} disabled>
-      <option>All</option>
-      {#each genres as genre}
-        <option>{genre}</option>
-      {/each}
-    </select>
-  </label>
+  <select bind:value={selectedGenre}>
+    <option>All</option>
+    {#each genres as genre}
+      <option>{genre}</option>
+    {/each}
+  </select>
 
-  <label>
-    <span>Status</span>
-    <select bind:value={selectedStatus} disabled>
-      <option>All</option>
-      {#each statuses as status}
-        <option>{status}</option>
-      {/each}
-    </select>
-  </label>
-
-  <label>
-    <span>Max confidence</span>
-    <input type="range" min="0" max="1" step="0.01" bind:value={maxConfidence} disabled />
-    <small>{Math.round(maxConfidence * 100)}%</small>
-  </label>
+  <select bind:value={selectedStatus}>
+    <option>All</option>
+    {#each statuses as status}
+      <option>{status}</option>
+    {/each}
+  </select>
 </div>
 
 <style>
-  .sidebar {
+  .filter-bar {
     display: flex;
-    flex-direction: column;
-    gap: 0.95rem;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
-  label {
+  .search-wrap {
     display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+    min-width: 180px;
+    border: 1px solid var(--pc-border);
+    border-radius: var(--pc-radius-md);
+    padding: 0.45rem 0.65rem;
+    background: var(--pc-surface);
+    color: var(--pc-text-muted);
+    transition: border-color var(--pc-duration-fast) var(--pc-ease);
   }
 
-  span,
-  small {
+  .search-wrap:focus-within {
+    border-color: var(--pc-primary);
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--pc-text);
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  input::placeholder {
     color: var(--pc-text-muted);
   }
 
-  input,
   select {
-    width: 100%;
     border: 1px solid var(--pc-border);
-    border-radius: var(--pc-radius-sm);
-    padding: 0.78rem 0.9rem;
-    color: var(--pc-text);
-    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--pc-radius-md);
+    padding: 0.45rem 0.65rem;
+    color: var(--pc-text-soft);
+    background: var(--pc-surface);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color var(--pc-duration-fast) var(--pc-ease);
   }
 
-  input:focus-visible,
-  select:focus-visible {
-    outline: 2px solid var(--pc-primary);
-    outline-offset: 2px;
+  select:hover {
+    border-color: var(--pc-border-strong);
   }
 </style>

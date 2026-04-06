@@ -3,14 +3,13 @@
 
   export let lines: string[] = [];
   export let title = "Debug Logs";
-  export let open = true;
+  export let open = false;
 
   async function copyAll() {
     if (!lines.length) {
-      pushToast("No logs available to copy.", "warning");
+      pushToast("No logs to copy.", "warning");
       return;
     }
-
     await navigator.clipboard.writeText(lines.join("\n"));
     pushToast(`Copied ${lines.length} log lines.`, "success");
   }
@@ -18,11 +17,15 @@
 
 <details class="console-shell" {open}>
   <summary>
-    <div class="summary-copy">
+    <div class="summary-left">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <polyline points="4 17 10 11 4 5" />
+        <line x1="12" y1="19" x2="20" y2="19" />
+      </svg>
       <strong>{title}</strong>
-      <span>{lines.length} lines</span>
+      <span class="count">{lines.length}</span>
     </div>
-    <button type="button" on:click|stopPropagation={copyAll}>Copy All</button>
+    <button type="button" class="copy-btn" on:click|stopPropagation={copyAll}>Copy</button>
   </summary>
 
   <div class="console">
@@ -43,7 +46,7 @@
   .console-shell {
     border: 1px solid var(--pc-border);
     border-radius: var(--pc-radius-md);
-    background: rgba(6, 7, 11, 0.58);
+    background: var(--pc-bg);
     overflow: hidden;
   }
 
@@ -51,86 +54,100 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
     align-items: center;
     cursor: pointer;
-    padding: 0.85rem 0.95rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--pc-border);
+    transition: background var(--pc-duration-fast) var(--pc-ease);
+  }
+
+  summary:hover {
+    background: var(--pc-surface-soft);
   }
 
   summary::-webkit-details-marker {
     display: none;
   }
 
-  .summary-copy {
+  .summary-left {
     display: flex;
-    gap: 0.8rem;
-    align-items: baseline;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--pc-text-muted);
+  }
+
+  [open] .summary-left svg {
+    transform: rotate(90deg);
+  }
+
+  .summary-left svg {
+    transition: transform var(--pc-duration-fast) var(--pc-ease);
   }
 
   strong {
-    color: var(--pc-text);
-    font-size: 0.92rem;
+    color: var(--pc-text-soft);
+    font-size: 0.82rem;
+    font-weight: 600;
   }
 
-  summary span {
+  .count {
     color: var(--pc-text-muted);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
+    background: var(--pc-surface);
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
   }
 
-  button {
+  .copy-btn {
     border: 1px solid var(--pc-border);
-    border-radius: 999px;
-    padding: 0.4rem 0.7rem;
+    border-radius: var(--pc-radius-sm);
+    padding: 0.25rem 0.5rem;
+    color: var(--pc-text-muted);
+    background: transparent;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--pc-duration-fast), background var(--pc-duration-fast);
+  }
+
+  .copy-btn:hover {
     color: var(--pc-text);
-    background: rgba(255, 255, 255, 0.04);
-    font: inherit;
+    background: var(--pc-surface-soft);
   }
 
   .console {
-    max-height: 22rem;
+    max-height: 20rem;
     overflow: auto;
-    padding: 0.9rem;
+    padding: 0.5rem;
   }
 
   .line {
     display: grid;
-    grid-template-columns: 3rem 1fr;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0.5rem;
   }
 
   .line-no {
     color: var(--pc-text-muted);
-    font-family: "Consolas", "SFMono-Regular", monospace;
-    font-size: 0.78rem;
+    font-family: var(--pc-font-mono);
+    font-size: 0.72rem;
     text-align: right;
     user-select: none;
+    opacity: 0.6;
   }
 
-  pre,
-  p {
+  pre, p {
     margin: 0;
-    color: #eef3ff;
-    font-family: "Consolas", "SFMono-Regular", monospace;
-    font-size: 0.82rem;
-    line-height: 1.45;
+    color: var(--pc-text-soft);
+    font-family: var(--pc-font-mono);
+    font-size: 0.75rem;
+    line-height: 1.5;
     white-space: pre-wrap;
     word-break: break-word;
   }
 
   .empty {
     color: var(--pc-text-muted);
-  }
-
-  @media (max-width: 640px) {
-    .line {
-      grid-template-columns: 1fr;
-    }
-
-    .line-no {
-      text-align: left;
-    }
+    padding: 0.5rem;
   }
 </style>
