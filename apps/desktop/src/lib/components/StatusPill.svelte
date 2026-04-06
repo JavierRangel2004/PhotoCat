@@ -9,10 +9,14 @@
         : value === "correct" || value === "done"
           ? "success"
           : value === "running" || value === "starting"
-            ? "primary"
+            ? "running"
             : value === "stopping"
               ? "warning"
-            : "neutral";
+              : value === "export-required"
+                ? "warning"
+                : value === "preview-ready"
+                  ? "success"
+                  : "neutral";
 </script>
 
 <span class={`pill ${tone}`}>{value || "idle"}</span>
@@ -22,37 +26,38 @@
     display: inline-flex;
     align-items: center;
     border-radius: 999px;
-    padding: 0.42rem 0.72rem;
-    font-size: 0.75rem;
-    font-weight: 800;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--pc-text-soft);
+    letter-spacing: 0.06em;
+    background: var(--pc-surface);
+    color: var(--pc-text-muted);
     border: 1px solid var(--pc-border);
+    white-space: nowrap;
   }
 
-  .primary {
-    color: #ffd7e0;
-    border-color: rgba(191, 39, 66, 0.45);
-    background: rgba(158, 27, 50, 0.18);
+  .running {
+    color: var(--pc-primary);
+    border-color: rgba(20, 184, 166, 0.3);
+    background: rgba(20, 184, 166, 0.1);
   }
 
   .warning {
-    color: #ffe7b8;
-    border-color: rgba(201, 144, 63, 0.45);
-    background: rgba(201, 144, 63, 0.14);
+    color: var(--pc-warning);
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.08);
   }
 
   .danger {
-    color: #ffd4da;
-    border-color: rgba(216, 75, 95, 0.45);
-    background: rgba(216, 75, 95, 0.14);
+    color: var(--pc-danger);
+    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.08);
   }
 
   .success {
-    color: #ffd8e5;
-    border-color: rgba(225, 75, 115, 0.45);
-    background: rgba(225, 75, 115, 0.16);
+    color: var(--pc-success);
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.08);
   }
 </style>

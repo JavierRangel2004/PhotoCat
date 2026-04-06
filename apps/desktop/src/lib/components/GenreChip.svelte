@@ -3,24 +3,25 @@
   export let active = false;
 </script>
 
-<span class:active class="chip">{label}</span>
+<span class="chip" class:active>{label}</span>
 
 <style>
   .chip {
     display: inline-flex;
     align-items: center;
-    border-radius: 999px;
-    padding: 0.4rem 0.78rem;
-    background: rgba(93, 42, 122, 0.12);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--pc-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--pc-surface);
+    color: var(--pc-text-muted);
     border: 1px solid var(--pc-border);
-    color: var(--pc-text-soft);
-    font-size: 0.8rem;
+    white-space: nowrap;
   }
 
   .active {
-    background: rgba(158, 27, 50, 0.18);
-    border-color: rgba(191, 39, 66, 0.5);
-    color: #ffe0e8;
-    box-shadow: var(--pc-glow);
+    color: var(--pc-primary);
+    border-color: rgba(20, 184, 166, 0.25);
+    background: rgba(20, 184, 166, 0.08);
   }
 </style>

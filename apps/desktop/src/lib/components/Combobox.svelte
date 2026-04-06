@@ -73,22 +73,28 @@
 </script>
 
 <div class="combobox" use:clickOutside>
-  <span class="cb-label">{label}</span>
+  {#if label}
+    <span class="cb-label">{label}</span>
+  {/if}
   <div class="cb-control">
     <button
       class="cb-trigger"
       type="button"
       role="combobox"
+      aria-controls="cb-listbox"
       aria-expanded={open}
       aria-haspopup="listbox"
       aria-activedescendant={activeDescendant}
       on:click={toggleOpen}
       on:keydown={handleKeydown}
     >
-      {value} ▾
+      <span class="cb-value">{value}</span>
+      <svg class="cb-chevron" class:open width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
     </button>
     {#if open}
-      <ul class="cb-list" role="listbox" bind:this={listEl}>
+      <ul class="cb-list" id="cb-listbox" role="listbox" bind:this={listEl}>
         {#each options as opt, i}
           <!-- svelte-ignore a11y-click-events-have-key-events -->
           <li
@@ -101,6 +107,13 @@
             on:click={() => select(opt)}
             on:mouseenter={() => (highlighted = i)}
           >
+            {#if opt === value}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            {:else}
+              <span class="check-space"></span>
+            {/if}
             {opt}
           </li>
         {/each}
@@ -113,11 +126,13 @@
   .combobox {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.3rem;
   }
 
   .cb-label {
     color: var(--pc-text-muted);
+    font-size: 0.78rem;
+    font-weight: 500;
   }
 
   .cb-control {
@@ -126,23 +141,46 @@
 
   .cb-trigger {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
     appearance: none;
     border: 1px solid var(--pc-border);
-    border-radius: var(--pc-radius-sm);
-    padding: 0.95rem 2.8rem 0.95rem 0.95rem;
+    border-radius: var(--pc-radius-md);
+    padding: 0.55rem 0.7rem;
     color: var(--pc-text);
-    background: linear-gradient(180deg, rgba(34, 20, 42, 0.94), rgba(24, 13, 31, 0.94));
-    font-weight: 600;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    background: var(--pc-surface);
+    font-weight: 500;
+    font-size: 0.85rem;
     text-align: left;
     cursor: pointer;
-    font-size: inherit;
-    font-family: inherit;
+    transition: border-color var(--pc-duration-fast) var(--pc-ease);
+  }
+
+  .cb-trigger:hover {
+    border-color: var(--pc-border-strong);
   }
 
   .cb-trigger:focus-visible {
     outline: 2px solid var(--pc-primary);
     outline-offset: 2px;
+  }
+
+  .cb-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cb-chevron {
+    color: var(--pc-text-muted);
+    flex-shrink: 0;
+    transition: transform var(--pc-duration-fast) var(--pc-ease);
+  }
+
+  .cb-chevron.open {
+    transform: rotate(180deg);
   }
 
   .cb-list {
@@ -153,26 +191,39 @@
     z-index: 50;
     list-style: none;
     margin: 0;
-    padding: 0;
-    background: rgba(24, 13, 31, 0.98);
-    border: 1px solid var(--pc-border);
-    border-radius: var(--pc-radius-sm);
+    padding: 0.25rem;
+    background: var(--pc-bg-elevated);
+    border: 1px solid var(--pc-border-strong);
+    border-radius: var(--pc-radius-md);
     max-height: 14rem;
     overflow-y: auto;
+    box-shadow: var(--pc-shadow);
   }
 
   .cb-option {
-    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.55rem;
     cursor: pointer;
-    color: var(--pc-text);
+    color: var(--pc-text-soft);
+    border-radius: var(--pc-radius-sm);
+    font-size: 0.85rem;
+    transition: background var(--pc-duration-fast) var(--pc-ease);
   }
 
   .cb-option:hover,
   .cb-option.active {
-    background: rgba(93, 42, 122, 0.25);
+    background: var(--pc-surface-soft);
+    color: var(--pc-text);
   }
 
   .cb-option[aria-selected="true"] {
     color: var(--pc-primary);
+  }
+
+  .check-space {
+    display: inline-block;
+    width: 14px;
   }
 </style>

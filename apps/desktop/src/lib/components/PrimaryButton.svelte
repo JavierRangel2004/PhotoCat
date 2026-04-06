@@ -9,26 +9,32 @@
 
 <style>
   .primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     border: none;
-    border-radius: 999px;
-    padding: 0.85rem 1.2rem;
-    color: #fff7fb;
-    background: linear-gradient(135deg, var(--pc-primary), var(--pc-primary-strong));
-    box-shadow: var(--pc-glow);
-    font-weight: 700;
+    border-radius: var(--pc-radius-md);
+    padding: 0.55rem 1rem;
+    color: #fff;
+    background: var(--pc-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition:
-      transform var(--pc-duration-fast) var(--pc-ease),
-      filter var(--pc-duration-fast) var(--pc-ease);
+    transition: background var(--pc-duration-fast) var(--pc-ease),
+                transform var(--pc-duration-fast) var(--pc-ease);
   }
 
   .primary:hover:enabled {
+    background: var(--pc-primary-strong);
     transform: translateY(-1px);
-    filter: brightness(1.08);
+  }
+
+  .primary:active:enabled {
+    transform: translateY(0);
   }
 
   .primary:disabled {
-    opacity: 0.55;
+    opacity: 0.45;
     cursor: not-allowed;
   }
 

@@ -9,25 +9,30 @@
 
 <style>
   .secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     border: 1px solid var(--pc-border);
-    border-radius: 999px;
-    padding: 0.82rem 1.15rem;
-    color: var(--pc-text);
-    background: rgba(93, 42, 122, 0.12);
-    font-weight: 600;
+    border-radius: var(--pc-radius-md);
+    padding: 0.5rem 0.9rem;
+    color: var(--pc-text-soft);
+    background: transparent;
+    font-weight: 500;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition:
-      background var(--pc-duration-fast) var(--pc-ease),
-      border-color var(--pc-duration-fast) var(--pc-ease);
+    transition: color var(--pc-duration-fast) var(--pc-ease),
+                border-color var(--pc-duration-fast) var(--pc-ease),
+                background var(--pc-duration-fast) var(--pc-ease);
   }
 
   .secondary:hover:enabled {
-    background: rgba(93, 42, 122, 0.2);
-    border-color: rgba(147, 122, 173, 0.42);
+    color: var(--pc-text);
+    border-color: var(--pc-border-strong);
+    background: var(--pc-surface-soft);
   }
 
   .secondary:disabled {
-    opacity: 0.55;
+    opacity: 0.4;
     cursor: not-allowed;
   }
 

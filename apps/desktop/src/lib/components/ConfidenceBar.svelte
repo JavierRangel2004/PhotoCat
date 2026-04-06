@@ -19,7 +19,7 @@
   .wrap {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.3rem;
   }
 
   .meta {
@@ -27,27 +27,29 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    color: var(--pc-text-soft);
-    font-size: 0.84rem;
+    font-size: 0.78rem;
+  }
+
+  span {
+    color: var(--pc-text-muted);
   }
 
   strong {
-    color: #ffe0e8;
+    color: var(--pc-text-soft);
+    font-weight: 600;
   }
 
   .track {
     overflow: hidden;
     border-radius: 999px;
-    height: 0.65rem;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(147, 122, 173, 0.16);
+    height: 4px;
+    background: var(--pc-surface);
   }
 
   .fill {
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, var(--pc-secondary), var(--pc-primary));
-    box-shadow: 0 0 24px rgba(225, 75, 115, 0.25);
+    background: linear-gradient(90deg, var(--pc-primary), var(--pc-success));
     transition: width var(--pc-duration-normal) var(--pc-ease);
   }
 </style>
