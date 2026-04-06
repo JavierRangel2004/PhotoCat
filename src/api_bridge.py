@@ -216,6 +216,11 @@ def main() -> int:
     organize_csv_preview = subparsers.add_parser("organize-from-csv-preview")
     organize_csv_preview.add_argument("--csv-path", required=True)
     organize_csv_preview.add_argument("--output-dir", required=True)
+    organize_csv_preview.add_argument(
+        "--organize-mode",
+        default="replace",
+        help="replace (default) or append_dedupe",
+    )
 
     organize_csv_commit = subparsers.add_parser("organize-from-csv-commit")
     organize_csv_commit.add_argument("--csv-path", required=True)
@@ -225,6 +230,11 @@ def main() -> int:
         "--include-excluded",
         action=argparse.BooleanOptionalAction,
         default=True,
+    )
+    organize_csv_commit.add_argument(
+        "--organize-mode",
+        default="replace",
+        help="replace (default) or append_dedupe",
     )
 
     restore_manifest = subparsers.add_parser("restore-from-manifest")
@@ -271,7 +281,11 @@ def main() -> int:
     try:
         if args.command == "organize-from-csv-preview":
             from organize_from_csv import organize_preview as csv_preview
-            result = csv_preview(args.csv_path, args.output_dir)
+            result = csv_preview(
+                args.csv_path,
+                args.output_dir,
+                mode=getattr(args, "organize_mode", "replace"),
+            )
             print(json.dumps({"ok": True, **result}, default=str))
             return 0
 
@@ -282,6 +296,7 @@ def main() -> int:
                 args.output_dir,
                 dry_run=args.dry_run,
                 include_excluded=args.include_excluded,
+                mode=getattr(args, "organize_mode", "replace"),
             )
             ok = not result.get("errors")
             print(json.dumps({"ok": ok, **result}, default=str))

@@ -6,7 +6,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from organize_from_csv import organize_commit, organize_preview, restore_from_manifest
+from organize_from_csv import (
+    organize_commit,
+    organize_preview,
+    resolve_fs_path,
+    restore_from_manifest,
+)
 
 
 class OrganizeFromCsvTests(unittest.TestCase):
@@ -106,6 +111,132 @@ class OrganizeFromCsvTests(unittest.TestCase):
             self.assertEqual(restored["restored"], 1)
             self.assertTrue(image_path.is_file())
             self.assertTrue(xmp_path.is_file())
+
+    def test_resolve_fs_path_normalizes_backslashes_on_posix(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            out = root / "portfolio_out"
+            out.mkdir()
+            posix_path = str(out.resolve())
+            backslash_path = posix_path.replace("/", "\\")
+            self.assertEqual(resolve_fs_path(backslash_path), posix_path)
+
+    def test_preview_reports_resolved_output_dir_with_backslash_input(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            image_path = root / "image.jpg"
+            image_path.write_bytes(b"img")
+            csv_path = root / "corrected.csv"
+            self.write_csv(
+                csv_path,
+                [
+                    {
+                        "source_path": str(image_path),
+                        "filename": "image.jpg",
+                        "effective_genre": "Street Documentary",
+                        "portfolio_category": "city",
+                        "export_include": "true",
+                        "dest_relpath": "photos/city/image.jpg",
+                    }
+                ],
+            )
+            output_dir = root / "out"
+            output_dir.mkdir()
+            weird = str(output_dir.resolve()).replace("/", "\\")
+            preview = organize_preview(str(csv_path), weird)
+            self.assertTrue(preview["contract_valid"])
+            self.assertEqual(preview["resolved_output_dir"], str(output_dir.resolve()))
+
+    def test_append_dedupe_skips_when_same_bytes_exist_in_portfolio(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            output_dir = root / "out"
+            existing = output_dir / "photos" / "city"
+            existing.mkdir(parents=True)
+            payload = b"same-bytes"
+            (existing / "already.jpg").write_bytes(payload)
+
+            source = root / "incoming" / "different_name.jpg"
+            source.parent.mkdir(parents=True)
+            source.write_bytes(payload)
+
+            csv_path = root / "corrected.csv"
+            self.write_csv(
+                csv_path,
+                [
+                    {
+                        "source_path": str(source),
+                        "filename": "different_name.jpg",
+                        "effective_genre": "Street Documentary",
+                        "portfolio_category": "city",
+                        "export_include": "true",
+                        "dest_relpath": "photos/city/different_name.jpg",
+                    }
+                ],
+            )
+
+            preview = organize_preview(
+                str(csv_path), str(output_dir), mode="append_dedupe"
+            )
+            self.assertTrue(preview["contract_valid"])
+            self.assertEqual(preview["moves"], [])
+            self.assertEqual(preview["dedupe_skipped_duplicate"], 1)
+
+            commit = organize_commit(
+                str(csv_path), str(output_dir), include_excluded=False, mode="append_dedupe"
+            )
+            self.assertEqual(commit["errors"], [])
+            self.assertEqual(commit["moved"], 0)
+            self.assertEqual(commit["dedupe_skipped_duplicate"], 1)
+            self.assertTrue(source.is_file())
+
+    def test_append_dedupe_renames_on_collision_different_content(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            output_dir = root / "out"
+            dest_dir = output_dir / "photos" / "city"
+            dest_dir.mkdir(parents=True)
+            (dest_dir / "frame.jpg").write_bytes(b"old")
+
+            source = root / "src" / "frame.jpg"
+            source.parent.mkdir(parents=True)
+            source.write_bytes(b"new")
+
+            csv_path = root / "corrected.csv"
+            self.write_csv(
+                csv_path,
+                [
+                    {
+                        "source_path": str(source),
+                        "filename": "frame.jpg",
+                        "effective_genre": "Street Documentary",
+                        "portfolio_category": "city",
+                        "export_include": "true",
+                        "dest_relpath": "photos/city/frame.jpg",
+                    }
+                ],
+            )
+
+            preview = organize_preview(
+                str(csv_path), str(output_dir), mode="append_dedupe"
+            )
+            self.assertTrue(preview["contract_valid"])
+            self.assertEqual(preview["dedupe_renamed_collision"], 1)
+            self.assertEqual(len(preview["moves"]), 1)
+            new_dest = preview["moves"][0]["dest_path"]
+            self.assertNotEqual(
+                new_dest, str((dest_dir / "frame.jpg").resolve())
+            )
+
+            commit = organize_commit(
+                str(csv_path), str(output_dir), include_excluded=False, mode="append_dedupe"
+            )
+            self.assertEqual(commit["errors"], [])
+            self.assertEqual(commit["moved"], 1)
+            self.assertEqual(commit["dedupe_renamed_collision"], 1)
+            self.assertTrue(Path(new_dest).is_file())
+            self.assertEqual(Path(new_dest).read_bytes(), b"new")
+            self.assertEqual((dest_dir / "frame.jpg").read_bytes(), b"old")
 
 
 if __name__ == "__main__":
