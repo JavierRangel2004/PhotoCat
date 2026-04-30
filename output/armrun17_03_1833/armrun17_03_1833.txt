@@ -1,0 +1,617 @@
+PhotoCat
+Desktop
+dashboard
+inspector
+pipeline
+done
+Session
+Pipeline
+Checkpoint
+
+Review workstation foundation, not just a scaffold.
+This checkpoint establishes the reusable shell, dark visual system, shared stores, backend API surface, and first-pass review workspace for the Node frontend while keeping all processing in Python.
+
+Bridge Status
+@photocat/backend connected
+
+done
+154/154
+Pipeline completed successfully.
+
+python 789 lines | system 2 lines
+Session
+
+Load Review Session
+Open an existing audit CSV and image directory to enter the review workspace.
+
+CSV Path
+C:\photos\output\full_audit.csv
+Image Directory
+C:\photos\images
+Load Session
+Electron file picker later
+Pipeline
+
+Run And Monitor
+done
+Progress
+100%
+154 of 154
+done
+154/154
+Pipeline completed successfully.
+
+python 789 lines | system 2 lines
+Pipeline completed. CSV ready at:
+
+/Users/javierrangel/Pictures/Lightroom Saved Photos/export/armRun17_03_1805.csv
+Load Session From Output
+Input directory
+/Users/javierrangel/Pictures/Lightroom Saved Photos/export
+CSV output
+/Users/javierrangel/Pictures/Lightroom Saved Photos/export/armRun17_03_1805.csv
+Recursive
+Genre only
+Write XMP
+No cache
+Organize
+Dry run
+Min confidence
+0.55
+Workers
+1
+Extensions
+.jpg,.jpeg,.png,.webp,.tiff
+Run Pipeline
+Stop
+Python Pipeline Logs (500)
+[56/154] Processing: IMG_6065.jpg
+0: 640x480 1 clock, 184.4ms
+Speed: 49.5ms preprocess, 184.4ms inference, 194.8ms postprocess per image at shape (1, 3, 640, 480)
+[56/154]   Genre: Travel & Architecture (conf=0.76, status=review)
+[56/154] Done IMG_6065.jpg: Rating=2, Title='Clock with roman numerals on the face of a clock tower.' (10623ms)
+[57/154] Processing: IMG_6152.jpg
+0: 640x480 1 cup, 88.7ms
+Speed: 9.4ms preprocess, 88.7ms inference, 113.7ms postprocess per image at shape (1, 3, 640, 480)
+[57/154]   Genre: Food & Product (conf=0.95, status=auto)
+[57/154] Done IMG_6152.jpg: Rating=1, Title='There is a display of donuts and other foods on display.' (13198ms)
+[58/154] Processing: IMG_6241.jpg
+0: 640x448 1 person, 281.6ms
+Speed: 18.6ms preprocess, 281.6ms inference, 87.1ms postprocess per image at shape (1, 3, 640, 448)
+[58/154]   Genre: Nature & Landscape (conf=0.72, status=review)
+[58/154] Done IMG_6241.jpg: Rating=2, Title='There are two people standing on a rock in the water.' (12587ms)
+[59/154] Processing: IMG_6284.jpg
+0: 448x640 (no detections), 225.4ms
+Speed: 29.9ms preprocess, 225.4ms inference, 7.0ms postprocess per image at shape (1, 3, 448, 640)
+[59/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[59/154] Done IMG_6284.jpg: Rating=2, Title='There is a bird that is sitting on the rocks by the water.' (12259ms)
+[60/154] Processing: IMG_6291.jpg
+0: 480x640 (no detections), 464.1ms
+Speed: 31.8ms preprocess, 464.1ms inference, 8.9ms postprocess per image at shape (1, 3, 480, 640)
+[60/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[60/154] Done IMG_6291.jpg: Rating=1, Title='There is a crab that is sitting on a rock by the water.' (9774ms)
+[61/154] Processing: IMG_6303.jpg
+0: 640x512 (no detections), 311.5ms
+Speed: 18.3ms preprocess, 311.5ms inference, 16.7ms postprocess per image at shape (1, 3, 640, 512)
+[61/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[61/154] Done IMG_6303.jpg: Rating=2, Title='There are two crabs that are sitting on a rock together.' (9723ms)
+[62/154] Processing: IMG_6322.jpg
+0: 384x640 (no detections), 278.6ms
+Speed: 35.9ms preprocess, 278.6ms inference, 17.5ms postprocess per image at shape (1, 3, 384, 640)
+[62/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[62/154] Done IMG_6322.jpg: Rating=2, Title='There is a small bird sitting on a rock near the water.' (13433ms)
+[63/154] Processing: IMG_6339.jpg
+0: 512x640 2 boats, 384.9ms
+Speed: 25.3ms preprocess, 384.9ms inference, 487.6ms postprocess per image at shape (1, 3, 512, 640)
+[63/154]   Genre: Other Photography (conf=0.95, status=review)
+[63/154] Done IMG_6339.jpg: Rating=3, Title='There is a boat that is out in the water near a rock.' (8556ms)
+[64/154] Processing: IMG_6445.jpg
+0: 640x480 (no detections), 200.4ms
+Speed: 7.4ms preprocess, 200.4ms inference, 9.3ms postprocess per image at shape (1, 3, 640, 480)
+[64/154]   Genre: Travel & Architecture (conf=0.95, status=auto)
+[64/154] Done IMG_6445.jpg: Rating=1, Title='Purple neon lights illuminate the exterior of a building.' (7855ms)
+[65/154] Processing: IMG_6457.jpg
+0: 640x448 (no detections), 196.2ms
+Speed: 21.7ms preprocess, 196.2ms inference, 9.4ms postprocess per image at shape (1, 3, 640, 448)
+[65/154]   Genre: Travel & Architecture (conf=0.95, status=auto)
+[65/154] Done IMG_6457.jpg: Rating=1, Title='There is a statue of a man riding a horse on top of a vase.' (8158ms)
+[66/154] Processing: IMG_6567.jpg
+0: 640x448 (no detections), 123.2ms
+Speed: 60.4ms preprocess, 123.2ms inference, 7.9ms postprocess per image at shape (1, 3, 640, 448)
+[66/154]   Genre: Travel & Architecture (conf=0.95, status=auto)
+[66/154] Done IMG_6567.jpg: Rating=1, Title='There is a dark hallway with shutters and a light on.' (11932ms)
+[67/154] Processing: IMG_6576.jpg
+0: 448x640 (no detections), 296.4ms
+Speed: 20.4ms preprocess, 296.4ms inference, 14.3ms postprocess per image at shape (1, 3, 448, 640)
+[67/154]   Genre: Street Documentary (conf=0.62, status=review)
+[67/154] Done IMG_6576.jpg: Rating=1, Title='There is a street light that is on the side of the road.' (11364ms)
+[68/154] Processing: IMG_6647.jpg
+0: 640x480 6 persons, 201.8ms
+Speed: 35.6ms preprocess, 201.8ms inference, 282.8ms postprocess per image at shape (1, 3, 640, 480)
+[68/154]   Genre: Events & Music (conf=0.95, status=auto)
+[68/154] Done IMG_6647.jpg: Rating=4, Title='There are many women in purple dresses standing on a stage.' (10972ms)
+[69/154] Processing: IMG_6765.jpg
+0: 640x480 1 person, 78.1ms
+Speed: 8.6ms preprocess, 78.1ms inference, 314.4ms postprocess per image at shape (1, 3, 640, 480)
+[69/154]   Genre: Events & Music (conf=0.95, status=auto)
+[69/154] Done IMG_6765.jpg: Rating=2, Title='Dancers in red and yellow outfits are performing a dance routine.' (13053ms)
+[70/154] Processing: IMG_6785-Enhanced-NR.jpg
+0: 512x640 1 potted plant, 1 vase, 282.8ms
+Speed: 12.3ms preprocess, 282.8ms inference, 350.1ms postprocess per image at shape (1, 3, 512, 640)
+[70/154]   Genre: Food & Product (conf=0.51, status=review)
+[70/154] Done IMG_6785-Enhanced-NR.jpg: Rating=3, Title='There are two women dressed in red and yellow with flowers on their heads.' (13451ms)
+[71/154] Processing: IMG_6835-Enhanced-NR.jpg
+0: 448x640 1 person, 224.5ms
+Speed: 30.6ms preprocess, 224.5ms inference, 87.1ms postprocess per image at shape (1, 3, 448, 640)
+[71/154]   Genre: Events & Music (conf=0.95, status=auto)
+[71/154] Done IMG_6835-Enhanced-NR.jpg: Rating=1, Title='There is a woman in a red and yellow dress dancing on stage.' (12109ms)
+[72/154] Processing: IMG_6946.jpg
+0: 640x480 7 persons, 182.6ms
+Speed: 11.7ms preprocess, 182.6ms inference, 188.1ms postprocess per image at shape (1, 3, 640, 480)
+[72/154]   Genre: Events & Music (conf=0.95, status=auto)
+[72/154] Done IMG_6946.jpg: Rating=4, Title='Dancers in purple outfits are posing on a stage with their hands in the air.' (8211ms)
+[73/154] Processing: IMG_7018.jpg
+0: 640x480 4 persons, 65.2ms
+Speed: 5.5ms preprocess, 65.2ms inference, 125.8ms postprocess per image at shape (1, 3, 640, 480)
+[73/154]   Genre: Events & Music (conf=0.95, status=auto)
+[73/154] Done IMG_7018.jpg: Rating=3, Title='There are a lot of people that are performing on the stage.' (7109ms)
+[74/154] Processing: IMG_7177.jpg
+0: 640x480 1 person, 90.1ms
+Speed: 7.8ms preprocess, 90.1ms inference, 381.0ms postprocess per image at shape (1, 3, 640, 480)
+[74/154]   Genre: Events & Music (conf=0.94, status=auto)
+[74/154] Done IMG_7177.jpg: Rating=1, Title='There is a man that is holding a yellow scarf in his hand.' (5420ms)
+[75/154] Processing: IMG_7253.jpg
+0: 640x480 2 persons, 1 bird, 59.0ms
+Speed: 20.0ms preprocess, 59.0ms inference, 222.7ms postprocess per image at shape (1, 3, 640, 480)
+[75/154]   Genre: Events & Music (conf=0.95, status=auto)
+[75/154] Done IMG_7253.jpg: Rating=3, Title='Dancers in colorful costumes are performing on a stage with a fan.' (6349ms)
+[76/154] Processing: IMG_7347.jpg
+0: 640x480 1 person, 93.8ms
+Speed: 8.9ms preprocess, 93.8ms inference, 173.9ms postprocess per image at shape (1, 3, 640, 480)
+[76/154]   Genre: Events & Music (conf=0.72, status=review)
+[76/154] Done IMG_7347.jpg: Rating=3, Title='There is a woman kneeling on the ground with a sword.' (4211ms)
+[77/154] Processing: IMG_7355.jpg
+0: 512x640 1 person, 1 tennis racket, 225.4ms
+Speed: 8.0ms preprocess, 225.4ms inference, 280.6ms postprocess per image at shape (1, 3, 512, 640)
+[77/154]   Genre: Food & Product (conf=0.54, status=review)
+[77/154] Done IMG_7355.jpg: Rating=1, Title='There are two women that are holding two swords in their hands.' (11773ms)
+[78/154] Processing: IMG_7362.jpg
+0: 448x640 2 persons, 244.3ms
+Speed: 24.1ms preprocess, 244.3ms inference, 167.1ms postprocess per image at shape (1, 3, 448, 640)
+[78/154]   Genre: Events & Music (conf=0.95, status=auto)
+[78/154] Done IMG_7362.jpg: Rating=4, Title='There is a woman in a red dress holding a pair of scissors.' (15468ms)
+[79/154] Processing: IMG_7373.jpg
+0: 448x640 2 persons, 125.1ms
+Speed: 61.8ms preprocess, 125.1ms inference, 162.8ms postprocess per image at shape (1, 3, 448, 640)
+[79/154]   Genre: Events & Music (conf=0.90, status=auto)
+[79/154] Done IMG_7373.jpg: Rating=1, Title='Woman in a black and white photo is dancing with her arms outstretched.' (10048ms)
+[80/154] Processing: IMG_7439.jpg
+0: 448x640 2 persons, 87.1ms
+Speed: 8.8ms preprocess, 87.1ms inference, 121.0ms postprocess per image at shape (1, 3, 448, 640)
+[80/154]   Genre: Events & Music (conf=0.95, status=auto)
+[80/154] Done IMG_7439.jpg: Rating=3, Title='There are three women in a dance performance with their arms outstretched.' (12176ms)
+[81/154] Processing: IMG_7445.jpg
+0: 640x480 1 person, 333.9ms
+Speed: 12.7ms preprocess, 333.9ms inference, 940.3ms postprocess per image at shape (1, 3, 640, 480)
+[81/154]   Genre: Events & Music (conf=0.95, status=auto)
+[81/154] Done IMG_7445.jpg: Rating=2, Title='Several women in a dance pose with white shaws on a stage.' (15697ms)
+[82/154] Processing: IMG_7482.jpg
+0: 640x480 1 person, 132.3ms
+Speed: 55.9ms preprocess, 132.3ms inference, 157.3ms postprocess per image at shape (1, 3, 640, 480)
+[82/154]   Genre: Events & Music (conf=0.95, status=auto)
+[82/154] Done IMG_7482.jpg: Rating=1, Title='There is a woman that is dancing on a stage with her hair in the air.' (7729ms)
+[83/154] Processing: IMG_7538.jpg
+0: 640x480 1 person, 68.7ms
+Speed: 67.1ms preprocess, 68.7ms inference, 57.7ms postprocess per image at shape (1, 3, 640, 480)
+[83/154]   Genre: Events & Music (conf=0.95, status=auto)
+[83/154] Done IMG_7538.jpg: Rating=1, Title='There is a woman in a gold bikini top dancing with other women.' (3666ms)
+[84/154] Processing: IMG_7834.jpg
+0: 640x640 1 bird, 258.8ms
+Speed: 15.7ms preprocess, 258.8ms inference, 27.8ms postprocess per image at shape (1, 3, 640, 640)
+[84/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[84/154] Done IMG_7834.jpg: Rating=2, Title='There is a bird that is walking on the sand by itself.' (2873ms)
+[85/154] Processing: IMG_7839.jpg
+0: 640x480 3 persons, 212.7ms
+Speed: 28.0ms preprocess, 212.7ms inference, 266.7ms postprocess per image at shape (1, 3, 640, 480)
+[85/154]   Genre: Events & Music (conf=0.95, status=auto)
+[85/154] Done IMG_7839.jpg: Rating=3, Title='Dancers in a line on a stage with a black background.' (3824ms)
+[86/154] Processing: IMG_7889.jpg
+0: 640x480 1 person, 29.9ms
+Speed: 4.3ms preprocess, 29.9ms inference, 96.1ms postprocess per image at shape (1, 3, 640, 480)
+[86/154]   Genre: Events & Music (conf=0.95, status=auto)
+[86/154] Done IMG_7889.jpg: Rating=2, Title='Woman in a belly dance outfit holding a blue and purple scarf.' (3340ms)
+[87/154] Processing: IMG_7911.jpg
+0: 640x480 1 bird, 18.8ms
+Speed: 7.7ms preprocess, 18.8ms inference, 29.5ms postprocess per image at shape (1, 3, 640, 480)
+[87/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[87/154] Done IMG_7911.jpg: Rating=2, Title='There is a bird that is standing in the water with a fish.' (1866ms)
+[88/154] Processing: IMG_7981-Enhanced-NR.jpg
+0: 448x640 3 persons, 137.9ms
+Speed: 4.6ms preprocess, 137.9ms inference, 27.8ms postprocess per image at shape (1, 3, 448, 640)
+[88/154]   Genre: Events & Music (conf=0.95, status=auto)
+[88/154] Done IMG_7981-Enhanced-NR.jpg: Rating=4, Title='There is a woman in a purple dress dancing on stage.' (1917ms)
+[89/154] Processing: IMG_7986.jpg
+0: 640x480 2 persons, 39.8ms
+Speed: 3.4ms preprocess, 39.8ms inference, 46.2ms postprocess per image at shape (1, 3, 640, 480)
+[89/154]   Genre: Events & Music (conf=0.95, status=auto)
+[89/154] Done IMG_7986.jpg: Rating=4, Title='Dancers in purple skirts are performing on a stage with a black background.' (3169ms)
+[90/154] Processing: IMG_8067.jpg
+0: 384x640 2 persons, 2 umbrellas, 201.6ms
+Speed: 4.7ms preprocess, 201.6ms inference, 70.1ms postprocess per image at shape (1, 3, 384, 640)
+[90/154]   Genre: Events & Music (conf=0.58, status=review)
+[90/154] Done IMG_8067.jpg: Rating=1, Title='There are two women holding umbrellas in their hands on a stage.' (7464ms)
+[91/154] Processing: IMG_8070.jpg
+0: 640x448 2 persons, 1 umbrella, 284.1ms
+Speed: 18.2ms preprocess, 284.1ms inference, 83.9ms postprocess per image at shape (1, 3, 640, 448)
+[91/154]   Genre: Events & Music (conf=0.73, status=review)
+[91/154] Done IMG_8070.jpg: Rating=3, Title='Several people are performing on a stage with umbrellas in the air.' (11596ms)
+[92/154] Processing: IMG_8074.jpg
+0: 384x640 (no detections), 141.8ms
+Speed: 8.4ms preprocess, 141.8ms inference, 8.3ms postprocess per image at shape (1, 3, 384, 640)
+[92/154]   Genre: Events & Music (conf=0.95, status=auto)
+[92/154] Done IMG_8074.jpg: Rating=1, Title='Several women in colorful dresses are dancing on a stage with fans.' (14541ms)
+[93/154] Processing: IMG_8075.jpg
+0: 512x640 3 persons, 243.5ms
+Speed: 12.0ms preprocess, 243.5ms inference, 355.5ms postprocess per image at shape (1, 3, 512, 640)
+[93/154]   Genre: Events & Music (conf=0.95, status=auto)
+[93/154] Done IMG_8075.jpg: Rating=3, Title='There is a woman that is standing on a stage with a fan.' (15313ms)
+[94/154] Processing: IMG_8083.jpg
+0: 416x640 4 persons, 1 kite, 500.8ms
+Speed: 36.0ms preprocess, 500.8ms inference, 112.8ms postprocess per image at shape (1, 3, 416, 640)
+[94/154]   Genre: Events & Music (conf=0.95, status=auto)
+[94/154] Done IMG_8083.jpg: Rating=3, Title='Three women in black skirts are holding colorful cloths in their hands.' (10743ms)
+[95/154] Processing: IMG_8086.jpg
+0: 640x384 1 person, 376.1ms
+Speed: 15.6ms preprocess, 376.1ms inference, 324.0ms postprocess per image at shape (1, 3, 640, 384)
+[95/154]   Genre: Events & Music (conf=0.95, status=auto)
+[95/154] Done IMG_8086.jpg: Rating=1, Title='Woman holding a blue and green umbrella while standing on a stage.' (11603ms)
+[96/154] Processing: IMG_8095.jpg
+0: 640x480 2 persons, 280.7ms
+Speed: 23.2ms preprocess, 280.7ms inference, 176.1ms postprocess per image at shape (1, 3, 640, 480)
+[96/154]   Genre: Events & Music (conf=0.95, status=auto)
+[96/154] Done IMG_8095.jpg: Rating=3, Title='There is a woman in a black dress with a sword in her hand.' (9230ms)
+[97/154] Processing: IMG_8103.jpg
+0: 640x480 1 person, 117.2ms
+Speed: 26.3ms preprocess, 117.2ms inference, 335.7ms postprocess per image at shape (1, 3, 640, 480)
+[97/154]   Genre: Events & Music (conf=0.94, status=auto)
+[97/154] Done IMG_8103.jpg: Rating=2, Title='There is a woman sitting on the floor in a skirt.' (7450ms)
+[98/154] Processing: IMG_8105.jpg
+0: 512x640 3 persons, 214.6ms
+Speed: 12.1ms preprocess, 214.6ms inference, 323.4ms postprocess per image at shape (1, 3, 512, 640)
+[98/154]   Genre: Events & Music (conf=0.95, status=auto)
+[98/154] Done IMG_8105.jpg: Rating=1, Title='Several women are performing a dance on a stage with a fan.' (10134ms)
+[99/154] Processing: IMG_8202.jpg
+0: 640x480 1 bird, 100.5ms
+Speed: 10.6ms preprocess, 100.5ms inference, 119.2ms postprocess per image at shape (1, 3, 640, 480)
+[99/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[99/154] Done IMG_8202.jpg: Rating=2, Title='There is a bird that is standing on the sand by the water.' (4602ms)
+[100/154] Processing: IMG_8218-Enhanced-NR.jpg
+0: 640x480 1 person, 29.2ms
+Speed: 6.7ms preprocess, 29.2ms inference, 67.1ms postprocess per image at shape (1, 3, 640, 480)
+[100/154]   Genre: Events & Music (conf=0.95, status=auto)
+[100/154] Done IMG_8218-Enhanced-NR.jpg: Rating=2, Title='There is a woman that is standing on a stage with a skirt.' (2333ms)
+[101/154] Processing: IMG_8240.jpg
+0: 384x640 10 persons, 189.8ms
+Speed: 7.3ms preprocess, 189.8ms inference, 91.3ms postprocess per image at shape (1, 3, 384, 640)
+[101/154]   Genre: Events & Music (conf=0.95, status=auto)
+[101/154] Done IMG_8240.jpg: Rating=4, Title='There is a man standing on a stage with a large group of women behind him.' (5917ms)
+[102/154] Processing: IMG_8249.jpg
+0: 640x448 (no detections), 256.2ms
+Speed: 77.8ms preprocess, 256.2ms inference, 14.0ms postprocess per image at shape (1, 3, 640, 448)
+[102/154]   Genre: Food & Product (conf=0.44, status=review)
+[102/154] Done IMG_8249.jpg: Rating=1, Title='There is a red candle sitting on a table with petals on it.' (9289ms)
+[103/154] Processing: IMG_8325.jpg
+0: 512x640 4 persons, 204.6ms
+Speed: 20.6ms preprocess, 204.6ms inference, 211.3ms postprocess per image at shape (1, 3, 512, 640)
+[103/154]   Genre: Events & Music (conf=0.65, status=review)
+[103/154] Done IMG_8325.jpg: Rating=3, Title='There is a man playing a guitar in a crowd of people.' (8008ms)
+[104/154] Processing: IMG_8540.jpg
+0: 640x480 1 person, 189.7ms
+Speed: 13.7ms preprocess, 189.7ms inference, 153.7ms postprocess per image at shape (1, 3, 640, 480)
+[104/154]   Genre: Events & Music (conf=0.54, status=review)
+[104/154] Done IMG_8540.jpg: Rating=2, Title='There is a woman that is singing into a microphone on the street.' (6769ms)
+[105/154] Processing: IMG_8780.jpg
+0: 640x480 1 bird, 96.5ms
+Speed: 11.0ms preprocess, 96.5ms inference, 150.0ms postprocess per image at shape (1, 3, 640, 480)
+[105/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[105/154] Done IMG_8780.jpg: Rating=2, Title='There is a bird that is standing in the water by the shore.' (5009ms)
+[106/154] Processing: IMG_8899.jpg
+0: 640x448 1 person, 114.9ms
+Speed: 7.6ms preprocess, 114.9ms inference, 40.0ms postprocess per image at shape (1, 3, 640, 448)
+[106/154]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[106/154] Done IMG_8899.jpg: Rating=2, Title='There is a man sitting in a car talking on a cell phone.' (8421ms)
+[107/154] Processing: IMG_8915.jpg
+0: 448x640 1 person, 265.8ms
+Speed: 25.4ms preprocess, 265.8ms inference, 75.4ms postprocess per image at shape (1, 3, 448, 640)
+[107/154]   Genre: Branding & Portrait (conf=0.88, status=auto)
+[107/154] Done IMG_8915.jpg: Rating=2, Title='There is a man that is sitting in the driver seat of a car.' (9538ms)
+[108/154] Processing: IMG_8920.jpg
+0: 512x640 (no detections), 258.4ms
+Speed: 42.9ms preprocess, 258.4ms inference, 9.6ms postprocess per image at shape (1, 3, 512, 640)
+[108/154]   Genre: Branding & Portrait (conf=0.87, status=auto)
+[108/154] Done IMG_8920.jpg: Rating=1, Title='There is a man that is looking in the rear view mirror.' (4716ms)
+[109/154] Processing: IMG_8946.jpg
+0: 512x640 1 bird, 18.0ms
+Speed: 3.9ms preprocess, 18.0ms inference, 180.3ms postprocess per image at shape (1, 3, 512, 640)
+[109/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[109/154] Done IMG_8946.jpg: Rating=2, Title='There is a yellow bird sitting on a branch of a tree.' (3568ms)
+[110/154] Processing: IMG_8949.jpg
+0: 640x448 1 person, 1 car, 78.2ms
+Speed: 5.6ms preprocess, 78.2ms inference, 62.0ms postprocess per image at shape (1, 3, 640, 448)
+[110/154]   Genre: Street Documentary (conf=0.87, status=auto)
+[110/154] Done IMG_8949.jpg: Rating=3, Title='There is a man that is standing next to a car.' (8207ms)
+[111/154] Processing: IMG_8964.jpg
+0: 640x480 1 person, 230.7ms
+Speed: 12.0ms preprocess, 230.7ms inference, 366.2ms postprocess per image at shape (1, 3, 640, 480)
+[111/154]   Genre: Branding & Portrait (conf=0.88, status=auto)
+[111/154] Done IMG_8964.jpg: Rating=2, Title='There is a man that is standing next to a car talking on the phone.' (8117ms)
+[112/154] Processing: IMG_8993.jpg
+0: 640x448 1 person, 127.4ms
+Speed: 27.6ms preprocess, 127.4ms inference, 37.7ms postprocess per image at shape (1, 3, 640, 448)
+[112/154]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[112/154] Done IMG_8993.jpg: Rating=2, Title='There is a man sitting in a car with his hands on the steering wheel.' (12063ms)
+[113/154] Processing: IMG_9012.jpg
+0: 640x448 1 person, 55.2ms
+Speed: 5.6ms preprocess, 55.2ms inference, 156.0ms postprocess per image at shape (1, 3, 640, 448)
+[113/154]   Genre: Branding & Portrait (conf=0.79, status=review)
+[113/154] Done IMG_9012.jpg: Rating=3, Title='There is a man sitting on the hood of a sports car.' (5302ms)
+[114/154] Processing: IMG_9029.jpg
+0: 640x448 1 person, 1 car, 21.7ms
+Speed: 3.2ms preprocess, 21.7ms inference, 62.2ms postprocess per image at shape (1, 3, 640, 448)
+[114/154]   Genre: Street Documentary (conf=0.87, status=auto)
+[114/154] Done IMG_9029.jpg: Rating=4, Title='There is a man sitting on the hood of a sports car.' (4211ms)
+[115/154] Processing: IMG_9042.jpg
+0: 640x448 1 person, 68.6ms
+Speed: 6.0ms preprocess, 68.6ms inference, 320.8ms postprocess per image at shape (1, 3, 640, 448)
+[115/154]   Genre: Branding & Portrait (conf=0.74, status=review)
+[115/154] Done IMG_9042.jpg: Rating=2, Title='There is a man that is sitting in a car with his hand on the door handle.' (4658ms)
+[116/154] Processing: IMG_9044.jpg
+0: 384x640 1 bird, 175.9ms
+Speed: 6.7ms preprocess, 175.9ms inference, 58.6ms postprocess per image at shape (1, 3, 384, 640)
+[116/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[116/154] Done IMG_9044.jpg: Rating=2, Title='There is a bird that is sitting on a branch of a tree.' (3597ms)
+[117/154] Processing: IMG_9048.jpg
+0: 640x512 1 bird, 231.7ms
+Speed: 8.5ms preprocess, 231.7ms inference, 28.6ms postprocess per image at shape (1, 3, 640, 512)
+[117/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[117/154] Done IMG_9048.jpg: Rating=2, Title='There is a yellow and black bird sitting on a tree branch.' (3501ms)
+[118/154] Processing: IMG_9092.jpg
+0: 448x640 1 person, 120.9ms
+Speed: 10.1ms preprocess, 120.9ms inference, 11.3ms postprocess per image at shape (1, 3, 448, 640)
+[118/154]   Genre: Street Documentary (conf=0.63, status=review)
+[118/154] Done IMG_9092.jpg: Rating=2, Title='There is a man that is sitting on a wall with a tie.' (8204ms)
+[119/154] Processing: IMG_9151.jpg
+0: 640x448 1 person, 160.6ms
+Speed: 11.0ms preprocess, 160.6ms inference, 19.7ms postprocess per image at shape (1, 3, 640, 448)
+[119/154]   Genre: Branding & Portrait (conf=0.52, status=review)
+[119/154] Done IMG_9151.jpg: Rating=2, Title='There is a man standing in front of a wall with a painting on it.' (9544ms)
+[120/154] Processing: IMG_9305.jpg
+0: 640x448 1 person, 68.3ms
+Speed: 13.3ms preprocess, 68.3ms inference, 35.8ms postprocess per image at shape (1, 3, 640, 448)
+[120/154]   Genre: Branding & Portrait (conf=0.92, status=auto)
+[120/154] Done IMG_9305.jpg: Rating=2, Title='There is a man standing with his arms crossed in front of a stone wall.' (10035ms)
+[121/154] Processing: IMG_9314.jpg
+0: 640x384 1 bird, 328.0ms
+Speed: 15.6ms preprocess, 328.0ms inference, 181.5ms postprocess per image at shape (1, 3, 640, 384)
+[121/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[121/154] Done IMG_9314.jpg: Rating=3, Title='There is a bird that is standing on the side of a tree.' (7757ms)
+[122/154] Processing: IMG_9327.jpg
+0: 640x480 1 person, 187.0ms
+Speed: 18.6ms preprocess, 187.0ms inference, 122.7ms postprocess per image at shape (1, 3, 640, 480)
+[122/154]   Genre: Branding & Portrait (conf=0.82, status=auto)
+[122/154] Done IMG_9327.jpg: Rating=2, Title='There is a man sitting on a cannon with his arms crossed.' (12166ms)
+[123/154] Processing: IMG_9344.jpg
+0: 640x480 1 person, 202.7ms
+Speed: 25.4ms preprocess, 202.7ms inference, 196.7ms postprocess per image at shape (1, 3, 640, 480)
+[123/154]   Genre: Branding & Portrait (conf=0.87, status=auto)
+[123/154] Done IMG_9344.jpg: Rating=2, Title='There is a young woman standing in front of a stone wall.' (14617ms)
+[124/154] Processing: IMG_9361.jpg
+0: 512x640 (no detections), 418.3ms
+Speed: 18.1ms preprocess, 418.3ms inference, 20.7ms postprocess per image at shape (1, 3, 512, 640)
+[124/154]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[124/154] Done IMG_9361.jpg: Rating=2, Title='There is a bird that is standing on the side of a tree.' (8022ms)
+[125/154] Processing: IMG_9377.jpg
+0: 512x640 3 persons, 1 car, 77.3ms
+Speed: 20.1ms preprocess, 77.3ms inference, 136.6ms postprocess per image at shape (1, 3, 512, 640)
+[125/154]   Genre: Street Documentary (conf=0.95, status=auto)
+[125/154] Done IMG_9377.jpg: Rating=3, Title='There are three people sitting next to a cannon on the street.' (11324ms)
+[126/154] Processing: IMG_9388.jpg
+0: 512x640 3 persons, 72.9ms
+Speed: 7.1ms preprocess, 72.9ms inference, 149.0ms postprocess per image at shape (1, 3, 512, 640)
+[126/154]   Genre: Branding & Portrait (conf=0.82, status=auto)
+[126/154] Done IMG_9388.jpg: Rating=3, Title='There are three people sitting on a bench in a park.' (9862ms)
+[127/154] Processing: IMG_9406.jpg
+0: 640x480 1 person, 171.0ms
+Speed: 12.1ms preprocess, 171.0ms inference, 326.9ms postprocess per image at shape (1, 3, 640, 480)
+[127/154]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[127/154] Done IMG_9406.jpg: Rating=2, Title='There is a man that is sitting on a bench in the grass.' (10238ms)
+[128/154] Processing: IMG_9438.jpg
+0: 512x640 2 persons, 161.1ms
+Speed: 24.6ms preprocess, 161.1ms inference, 208.6ms postprocess per image at shape (1, 3, 512, 640)
+[128/154]   Genre: Street Documentary (conf=0.54, status=review)
+[128/154] Done IMG_9438.jpg: Rating=3, Title='There are two people sitting on a bench in the park.' (10251ms)
+[129/154] Processing: IMG_9470.jpg
+0: 640x480 3 persons, 141.8ms
+Speed: 11.5ms preprocess, 141.8ms inference, 189.2ms postprocess per image at shape (1, 3, 640, 480)
+[129/154]   Genre: Street Documentary (conf=0.59, status=review)
+[129/154] Done IMG_9470.jpg: Rating=4, Title='There are three people standing in front of a building with a wooden door.' (10752ms)
+[130/154] Processing: IMG_9486.jpg
+0: 640x512 3 persons, 209.2ms
+Speed: 11.9ms preprocess, 209.2ms inference, 132.1ms postprocess per image at shape (1, 3, 640, 512)
+[130/154]   Genre: Events & Music (conf=0.88, status=auto)
+[130/154] Done IMG_9486.jpg: Rating=4, Title='There are three people that are sitting on a bench with a guitar.' (9224ms)
+[131/154] Processing: IMG_9505.jpg
+0: 512x640 3 persons, 142.2ms
+Speed: 11.2ms preprocess, 142.2ms inference, 233.2ms postprocess per image at shape (1, 3, 512, 640)
+[131/154]   Genre: Events & Music (conf=0.84, status=auto)
+[131/154] Done IMG_9505.jpg: Rating=3, Title='There are three people that are standing next to each other with guitars.' (4856ms)
+[132/154] Processing: IMG_9522.jpg
+0: 640x448 1 person, 171.7ms
+Speed: 17.6ms preprocess, 171.7ms inference, 50.4ms postprocess per image at shape (1, 3, 640, 448)
+[132/154]   Genre: Events & Music (conf=0.93, status=auto)
+[132/154] Done IMG_9522.jpg: Rating=3, Title='There is a man holding a guitar and smiling in front of a bush.' (4799ms)
+[133/154] Processing: IMG_9562.jpg
+0: 640x448 1 person, 69.9ms
+Speed: 7.2ms preprocess, 69.9ms inference, 30.0ms postprocess per image at shape (1, 3, 640, 448)
+[133/154]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[133/154] Done IMG_9562.jpg: Rating=2, Title='There is a young woman sitting on a skateboard in the grass.' (8252ms)
+[134/154] Processing: IMG_9579.jpg
+0: 640x480 3 persons, 198.5ms
+Speed: 10.8ms preprocess, 198.5ms inference, 171.5ms postprocess per image at shape (1, 3, 640, 480)
+[134/154]   Genre: Events & Music (conf=0.95, status=auto)
+[134/154] Done IMG_9579.jpg: Rating=3, Title='There are three people posing for a picture with a guitar.' (7673ms)
+[135/154] Processing: IMG_9589.jpg
+0: 448x640 3 persons, 248.4ms
+Speed: 13.0ms preprocess, 248.4ms inference, 134.3ms postprocess per image at shape (1, 3, 448, 640)
+[135/154]   Genre: Events & Music (conf=0.95, status=auto)
+[135/154] Done IMG_9589.jpg: Rating=4, Title='There are three people sitting on the grass with a guitar in the background.' (16918ms)
+[136/154] Processing: IMG_9640.jpg
+0: 480x640 3 persons, 419.4ms
+Speed: 23.9ms preprocess, 419.4ms inference, 170.3ms postprocess per image at shape (1, 3, 480, 640)
+[136/154]   Genre: Events & Music (conf=0.95, status=auto)
+[136/154] Done IMG_9640.jpg: Rating=3, Title='There are three people sitting on a bench with a guitar.' (14578ms)
+[137/154] Processing: IMG_9684.jpg
+0: 640x480 1 person, 222.5ms
+Speed: 47.4ms preprocess, 222.5ms inference, 132.1ms postprocess per image at shape (1, 3, 640, 480)
+[137/154]   Genre: Food & Product (conf=0.95, status=auto)
+[137/154] Done IMG_9684.jpg: Rating=2, Title='Woman in a white shirt and black apron making food in a kitchen.' (12628ms)
+[138/154] Processing: IMG_9714.jpg
+0: 640x448 1 person, 240.0ms
+Speed: 11.9ms preprocess, 240.0ms inference, 297.5ms postprocess per image at shape (1, 3, 640, 448)
+[138/154]   Genre: Branding & Portrait (conf=0.55, status=review)
+[138/154] Done IMG_9714.jpg: Rating=2, Title='There is a woman in a chef ' s uniform preparing food in a kitchen.' (19196ms)
+[139/154] Processing: IMG_9724.jpg
+0: 480x640 (no detections), 290.7ms
+Speed: 60.0ms preprocess, 290.7ms inference, 17.6ms postprocess per image at shape (1, 3, 480, 640)
+[139/154]   Genre: Food & Product (conf=0.95, status=auto)
+[139/154] Done IMG_9724.jpg: Rating=1, Title='There is a spoon full of coffee beans sitting on a table.' (13708ms)
+[140/154] Processing: IMG_9734.jpg
+0: 640x480 (no detections), 239.0ms
+Speed: 26.6ms preprocess, 239.0ms inference, 7.7ms postprocess per image at shape (1, 3, 640, 480)
+[140/154]   Genre: Food & Product (conf=0.95, status=auto)
+[140/154] Done IMG_9734.jpg: Rating=1, Title='There is a coffee grinder that has coffee beans in it.' (6615ms)
+[141/154] Processing: IMG_9788.jpg
+0: 640x480 1 cake, 66.4ms
+Speed: 25.5ms preprocess, 66.4ms inference, 454.0ms postprocess per image at shape (1, 3, 640, 480)
+[141/154]   Genre: Food & Product (conf=0.95, status=auto)
+[141/154] Done IMG_9788.jpg: Rating=2, Title='Someone is pouring chocolate into a pan filled with nuts and nuts.' (11593ms)
+[142/154] Processing: IMG_9816.jpg
+0: 640x480 1 bowl, 112.6ms
+Speed: 32.3ms preprocess, 112.6ms inference, 425.5ms postprocess per image at shape (1, 3, 640, 480)
+[142/154]   Genre: Food & Product (conf=0.95, status=auto)
+[142/154] Done IMG_9816.jpg: Rating=2, Title='Someone is making a mixture in a food processor on a counter.' (10235ms)
+[143/154] Processing: IMG_9819.jpg
+0: 640x480 1 person, 1 cake, 97.4ms
+Speed: 10.8ms preprocess, 97.4ms inference, 200.2ms postprocess per image at shape (1, 3, 640, 480)
+[143/154]   Genre: Food & Product (conf=0.95, status=auto)
+[143/154] Done IMG_9819.jpg: Rating=3, Title='There is a woman cutting a piece of cake on a plate.' (11105ms)
+[144/154] Processing: IMG_9825.jpg
+0: 640x480 1 person, 70.5ms
+Speed: 7.1ms preprocess, 70.5ms inference, 322.9ms postprocess per image at shape (1, 3, 640, 480)
+[144/154]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[144/154] Done IMG_9825.jpg: Rating=2, Title='There is a woman that is working on a piece of art.' (8881ms)
+[145/154] Processing: IMG_9840.jpg
+0: 640x448 1 person, 236.1ms
+Speed: 30.8ms preprocess, 236.1ms inference, 326.4ms postprocess per image at shape (1, 3, 640, 448)
+[145/154]   Genre: Food & Product (conf=0.95, status=auto)
+[145/154] Done IMG_9840.jpg: Rating=2, Title='Woman pouring melted chocolate into a pot with a wooden spoon.' (15616ms)
+[146/154] Processing: IMG_9849.jpg
+0: 640x480 1 banana, 2 cakes, 170.9ms
+Speed: 9.9ms preprocess, 170.9ms inference, 338.3ms postprocess per image at shape (1, 3, 640, 480)
+[146/154]   Genre: Food & Product (conf=0.95, status=auto)
+[146/154] Done IMG_9849.jpg: Rating=3, Title='There are three desserts that are sitting on a table.' (10841ms)
+[147/154] Processing: IMG_9866.jpg
+0: 640x480 (no detections), 111.2ms
+Speed: 13.1ms preprocess, 111.2ms inference, 15.6ms postprocess per image at shape (1, 3, 640, 480)
+[147/154]   Genre: Food & Product (conf=0.95, status=auto)
+[147/154] Done IMG_9866.jpg: Rating=1, Title='Someone pouring batter into a pan with a spatula in it.' (12033ms)
+[148/154] Processing: IMG_9879.jpg
+0: 640x480 (no detections), 105.7ms
+Speed: 37.0ms preprocess, 105.7ms inference, 15.6ms postprocess per image at shape (1, 3, 640, 480)
+[148/154]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[148/154] Done IMG_9879.jpg: Rating=1, Title='There is a person that is putting a pie in the oven.' (13378ms)
+[149/154] Processing: IMG_9917.jpg
+0: 640x448 1 person, 1 dining table, 269.2ms
+Speed: 43.7ms preprocess, 269.2ms inference, 118.9ms postprocess per image at shape (1, 3, 640, 448)
+[149/154]   Genre: Branding & Portrait (conf=0.87, status=auto)
+[149/154] Done IMG_9917.jpg: Rating=3, Title='There is a woman in a chef ' s uniform preparing food in a kitchen.' (17965ms)
+[150/154] Processing: IMG_9932.jpg
+0: 640x480 2 cups, 191.5ms
+Speed: 51.5ms preprocess, 191.5ms inference, 523.1ms postprocess per image at shape (1, 3, 640, 480)
+[150/154]   Genre: Food & Product (conf=0.95, status=auto)
+[150/154] Done IMG_9932.jpg: Rating=3, Title='There is a spatula on a pan with melted chocolate on it.' (13546ms)
+[151/154] Processing: IMG_9934.jpg
+0: 640x416 1 person, 1 bowl, 533.4ms
+Speed: 38.4ms preprocess, 533.4ms inference, 133.0ms postprocess per image at shape (1, 3, 640, 416)
+[151/154]   Genre: Branding & Portrait (conf=0.94, status=auto)
+[151/154] Done IMG_9934.jpg: Rating=3, Title='Woman in a white chef ' s uniform preparing doughnuts on a metal tray.' (12638ms)
+[152/154] Processing: IMG_9953.jpg
+0: 640x448 1 person, 321.5ms
+Speed: 14.4ms preprocess, 321.5ms inference, 93.6ms postprocess per image at shape (1, 3, 640, 448)
+[152/154]   Genre: Branding & Portrait (conf=0.54, status=review)
+[152/154] Done IMG_9953.jpg: Rating=2, Title='There is a woman in a chef ' s uniform preparing food in a kitchen.' (14275ms)
+[153/154] Processing: IMG_9957.jpg
+0: 640x480 1 bottle, 249.0ms
+Speed: 36.8ms preprocess, 249.0ms inference, 315.5ms postprocess per image at shape (1, 3, 640, 480)
+[153/154]   Genre: Food & Product (conf=0.95, status=auto)
+[153/154] Done IMG_9957.jpg: Rating=2, Title='There is a bottle of liquid sitting on a counter top.' (12795ms)
+[154/154] Processing: IMG_9966.jpg
+0: 640x480 1 person, 1 cake, 83.8ms
+Speed: 8.9ms preprocess, 83.8ms inference, 161.7ms postprocess per image at shape (1, 3, 640, 480)
+[154/154]   Genre: Food & Product (conf=0.67, status=review)
+[154/154] Done IMG_9966.jpg: Rating=4, Title='There is a person mixing chocolate in a bowl with a spatula.' (11743ms)
+Cache: 0 hits, 154 misses
+============================================================
+Batch complete: 154 images in 1607.3s (10.44s/image avg)
+============================================================
+Audit CSV written to: /Users/javierrangel/Pictures/Lightroom Saved Photos/export/armRun17_03_1805.csv
+System And Lifecycle Logs (8)
+{"level":30,"time":1773792355281,"pid":87757,"hostname":"Macbook-Air.local","reqId":"req-a","req":{"method":"OPTIONS","url":"/api/pipeline/run","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":64221},"msg":"incoming request"}
+{"level":30,"time":1773792355283,"pid":87757,"hostname":"Macbook-Air.local","reqId":"req-a","res":{"statusCode":204},"responseTime":1.227709025144577,"msg":"request completed"}
+{"level":30,"time":1773792355287,"pid":87757,"hostname":"Macbook-Air.local","reqId":"req-b","req":{"method":"POST","url":"/api/pipeline/run","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":64221},"msg":"incoming request"}
+process-started run-mmva64ua-1
+Python process started (pid=87797).
+{"level":30,"time":1773792355337,"pid":87757,"hostname":"Macbook-Air.local","reqId":"req-b","res":{"statusCode":200},"responseTime":49.92449998855591,"msg":"request completed"}
+process-exit run-mmva64ua-1
+Python process exited with code 0.
+Queue
+
+Review Dashboard
+Total
+0
+Review
+0
+Corrected
+0
+Visible
+0
+Filters
+Genre
+
+All
+Status
+
+All
+Review-first view later
+Low confidence now: 0
+Review queue now: 0
+Corrected now: 0
+Queue Grid
+Load a review session to populate the queue.
+Organize
+
+Corrected CSV Flow
+Export the corrected CSV, preview the exact destination plan, then commit the organize step. The UI now uses the corrected CSV contract instead of the legacy in-memory preview.
+
+export-required
+Output Directory
+C:\portfolio\staging
+
+Park excluded files under `excluded/` during commit
+Export Corrected CSV
+Run Preview
+Commit Organize
+Restore Last Commit
+Review changes are newer than the last corrected CSV export. Export again before preview or commit.
+
+Load a review session to unlock the corrected CSV organize flow.

@@ -1,0 +1,22 @@
+{
+  "name": "@photocat/desktop",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "svelte": "^5.39.6"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@types/node": "^24.0.0",
+    "electron": "^41.0.2",
+    "typescript": "^5.9.2",
+    "vite": "^8.0.0"
+  }
+}

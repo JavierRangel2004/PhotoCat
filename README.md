@@ -1,251 +1,248 @@
 # PhotoCat
 
-![PhotoCat Logo](https://github.com/JavierRangel2004/PhotoCat/blob/main/images/logo.png)
+**PhotoCat** is a local-first photo categorization tool for reviewing, correcting, and organizing image libraries with AI assistance.
 
-PhotoCat is an advanced photo categorization tool that leverages state-of-the-art machine learning and computer vision techniques to analyze, categorize, and enhance your image library. Whether you're a professional photographer, a digital archivist, or simply someone looking to organize personal photos, PhotoCat provides automated solutions to streamline your workflow.
+The project now runs as a hybrid system:
+- **Python processing engine** for classification, evidence extraction, CSV generation, organize preview, XMP writing, and file operations
+- **Node workspace** for the new custom review interface and local desktop/app-shell migration
 
-## Table of Contents
+Hard boundary:
+- **all photo processing stays in Python**
+- **Node does not replace the ML pipeline**
+- **Node is only the UI, local bridge, and desktop shell direction**
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+## Current Status
+
+What is working now:
+- Python pipeline CLI works
+- Python bridge CLI works
+- Node workspace installs
+- Fastify backend bridge runs on `127.0.0.1:8797`
+- Svelte/Vite frontend scaffold runs on `localhost:4173`
+- browser-to-backend communication works
+
+What is still in progress:
+- the new frontend is still a scaffold, not the final review product
+- Gradio still exists as the current Python UI
+- the premium concept-board-driven frontend is planned but not fully implemented yet
+
+## Architecture
+
+### Python layer
+
+Python remains the source of truth for:
+- genre classification
+- image evidence extraction
+- audit CSV generation
+- corrected CSV export behavior
+- organize preview behavior
+- XMP sidecar writing
+- file moves and restore operations
+
+Main Python entrypoints:
+- [src/main.py](/C:/Users/javar/GITHUB/PhotoCat/src/main.py)
+- [src/api_bridge.py](/C:/Users/javar/GITHUB/PhotoCat/src/api_bridge.py)
+- [src/ui.py](/C:/Users/javar/GITHUB/PhotoCat/src/ui.py)
+
+### Node layer
+
+The Node workspace is the migration foundation for the new frontend:
+- [apps/backend](/C:/Users/javar/GITHUB/PhotoCat/apps/backend) = local Fastify bridge over Python
+- [apps/desktop](/C:/Users/javar/GITHUB/PhotoCat/apps/desktop) = Svelte/Vite desktop frontend scaffold
+- [shared/types](/C:/Users/javar/GITHUB/PhotoCat/shared/types) = shared review/session types
+
+Current runtime split:
+- Python executes processing
+- backend bridge translates frontend requests into Python commands
+- Svelte frontend renders the review experience
 
 ## Features
 
-- **Image Loading & Preprocessing:** Supports various image formats, including RAW files, with noise reduction and normalization.
-- **Blurriness Detection:** Identifies and flags blurry images to maintain a high-quality photo library.
-- **Exposure Analysis:** Determines if an image is underexposed, overexposed, or correctly exposed.
-- **Object Detection:** Utilizes YOLOv8 for real-time object detection within images.
-- **Image Captioning:** Generates descriptive captions using the BLIP model.
-- **Color Analysis:** Extracts dominant colors and detects the mood based on color tones.
-- **Optical Character Recognition (OCR):** Detects and processes text within images to identify brands or other relevant information.
-- **Metadata Writing:** Automatically writes categorized metadata into XMP sidecar files for seamless integration with photo management software.
-- **Parallel Processing:** Leverages multiprocessing to efficiently handle large batches of images.
+- **Genre Classification**: SigLIP2-based genre classification with evidence fusion from YOLO and BLIP
+- **Audit CSV Reports**: reviewable CSV output with confidences and review status
+- **Confidence-Gated Decisions**: automatic vs review vs title-inferred write policy
+- **XMP Metadata Writing**: sidecar metadata compatible with Lightroom and similar tools
+- **Automatic File Organization**: organize photos into genre folders after review
+- **Local Review Workflow**: Gradio UI today, custom Node frontend migration in progress
+- **Local-Only Processing**: no cloud APIs required for the core pipeline
 
-## Installation
+## Quick Start
 
 ### Prerequisites
 
-- **Python 3.8 or higher**
-- **Git**
+- Python 3.8+
+- Node 20.19+ or 22.12+
+- Git
+- Optional NVIDIA GPU with CUDA
+- Optional Tesseract OCR
 
-### Clone the Repository
+### Python installation
 
 ```bash
 git clone https://github.com/JavierRangel2004/PhotoCat.git
 cd PhotoCat
-```
-
-### Create a Virtual Environment
-
-It's recommended to use a virtual environment to manage dependencies.
-
-```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-### Install Dependencies
-
-Ensure you have `pip` updated:
-
-```bash
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install --upgrade pip
-```
-
-Install the required packages:
-
-```bash
 pip install -r requirements.txt
 ```
 
-**Note:** If you encounter SSL certificate issues while downloading NLTK data, refer to the [Troubleshooting NLTK Downloads](#troubleshooting-nltk-downloads) section below.
-
-### Download YOLOv8 Model
-
-Download the YOLOv8 large model and place it in the root directory:
+Optional CUDA install:
 
 ```bash
-wget https://path-to-your-model/yolov8l.pt -P .
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 ```
 
-*(Replace the URL with the actual path to the YOLOv8 model if different.)*
+### Node workspace installation
+
+From the repo root:
+
+```bash
+npm install
+```
 
 ## Usage
 
-### Preparing Your Images
+### Python pipeline
 
-Place all the images you want to process in the `images/` directory. Supported formats include `.cr2`, `.cr3`, `.jpg`, `.jpeg`, `.png`, and `.tiff`.
-
-### Running the Categorizer
-
-Execute the main script to start processing your images:
+Dry run:
 
 ```bash
-python src/main.py
+python src/main.py --input-dir /path/to/photos
 ```
 
-The script will:
+Classify and organize:
 
-1. **Load Images:** Read images from the `images/` directory.
-2. **Analyze Images:** Perform blurriness detection, exposure analysis, object detection, color analysis, OCR, and image captioning.
-3. **Generate Metadata:** Assign ratings, tags, and titles based on the analysis.
-4. **Write XMP Sidecar Files:** Create or update `.xmp` files with the generated metadata.
+```bash
+python src/main.py --input-dir /path/to/photos --organize
+```
 
-### Output
+Genre-only mode:
 
-After processing, each image will have an accompanying `.xmp` file containing the metadata. The console will display the processing status, including ratings, tags, and titles for each image.
+```bash
+python src/main.py --input-dir /path/to/photos --genre-only --organize
+```
+
+Full pipeline with XMP writing:
+
+```bash
+python src/main.py --input-dir /path/to/photos --write-xmp --organize
+```
+
+### Python bridge
+
+Check the bridge:
+
+```bash
+python src/api_bridge.py --help
+```
+
+### Current Gradio UI
+
+The existing Python review UI still lives here:
+
+```bash
+python src/ui.py
+python src/ui.py --browser
+```
+
+### Node backend bridge
+
+```bash
+npm run dev:backend
+```
+
+This starts the Fastify bridge on `127.0.0.1:8797`.
+
+### Node frontend scaffold
+
+```bash
+npm run dev:desktop
+```
+
+This starts the Svelte/Vite frontend scaffold on `http://localhost:4173`.
+
+## Workspace Scripts
+
+From the repo root:
+
+```bash
+npm run dev
+npm run dev:backend
+npm run dev:desktop
+npm run typecheck
+```
+
+Notes:
+- `npm run dev` starts the backend and frontend together
+- `npm run dev:backend` and `npm run dev:desktop` still work independently
+- the combined dev command prefers backend `127.0.0.1:8797` and frontend `127.0.0.1:4173`
+- if either preferred port is already in use, the launcher picks the next free port automatically
 
 ## Configuration
 
-Configuration flags are defined in `src/main.py` and can be adjusted to enable or disable specific features:
+### Python
 
-```python
-#####################
-# Configuration Flags
-#####################
-ENABLE_BLUR_CHECK = True
-ENABLE_EXPOSURE_CHECK = True
-ENABLE_OBJECT_DETECTION = True
-ENABLE_RATING_LOGIC = True
-ENABLE_XMP_WRITING = True
-```
+Python behavior is still controlled by the CLI flags documented in [src/cli.py](/C:/Users/javar/GITHUB/PhotoCat/src/cli.py).
 
-Modify these flags as needed to tailor the processing pipeline to your requirements.
+Important flags:
+- `--input-dir`
+- `--recursive`
+- `--extensions`
+- `--write-xmp`
+- `--genre-only`
+- `--organize`
+- `--csv`
+- `--min-confidence`
+- `--workers`
+- `--dry-run`
+- `--no-cache`
+
+### Backend bridge environment variables
+
+The Node backend uses these optional environment variables:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `PHOTOCAT_BACKEND_HOST` | `127.0.0.1` | Fastify host |
+| `PHOTOCAT_BACKEND_PORT` | `8797` | Fastify port |
+| `VITE_PHOTOCAT_API_BASE_URL` | `http://127.0.0.1:8797` | Frontend API base URL |
+| `PHOTOCAT_PYTHON_CMD` | `python` | Python executable used by the bridge |
+
+The bridge script path is currently [src/api_bridge.py](/C:/Users/javar/GITHUB/PhotoCat/src/api_bridge.py).
 
 ## Project Structure
 
-```
+```text
 PhotoCat/
-├── .gitignore
-├── README.md
-├── requirements.txt
-├── images/
-│   ├── IMG_1424.CR2
-│   └── IMG_1424.xmp
-├── src/
-│   ├── main.py
-│   ├── image_analysis.py
-│   ├── image_captioning.py
-│   ├── object_detection.py
-│   ├── metadata_writer.py
-│   └── utilities.py
+  apps/
+    backend/           # Fastify bridge over Python
+    desktop/           # Svelte/Vite frontend scaffold
+  docs/
+    ARCHITECTURE.md    # System architecture and roadmap
+    TAXONOMY.md        # Photography category definitions
+  shared/
+    types/             # Shared Node types
+  src/
+    api_bridge.py      # Python JSON bridge for Node
+    main.py            # Processing pipeline
+    ui.py              # Current Gradio UI
+    ui_state.py        # Review state logic reused by bridge
 ```
 
-- **.gitignore:** Specifies files and directories to be ignored by Git.
-- **requirements.txt:** Lists all Python dependencies required for the project.
-- **images/:** Directory containing images to be processed and their corresponding XMP sidecar files.
-- **src/:** Contains all source code modules.
-  - **main.py:** Entry point for the application.
-  - **image_analysis.py:** Functions for image loading, preprocessing, blurriness detection, exposure analysis, and color tone analysis.
-  - **image_captioning.py:** Implements image captioning using the BLIP model.
-  - **object_detection.py:** Utilizes YOLOv8 for object detection.
-  - **metadata_writer.py:** Writes metadata into XMP sidecar files.
-  - **utilities.py:** Helper functions for processing images, generating tags, and refining titles.
+## Documentation
 
-## Troubleshooting NLTK Downloads
+- [Architecture & Implementation Roadmap](docs/ARCHITECTURE.md) - System architecture and development roadmap.
+- [Taxonomy Strategy](docs/TAXONOMY.md) - Detailed guide to the 6-category photography taxonomy.
+- [UI/UX Guidelines](apps/desktop/docs/UI_UX_GUIDELINES.md) - Design rules and checklist for the Svelte desktop frontend.
 
-If you encounter SSL certificate verification errors while downloading NLTK data, follow these steps:
+## Work Allocation
 
-### 1. Update SSL Certificates
-
-#### macOS
-
-Run the following command in your terminal:
-
-```bash
-/Applications/Python\ 3.x/Install\ Certificates.command
-```
-
-*(Replace `3.x` with your Python version.)*
-
-#### Windows
-
-Reinstall Python and ensure that the option to install certificates is selected during installation.
-
-#### Linux (Debian/Ubuntu)
-
-```bash
-sudo apt-get update
-sudo apt-get install --reinstall ca-certificates
-```
-
-### 2. Download NLTK Data Manually
-
-1. Visit the [NLTK Data](https://www.nltk.org/data.html) page.
-2. Download the required packages (`stopwords`, `punkt`, `wordnet`).
-3. Extract the downloaded `.zip` files into the NLTK data directory. You can find the directory by running:
-
-    ```python
-    import nltk
-    print(nltk.data.path)
-    ```
-
-### 3. Disable SSL Verification Temporarily
-
-**Warning:** This method is not recommended for production environments as it compromises security.
-
-```python
-import nltk
-import ssl
-
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context = _create_unverified_https_context
-
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('wordnet')
-```
-
-## Contributing
-
-Contributions are welcome! If you encounter issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
-
-### Steps to Contribute
-
-1. **Fork the Repository**
-2. **Create a New Branch**
-
-    ```bash
-    git checkout -b feature/YourFeature
-    ```
-
-3. **Make Your Changes**
-4. **Commit Your Changes**
-
-    ```bash
-    git commit -m "Add your message here"
-    ```
-
-5. **Push to the Branch**
-
-    ```bash
-    git push origin feature/YourFeature
-    ```
-
-6. **Open a Pull Request**
+If you are choosing where to work:
+- processing, metadata, and classification logic: Python
+- backend bridge and API normalization: `apps/backend`
+- premium review interface and desktop shell: `apps/desktop`
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-For any inquiries or support, please contact:
-
-- **Email:** [inspec_jrm@gmail.com](mailto:inspec_jrm@gmail.com)
-
-Feel free to reach out with questions, feedback, or collaboration ideas!
-
----
-
-*Happy Categorizing! 📸*

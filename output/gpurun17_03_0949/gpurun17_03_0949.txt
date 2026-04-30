@@ -1,0 +1,633 @@
+P
+PhotoCat
+
+Node frontend, Python engine
+Review
+Inspector
+Pipeline
+done
+Load Session
+Run Pipeline
+Checkpoint
+
+Review workstation foundation, not just a scaffold.
+This checkpoint establishes the reusable shell, dark visual system, shared stores, backend API surface, and first-pass review workspace for the Node frontend while keeping all processing in Python.
+
+Bridge Status
+Backend online. Boundary: processing stays in Python
+
+Pipeline Snapshot
+
+274 / 274
+done
+Completion
+100%
+Processed
+274
+Remaining
+0
+Python logs
+1345
+System logs
+3
+Pipeline completed successfully.
+
+Session
+
+Load Review Session
+Open an existing audit CSV and image directory to enter the review workspace.
+
+CSV Path
+C:\photos\output\full_audit.csv
+Image Directory
+C:\photos\images
+Load Session
+Electron file picker later
+Pipeline
+
+Run And Monitor
+done
+Progress
+100%
+274 of 274
+Pipeline Snapshot
+
+274 / 274
+done
+Completion
+100%
+Processed
+274
+Remaining
+0
+Python logs
+1345
+System logs
+3
+Pipeline completed successfully.
+
+Pipeline completed. CSV ready at:
+
+F:\Disco2 PORTFOLIO\WebSIte\lr\gpurun17_03_0949.csv
+Load Session From Output
+Input directory
+F:\Disco2 PORTFOLIO\WebSIte\lr
+CSV output
+F:\Disco2 PORTFOLIO\WebSIte\lr\gpurun17_03_0949.csv
+Recursive
+Genre only
+Write XMP
+No cache
+Organize
+Dry run
+Min confidence
+0.55
+Workers
+1
+Extensions
+.jpg,.jpeg,.png,.webp,.tiff
+Run Pipeline
+Stop
+Python Pipeline Logs
+499 lines
+Copy All
+0: 640x480 2 persons, 13.3ms
+Speed: 2.8ms preprocess, 13.3ms inference, 2.2ms postprocess per image at shape (1, 3, 640, 480)
+[176/274]   Genre: Street Documentary (conf=0.95, status=auto)
+[176/274] Done test2024-176.jpg: Rating=3, Title='They are walking on the pavement with their skateboards in hand.' (1253ms)
+[177/274] Processing: test2024-177.jpg
+0: 640x480 (no detections), 12.2ms
+Speed: 2.0ms preprocess, 12.2ms inference, 2.0ms postprocess per image at shape (1, 3, 640, 480)
+[177/274]   Genre: Street Documentary (conf=0.55, status=review)
+[177/274] Done test2024-177.jpg: Rating=1, Title='There is a black and white photo of a chair in a garage.' (1189ms)
+[178/274] Processing: test2024-178.jpg
+0: 384x640 1 car, 12.1ms
+Speed: 1.8ms preprocess, 12.1ms inference, 4.5ms postprocess per image at shape (1, 3, 384, 640)
+[178/274]   Genre: Street Documentary (conf=0.77, status=review)
+[178/274] Done test2024-178.jpg: Rating=3, Title='There is a black and white photo of a truck driving down the road.' (1154ms)
+[179/274] Processing: test2024-179.jpg
+0: 640x480 (no detections), 13.6ms
+Speed: 2.9ms preprocess, 13.6ms inference, 1.7ms postprocess per image at shape (1, 3, 640, 480)
+[179/274]   Genre: Food & Product (conf=0.95, status=auto)
+[179/274] Done test2024-179.jpg: Rating=1, Title='There is a silver ring with a star design on it.' (1180ms)
+[180/274] Processing: test2024-180.jpg
+0: 512x640 (no detections), 12.0ms
+Speed: 3.1ms preprocess, 12.0ms inference, 1.2ms postprocess per image at shape (1, 3, 512, 640)
+[180/274]   Genre: Food & Product (conf=0.95, status=auto)
+[180/274] Done test2024-180.jpg: Rating=1, Title='There is a ring with a cross on it on a black surface.' (1199ms)
+[181/274] Processing: test2024-181.jpg
+0: 640x480 (no detections), 15.5ms
+Speed: 2.5ms preprocess, 15.5ms inference, 1.4ms postprocess per image at shape (1, 3, 640, 480)
+[181/274]   Genre: Food & Product (conf=0.95, status=auto)
+[181/274] Done test2024-181.jpg: Rating=1, Title='There is a silver chain that is laying on a black surface.' (1246ms)
+[182/274] Processing: test2024-182.jpg
+0: 512x640 (no detections), 13.3ms
+Speed: 3.0ms preprocess, 13.3ms inference, 1.5ms postprocess per image at shape (1, 3, 512, 640)
+[182/274]   Genre: Food & Product (conf=0.95, status=auto)
+[182/274] Done test2024-182.jpg: Rating=1, Title='There is a gold ring on a gold chain on a black surface.' (1255ms)
+[183/274] Processing: test2024-183.jpg
+0: 640x512 (no detections), 13.6ms
+Speed: 3.1ms preprocess, 13.6ms inference, 1.6ms postprocess per image at shape (1, 3, 640, 512)
+[183/274]   Genre: Food & Product (conf=0.95, status=auto)
+[183/274] Done test2024-183.jpg: Rating=1, Title='There is a ring that is sitting on top of a table.' (1181ms)
+[184/274] Processing: test2024-184.jpg
+0: 512x640 (no detections), 15.0ms
+Speed: 3.5ms preprocess, 15.0ms inference, 1.2ms postprocess per image at shape (1, 3, 512, 640)
+[184/274]   Genre: Food & Product (conf=0.95, status=auto)
+[184/274] Done test2024-184.jpg: Rating=1, Title='There is a bottle of alcohol and a ring on a table.' (1145ms)
+[185/274] Processing: test2024-185.jpg
+0: 640x480 (no detections), 13.9ms
+Speed: 2.6ms preprocess, 13.9ms inference, 1.5ms postprocess per image at shape (1, 3, 640, 480)
+[185/274]   Genre: Food & Product (conf=0.50, status=review)
+[185/274] Done test2024-185.jpg: Rating=2, Title='Two cans of beer sitting on a ledge in front of a city.' (1234ms)
+[186/274] Processing: test2024-186.jpg
+0: 640x512 1 toothbrush, 13.6ms
+Speed: 21.7ms preprocess, 13.6ms inference, 3.7ms postprocess per image at shape (1, 3, 640, 512)
+[186/274]   Genre: Food & Product (conf=0.95, status=auto)
+[186/274] Done test2024-186.jpg: Rating=2, Title='Someone is holding a can of beer in their hand near a cactus.' (1299ms)
+[187/274] Processing: test2024-187.jpg
+0: 640x480 (no detections), 12.7ms
+Speed: 2.0ms preprocess, 12.7ms inference, 1.6ms postprocess per image at shape (1, 3, 640, 480)
+[187/274]   Genre: Food & Product (conf=0.50, status=review)
+[187/274] Done test2024-187.jpg: Rating=1, Title='There is a person holding a can of soda near a cactus.' (1226ms)
+[188/274] Processing: test2024-188.jpg
+0: 640x512 (no detections), 15.2ms
+Speed: 2.6ms preprocess, 15.2ms inference, 1.3ms postprocess per image at shape (1, 3, 640, 512)
+[188/274]   Genre: Food & Product (conf=0.95, status=auto)
+[188/274] Done test2024-188.jpg: Rating=1, Title='There are two cans of beer sitting on a shelf.' (1141ms)
+[189/274] Processing: test2024-189.jpg
+0: 640x448 (no detections), 12.4ms
+Speed: 2.1ms preprocess, 12.4ms inference, 1.6ms postprocess per image at shape (1, 3, 640, 448)
+[189/274]   Genre: Food & Product (conf=0.50, status=review)
+[189/274] Done test2024-189.jpg: Rating=2, Title='Two cans of orange soda sitting on top of a lush green field.' (1208ms)
+[190/274] Processing: test2024-190.jpg
+0: 640x448 (no detections), 11.8ms
+Speed: 2.6ms preprocess, 11.8ms inference, 1.6ms postprocess per image at shape (1, 3, 640, 448)
+[190/274]   Genre: Food & Product (conf=0.95, status=auto)
+[190/274] Done test2024-190.jpg: Rating=1, Title='There are two cans of soda sitting next to each other.' (1142ms)
+[191/274] Processing: test2024-191.jpg
+0: 640x480 (no detections), 16.2ms
+Speed: 2.2ms preprocess, 16.2ms inference, 1.6ms postprocess per image at shape (1, 3, 640, 480)
+[191/274]   Genre: Food & Product (conf=0.95, status=auto)
+[191/274] Done test2024-191.jpg: Rating=1, Title='There is a can of mango juice sitting on a table.' (1265ms)
+[192/274] Processing: test2024-192.jpg
+0: 512x640 1 bottle, 12.6ms
+Speed: 2.4ms preprocess, 12.6ms inference, 4.3ms postprocess per image at shape (1, 3, 512, 640)
+[192/274]   Genre: Food & Product (conf=0.95, status=auto)
+[192/274] Done test2024-192.jpg: Rating=2, Title='There is a can of beer and a pair of scissors on a table.' (1305ms)
+[193/274] Processing: test2024-193.jpg
+0: 640x512 (no detections), 12.3ms
+Speed: 2.1ms preprocess, 12.3ms inference, 1.6ms postprocess per image at shape (1, 3, 640, 512)
+[193/274]   Genre: Food & Product (conf=0.95, status=auto)
+[193/274] Done test2024-193.jpg: Rating=1, Title='There is a close up of a bicycle handlebar with a can of soda.' (1382ms)
+[194/274] Processing: test2024-194.jpg
+0: 448x640 (no detections), 14.5ms
+Speed: 2.9ms preprocess, 14.5ms inference, 1.3ms postprocess per image at shape (1, 3, 448, 640)
+[194/274]   Genre: Food & Product (conf=0.95, status=auto)
+[194/274] Done test2024-194.jpg: Rating=1, Title='Several cans of beer are lined up in a row on a table.' (1255ms)
+[195/274] Processing: test2024-195.jpg
+0: 640x480 (no detections), 15.2ms
+Speed: 2.9ms preprocess, 15.2ms inference, 1.5ms postprocess per image at shape (1, 3, 640, 480)
+[195/274]   Genre: Food & Product (conf=0.95, status=auto)
+[195/274] Done test2024-195.jpg: Rating=1, Title='There are three skateboards that are lined up on a table.' (1254ms)
+[196/274] Processing: test2024-196.jpg
+0: 640x512 (no detections), 13.9ms
+Speed: 3.4ms preprocess, 13.9ms inference, 1.5ms postprocess per image at shape (1, 3, 640, 512)
+[196/274]   Genre: Food & Product (conf=0.50, status=review)
+[196/274] Done test2024-196.jpg: Rating=1, Title='Several cans of soda sitting on top of a lush green field.' (1362ms)
+[197/274] Processing: test2024-197.jpg
+0: 640x448 1 person, 13.5ms
+Speed: 1.9ms preprocess, 13.5ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 448)
+[197/274]   Genre: Food & Product (conf=0.50, status=title-inferred)
+[197/274] Done test2024-197.jpg: Rating=1, Title='There is a person holding a can of soda in front of an oven.' (1237ms)
+[198/274] Processing: test2024-198.jpg
+0: 640x480 1 person, 13.1ms
+Speed: 2.6ms preprocess, 13.1ms inference, 2.5ms postprocess per image at shape (1, 3, 640, 480)
+[198/274]   Genre: Food & Product (conf=0.95, status=auto)
+[198/274] Done test2024-198.jpg: Rating=2, Title='Someone holding a can of beer in their hand in a dark room.' (1165ms)
+[199/274] Processing: test2024-199.jpg
+0: 640x448 (no detections), 13.3ms
+Speed: 2.7ms preprocess, 13.3ms inference, 2.0ms postprocess per image at shape (1, 3, 640, 448)
+[199/274]   Genre: Food & Product (conf=0.95, status=auto)
+[199/274] Done test2024-199.jpg: Rating=1, Title='Several cans of drinks are lined up on a shelf.' (1090ms)
+[200/274] Processing: test2024-200.jpg
+0: 640x480 1 person, 13.2ms
+Speed: 2.8ms preprocess, 13.2ms inference, 2.4ms postprocess per image at shape (1, 3, 640, 480)
+[200/274]   Genre: Food & Product (conf=0.50, status=review)
+[200/274] Done test2024-200.jpg: Rating=2, Title='There is a person holding a can of beer in a refrigerator.' (1210ms)
+[201/274] Processing: test2024-201.jpg
+0: 640x512 1 book, 12.6ms
+Speed: 4.2ms preprocess, 12.6ms inference, 2.4ms postprocess per image at shape (1, 3, 640, 512)
+[201/274]   Genre: Food & Product (conf=0.95, status=auto)
+[201/274] Done test2024-201.jpg: Rating=3, Title='Three cans of marijuana are lined up on a shelf.' (1258ms)
+[202/274] Processing: test2024-202.jpg
+0: 640x480 (no detections), 12.4ms
+Speed: 2.0ms preprocess, 12.4ms inference, 1.7ms postprocess per image at shape (1, 3, 640, 480)
+[202/274]   Genre: Food & Product (conf=0.95, status=auto)
+[202/274] Done test2024-202.jpg: Rating=2, Title='Several cans of beer are sitting on a bed of green grass.' (1253ms)
+[203/274] Processing: test2024-203.jpg
+0: 640x448 1 person, 12.5ms
+Speed: 2.6ms preprocess, 12.5ms inference, 3.6ms postprocess per image at shape (1, 3, 640, 448)
+[203/274]   Genre: Food & Product (conf=0.95, status=auto)
+[203/274] Done test2024-203.jpg: Rating=2, Title='Someone is holding a can of beer in their hand on a couch.' (1252ms)
+[204/274] Processing: test2024-204.jpg
+0: 640x480 2 persons, 16.2ms
+Speed: 2.2ms preprocess, 16.2ms inference, 2.2ms postprocess per image at shape (1, 3, 640, 480)
+[204/274]   Genre: Food & Product (conf=0.95, status=auto)
+[204/274] Done test2024-204.jpg: Rating=3, Title='Smiling woman sitting at a table holding a can of soda.' (1168ms)
+[205/274] Processing: test2024-205.jpg
+0: 640x512 (no detections), 13.3ms
+Speed: 3.5ms preprocess, 13.3ms inference, 1.5ms postprocess per image at shape (1, 3, 640, 512)
+[205/274]   Genre: Food & Product (conf=0.95, status=auto)
+[205/274] Done test2024-205.jpg: Rating=2, Title='Someone is holding two cans of beer in their hands.' (1203ms)
+[206/274] Processing: test2024-206.jpg
+0: 640x480 1 orange, 13.9ms
+Speed: 2.6ms preprocess, 13.9ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 480)
+[206/274]   Genre: Food & Product (conf=0.95, status=auto)
+[206/274] Done test2024-206.jpg: Rating=2, Title='There is a can of orange juice sitting next to some oranges.' (1286ms)
+[207/274] Processing: test2024-207.jpg
+0: 640x480 4 oranges, 14.8ms
+Speed: 2.5ms preprocess, 14.8ms inference, 2.6ms postprocess per image at shape (1, 3, 640, 480)
+[207/274]   Genre: Food & Product (conf=0.67, status=review)
+[207/274] Done test2024-207.jpg: Rating=3, Title='There is a can of orange juice being held by a person.' (1245ms)
+[208/274] Processing: test2024-208.jpg
+0: 640x512 1 person, 13.3ms
+Speed: 2.6ms preprocess, 13.3ms inference, 2.9ms postprocess per image at shape (1, 3, 640, 512)
+[208/274]   Genre: Food & Product (conf=0.95, status=auto)
+[208/274] Done test2024-208.jpg: Rating=2, Title='Someone is holding a can of soda in front of a brick wall.' (1264ms)
+[209/274] Processing: test2024-209.jpg
+0: 640x512 2 persons, 11.7ms
+Speed: 2.4ms preprocess, 11.7ms inference, 2.4ms postprocess per image at shape (1, 3, 640, 512)
+[209/274]   Genre: Food & Product (conf=0.95, status=auto)
+[209/274] Done test2024-209.jpg: Rating=3, Title='There are two people sitting on a bench and one is holding a can.' (1298ms)
+[210/274] Processing: test2024-210.jpg
+0: 640x480 1 person, 12.7ms
+Speed: 2.0ms preprocess, 12.7ms inference, 4.7ms postprocess per image at shape (1, 3, 640, 480)
+[210/274]   Genre: Food & Product (conf=0.95, status=auto)
+[210/274] Done test2024-210.jpg: Rating=2, Title='There is a man and a woman sitting next to each other holding a can of beer.' (1359ms)
+[211/274] Processing: test2024-211.jpg
+0: 640x448 2 persons, 14.5ms
+Speed: 22.6ms preprocess, 14.5ms inference, 3.0ms postprocess per image at shape (1, 3, 640, 448)
+[211/274]   Genre: Food & Product (conf=0.95, status=auto)
+[211/274] Done test2024-211.jpg: Rating=4, Title='There is a man sitting on a bench holding a can of soda.' (1183ms)
+[212/274] Processing: test2024-212.jpg
+0: 640x480 1 person, 13.6ms
+Speed: 3.2ms preprocess, 13.6ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 480)
+[212/274]   Genre: Street Documentary (conf=0.50, status=review)
+[212/274] Done test2024-212.jpg: Rating=3, Title='Someone is holding a can of beer in their hand on the sidewalk.' (1237ms)
+[213/274] Processing: test2024-213.jpg
+0: 640x512 2 persons, 13.6ms
+Speed: 2.8ms preprocess, 13.6ms inference, 4.9ms postprocess per image at shape (1, 3, 640, 512)
+[213/274]   Genre: Food & Product (conf=0.95, status=auto)
+[213/274] Done test2024-213.jpg: Rating=3, Title='There are two people holding a can of beer and laughing.' (1233ms)
+[214/274] Processing: test2024-214.jpg
+0: 640x480 2 persons, 12.7ms
+Speed: 2.9ms preprocess, 12.7ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 480)
+[214/274]   Genre: Food & Product (conf=0.95, status=auto)
+[214/274] Done test2024-214.jpg: Rating=4, Title='There are two cans of soda sitting on a ledge.' (1167ms)
+[215/274] Processing: test2024-215.jpg
+0: 640x512 2 persons, 13.9ms
+Speed: 3.9ms preprocess, 13.9ms inference, 3.8ms postprocess per image at shape (1, 3, 640, 512)
+[215/274]   Genre: Street Documentary (conf=0.50, status=review)
+[215/274] Done test2024-215.jpg: Rating=3, Title='Someone holding two cans of beer in their hands on a sidewalk.' (1311ms)
+[216/274] Processing: test2024-216.jpg
+0: 448x640 1 bottle, 14.9ms
+Speed: 2.5ms preprocess, 14.9ms inference, 2.2ms postprocess per image at shape (1, 3, 448, 640)
+[216/274]   Genre: Food & Product (conf=0.95, status=auto)
+[216/274] Done test2024-216.jpg: Rating=1, Title='There is a close up of a sound board with a laptop in the background.' (1323ms)
+[217/274] Processing: test2024-217.jpg
+0: 640x448 (no detections), 12.7ms
+Speed: 2.4ms preprocess, 12.7ms inference, 1.8ms postprocess per image at shape (1, 3, 640, 448)
+[217/274]   Genre: Events & Music (conf=0.95, status=auto)
+[217/274] Done test2024-217.jpg: Rating=1, Title='There is a close up of a keyboard and some microphones.' (1232ms)
+[218/274] Processing: test2024-218.jpg
+0: 448x640 2 persons, 13.1ms
+Speed: 2.0ms preprocess, 13.1ms inference, 5.2ms postprocess per image at shape (1, 3, 448, 640)
+[218/274]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[218/274] Done test2024-218.jpg: Rating=4, Title='There is a man and a woman holding hands in a field.' (1212ms)
+[219/274] Processing: test2024-219.jpg
+0: 448x640 2 persons, 15.1ms
+Speed: 4.0ms preprocess, 15.1ms inference, 2.6ms postprocess per image at shape (1, 3, 448, 640)
+[219/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[219/274] Done test2024-219.jpg: Rating=3, Title='Bride and groom looking at each other in a forest setting.' (1245ms)
+[220/274] Processing: test2024-220.jpg
+0: 512x640 2 persons, 1 dining table, 14.7ms
+Speed: 3.0ms preprocess, 14.7ms inference, 2.9ms postprocess per image at shape (1, 3, 512, 640)
+[220/274]   Genre: Food & Product (conf=0.95, status=auto)
+[220/274] Done test2024-220.jpg: Rating=3, Title='There is a man and a woman standing next to a car.' (1474ms)
+[221/274] Processing: test2024-221.jpg
+0: 640x480 1 truck, 15.5ms
+Speed: 3.5ms preprocess, 15.5ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 480)
+[221/274]   Genre: Wedding Photography (conf=0.84, status=auto)
+[221/274] Done test2024-221.jpg: Rating=2, Title='There is a bride sitting in a red sports car with a bouquet.' (1342ms)
+[222/274] Processing: test2024-222.jpg
+0: 480x640 1 person, 14.2ms
+Speed: 3.1ms preprocess, 14.2ms inference, 3.2ms postprocess per image at shape (1, 3, 480, 640)
+[222/274]   Genre: Branding & Portrait (conf=0.53, status=review)
+[222/274] Done test2024-222.jpg: Rating=2, Title='There is a man and a woman sitting in a red convertible car.' (1321ms)
+[223/274] Processing: test2024-223.jpg
+0: 448x640 1 person, 14.8ms
+Speed: 2.2ms preprocess, 14.8ms inference, 3.2ms postprocess per image at shape (1, 3, 448, 640)
+[223/274]   Genre: Branding & Portrait (conf=0.59, status=review)
+[223/274] Done test2024-223.jpg: Rating=2, Title='There is a man and a woman kissing in a car.' (1145ms)
+[224/274] Processing: test2024-224.jpg
+0: 640x480 1 dog, 13.7ms
+Speed: 1.9ms preprocess, 13.7ms inference, 2.4ms postprocess per image at shape (1, 3, 640, 480)
+[224/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[224/274] Done test2024-224.jpg: Rating=2, Title='Bride and groom kissing in the back of a red convertible car.' (1168ms)
+[225/274] Processing: test2024-225.jpg
+0: 640x448 2 persons, 1 dog, 12.0ms
+Speed: 2.4ms preprocess, 12.0ms inference, 2.6ms postprocess per image at shape (1, 3, 640, 448)
+[225/274]   Genre: Branding & Portrait (conf=0.91, status=auto)
+[225/274] Done test2024-225.jpg: Rating=4, Title='There is a man and a woman posing for a picture with a dog.' (1256ms)
+[226/274] Processing: test2024-226.jpg
+0: 448x640 2 persons, 1 dog, 14.7ms
+Speed: 2.4ms preprocess, 14.7ms inference, 4.5ms postprocess per image at shape (1, 3, 448, 640)
+[226/274]   Genre: Branding & Portrait (conf=0.87, status=auto)
+[226/274] Done test2024-226.jpg: Rating=3, Title='There is a man and woman posing with a dog in the woods.' (1239ms)
+[227/274] Processing: test2024-227.jpg
+0: 640x480 2 persons, 1 dog, 12.9ms
+Speed: 2.0ms preprocess, 12.9ms inference, 4.5ms postprocess per image at shape (1, 3, 640, 480)
+[227/274]   Genre: Branding & Portrait (conf=0.86, status=auto)
+[227/274] Done test2024-227.jpg: Rating=4, Title='There is a man and a woman sitting next to a dog.' (1267ms)
+[228/274] Processing: test2024-228.jpg
+0: 640x448 2 persons, 13.8ms
+Speed: 3.1ms preprocess, 13.8ms inference, 2.5ms postprocess per image at shape (1, 3, 640, 448)
+[228/274]   Genre: Branding & Portrait (conf=0.74, status=review)
+[228/274] Done test2024-228.jpg: Rating=3, Title='There is a man and a woman walking a dog on a leash.' (1222ms)
+[229/274] Processing: test2024-229.jpg
+0: 448x640 2 persons, 13.9ms
+Speed: 2.5ms preprocess, 13.9ms inference, 2.6ms postprocess per image at shape (1, 3, 448, 640)
+[229/274]   Genre: Branding & Portrait (conf=0.95, status=auto)
+[229/274] Done test2024-229.jpg: Rating=3, Title='There is a man and a woman that are smiling together.' (1132ms)
+[230/274] Processing: test2024-230.jpg
+0: 640x448 (no detections), 12.7ms
+Speed: 2.3ms preprocess, 12.7ms inference, 1.5ms postprocess per image at shape (1, 3, 640, 448)
+[230/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[230/274] Done test2024-230.jpg: Rating=1, Title='There are two people holding hands with a veil over their shoulders.' (1174ms)
+[231/274] Processing: test2024-231.jpg
+0: 384x640 13 persons, 1 tie, 13.7ms
+Speed: 2.1ms preprocess, 13.7ms inference, 5.1ms postprocess per image at shape (1, 3, 384, 640)
+[231/274]   Genre: Other Photography (conf=0.46, status=review)
+[231/274] Done test2024-231.jpg: Rating=4, Title='There are many people and a dog posing for a picture.' (1040ms)
+[232/274] Processing: test2024-232.jpg
+0: 384x640 6 persons, 1 tie, 13.6ms
+Speed: 2.4ms preprocess, 13.6ms inference, 3.7ms postprocess per image at shape (1, 3, 384, 640)
+[232/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[232/274] Done test2024-232.jpg: Rating=4, Title='Bride and groom posing with their family in front of a stone wall.' (1117ms)
+[233/274] Processing: test2024-233.jpg
+0: 448x640 6 persons, 1 tie, 17.1ms
+Speed: 2.8ms preprocess, 17.1ms inference, 3.6ms postprocess per image at shape (1, 3, 448, 640)
+[233/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[233/274] Done test2024-233.jpg: Rating=4, Title='Bride and groomsmen standing in front of a group of people.' (1226ms)
+[234/274] Processing: test2024-234.jpg
+0: 512x640 4 persons, 1 dog, 1 tie, 14.1ms
+Speed: 3.1ms preprocess, 14.1ms inference, 3.5ms postprocess per image at shape (1, 3, 512, 640)
+[234/274]   Genre: Branding & Portrait (conf=0.75, status=review)
+[234/274] Done test2024-234.jpg: Rating=4, Title='There are three men and a dog posing for a picture.' (1227ms)
+[235/274] Processing: test2024-235.jpg
+0: 384x640 8 persons, 13.2ms
+Speed: 2.9ms preprocess, 13.2ms inference, 4.6ms postprocess per image at shape (1, 3, 384, 640)
+[235/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[235/274] Done test2024-235.jpg: Rating=4, Title='Bride and grooms holding hands with a dog in front of their wedding party.' (1226ms)
+[236/274] Processing: test2024-236.jpg
+0: 512x640 6 persons, 1 dog, 2 ties, 13.3ms
+Speed: 18.9ms preprocess, 13.3ms inference, 3.4ms postprocess per image at shape (1, 3, 512, 640)
+[236/274]   Genre: Branding & Portrait (conf=0.68, status=review)
+[236/274] Done test2024-236.jpg: Rating=4, Title='There is a group of men in suits and ties posing for a picture.' (1404ms)
+[237/274] Processing: test2024-237.jpg
+0: 384x640 7 persons, 14.2ms
+Speed: 5.3ms preprocess, 14.2ms inference, 4.2ms postprocess per image at shape (1, 3, 384, 640)
+[237/274]   Genre: Branding & Portrait (conf=0.56, status=review)
+[237/274] Done test2024-237.jpg: Rating=4, Title='There are a lot of women that are standing together in dresses.' (1114ms)
+[238/274] Processing: test2024-238.jpg
+0: 512x640 2 persons, 11.8ms
+Speed: 2.6ms preprocess, 11.8ms inference, 4.6ms postprocess per image at shape (1, 3, 512, 640)
+[238/274]   Genre: Nature & Landscape (conf=0.94, status=auto)
+[238/274] Done test2024-238.jpg: Rating=4, Title='There are two women standing next to each other in a field.' (1282ms)
+[239/274] Processing: test2024-239.jpg
+0: 512x640 2 persons, 2 ties, 12.1ms
+Speed: 2.4ms preprocess, 12.1ms inference, 4.2ms postprocess per image at shape (1, 3, 512, 640)
+[239/274]   Genre: Branding & Portrait (conf=0.88, status=auto)
+[239/274] Done test2024-239.jpg: Rating=3, Title='There are two men in suits standing next to each other.' (1231ms)
+[240/274] Processing: test2024-240.jpg
+0: 640x480 4 persons, 1 dog, 1 chair, 13.9ms
+Speed: 2.0ms preprocess, 13.9ms inference, 4.1ms postprocess per image at shape (1, 3, 640, 480)
+[240/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[240/274] Done test2024-240.jpg: Rating=4, Title='Bride and groom walking with dog in field with wedding party.' (1188ms)
+[241/274] Processing: test2024-241.jpg
+0: 640x448 3 persons, 13.8ms
+Speed: 2.9ms preprocess, 13.8ms inference, 4.7ms postprocess per image at shape (1, 3, 640, 448)
+[241/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[241/274] Done test2024-241.jpg: Rating=4, Title='Bride and groom sitting on a bench in a park with trees.' (1144ms)
+[242/274] Processing: test2024-242.jpg
+0: 640x512 2 persons, 1 tie, 15.1ms
+Speed: 2.7ms preprocess, 15.1ms inference, 3.6ms postprocess per image at shape (1, 3, 640, 512)
+[242/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[242/274] Done test2024-242.jpg: Rating=3, Title='There is a man in a suit and tie giving a speech.' (1320ms)
+[243/274] Processing: test2024-243.jpg
+0: 640x448 1 person, 14.7ms
+Speed: 2.8ms preprocess, 14.7ms inference, 4.4ms postprocess per image at shape (1, 3, 640, 448)
+[243/274]   Genre: Events & Music (conf=0.95, status=auto)
+[243/274] Done test2024-243.jpg: Rating=2, Title='There is a woman that is holding a microphone in her hand.' (1275ms)
+[244/274] Processing: test2024-244.jpg
+0: 640x480 1 pizza, 14.1ms
+Speed: 2.4ms preprocess, 14.1ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 480)
+[244/274]   Genre: Food & Product (conf=0.67, status=review)
+[244/274] Done test2024-244.jpg: Rating=2, Title='There is a glass jar with some flowers in it on a plate.' (1348ms)
+[245/274] Processing: test2024-245.jpg
+0: 448x640 3 persons, 16.2ms
+Speed: 3.2ms preprocess, 16.2ms inference, 5.5ms postprocess per image at shape (1, 3, 448, 640)
+[245/274]   Genre: Events & Music (conf=0.82, status=auto)
+[245/274] Done test2024-245.jpg: Rating=4, Title='There is a woman looking at a picture on a mirror.' (1185ms)
+[246/274] Processing: test2024-246.jpg
+0: 448x640 1 cup, 1 sandwich, 1 dining table, 12.2ms
+Speed: 2.5ms preprocess, 12.2ms inference, 2.8ms postprocess per image at shape (1, 3, 448, 640)
+[246/274]   Genre: Food & Product (conf=0.95, status=auto)
+[246/274] Done test2024-246.jpg: Rating=3, Title='There is a table with a plate and a plate with a sign on it.' (1319ms)
+[247/274] Processing: test2024-247.jpg
+0: 640x448 4 persons, 2 cars, 3 chairs, 14.6ms
+Speed: 2.6ms preprocess, 14.6ms inference, 4.3ms postprocess per image at shape (1, 3, 640, 448)
+[247/274]   Genre: Street Documentary (conf=0.76, status=review)
+[247/274] Done test2024-247.jpg: Rating=3, Title='There is a man that is standing in front of a group of people.' (1256ms)
+[248/274] Processing: test2024-248.jpg
+0: 512x640 3 persons, 12.6ms
+Speed: 2.3ms preprocess, 12.6ms inference, 4.5ms postprocess per image at shape (1, 3, 512, 640)
+[248/274]   Genre: Food & Product (conf=0.91, status=auto)
+[248/274] Done test2024-248.jpg: Rating=3, Title='There is a person pouring something into a glass on a table.' (1227ms)
+[249/274] Processing: test2024-249.jpg
+0: 640x480 1 person, 12.6ms
+Speed: 3.6ms preprocess, 12.6ms inference, 3.9ms postprocess per image at shape (1, 3, 640, 480)
+[249/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[249/274] Done test2024-249.jpg: Rating=2, Title='Bride and groom sharing a kiss in front of a stone wall.' (1230ms)
+[250/274] Processing: test2024-250.jpg
+0: 640x448 2 persons, 1 wine glass, 1 bowl, 13.3ms
+Speed: 1.9ms preprocess, 13.3ms inference, 4.7ms postprocess per image at shape (1, 3, 640, 448)
+[250/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[250/274] Done test2024-250.jpg: Rating=3, Title='Bride and groom kissing at a wedding reception in a cave.' (1177ms)
+[251/274] Processing: test2024-251.jpg
+0: 448x640 (no detections), 13.1ms
+Speed: 3.1ms preprocess, 13.1ms inference, 1.9ms postprocess per image at shape (1, 3, 448, 640)
+[251/274]   Genre: Events & Music (conf=0.77, status=review)
+[251/274] Done test2024-251.jpg: Rating=1, Title='There is a sign that says, ' bianpennies are a missod load '.' (1450ms)
+[252/274] Processing: test2024-252.jpg
+0: 640x448 3 wine glasss, 1 cup, 15.6ms
+Speed: 2.4ms preprocess, 15.6ms inference, 3.6ms postprocess per image at shape (1, 3, 640, 448)
+[252/274]   Genre: Food & Product (conf=0.95, status=auto)
+[252/274] Done test2024-252.jpg: Rating=3, Title='There is a woman pouring a glass of wine into a wine glass.' (1256ms)
+[253/274] Processing: test2024-253.jpg
+0: 448x640 5 persons, 1 wine glass, 13.7ms
+Speed: 3.0ms preprocess, 13.7ms inference, 4.5ms postprocess per image at shape (1, 3, 448, 640)
+[253/274]   Genre: Events & Music (conf=0.61, status=review)
+[253/274] Done test2024-253.jpg: Rating=4, Title='Several people standing around a table with wine glasses in their hands.' (1124ms)
+[254/274] Processing: test2024-254.jpg
+0: 512x640 2 persons, 12.1ms
+Speed: 3.2ms preprocess, 12.1ms inference, 4.0ms postprocess per image at shape (1, 3, 512, 640)
+[254/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[254/274] Done test2024-254.jpg: Rating=3, Title='Bride and groom in matching black jackets standing next to each other.' (1109ms)
+[255/274] Processing: test2024-255.jpg
+0: 640x448 2 persons, 11.6ms
+Speed: 1.7ms preprocess, 11.6ms inference, 2.7ms postprocess per image at shape (1, 3, 640, 448)
+[255/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[255/274] Done test2024-255.jpg: Rating=3, Title='Bride and groom kissing in the woods with their hands wrapped in plastic.' (1178ms)
+[256/274] Processing: test2024-256.jpg
+0: 640x448 2 persons, 10.3ms
+Speed: 2.0ms preprocess, 10.3ms inference, 4.0ms postprocess per image at shape (1, 3, 640, 448)
+[256/274]   Genre: Branding & Portrait (conf=0.61, status=review)
+[256/274] Done test2024-256.jpg: Rating=1, Title='There are two people standing next to each other in the dark.' (1112ms)
+[257/274] Processing: test2024-257.jpg
+0: 448x640 2 persons, 11.4ms
+Speed: 1.9ms preprocess, 11.4ms inference, 4.3ms postprocess per image at shape (1, 3, 448, 640)
+[257/274]   Genre: Wedding Photography (conf=0.95, status=auto)
+[257/274] Done test2024-257.jpg: Rating=3, Title='Bride and groom sitting on a couch in front of a stone wall.' (1120ms)
+[258/274] Processing: test2024-258.jpg
+0: 448x640 2 persons, 11.3ms
+Speed: 1.8ms preprocess, 11.3ms inference, 3.7ms postprocess per image at shape (1, 3, 448, 640)
+[258/274]   Genre: Other Photography (conf=0.42, status=review)
+[258/274] Done test2024-258.jpg: Rating=3, Title='There are two people sitting on a couch with a glass of wine.' (1158ms)
+[259/274] Processing: test2024-259.jpg
+0: 448x640 1 person, 13.1ms
+Speed: 2.6ms preprocess, 13.1ms inference, 4.9ms postprocess per image at shape (1, 3, 448, 640)
+[259/274]   Genre: Events & Music (conf=0.95, status=auto)
+[259/274] Done test2024-259.jpg: Rating=1, Title='There is a man and a woman hugging in a room with confetti.' (1235ms)
+[260/274] Processing: test2024-260.jpg
+0: 448x640 2 persons, 13.1ms
+Speed: 2.1ms preprocess, 13.1ms inference, 2.1ms postprocess per image at shape (1, 3, 448, 640)
+[260/274]   Genre: Events & Music (conf=0.93, status=auto)
+[260/274] Done test2024-260.jpg: Rating=1, Title='There is a man and woman that are dancing together in the dark.' (1108ms)
+[261/274] Processing: test2024-261.jpg
+0: 512x640 2 persons, 16.0ms
+Speed: 30.1ms preprocess, 16.0ms inference, 4.1ms postprocess per image at shape (1, 3, 512, 640)
+[261/274]   Genre: Events & Music (conf=0.90, status=auto)
+[261/274] Done test2024-261.jpg: Rating=1, Title='There are two people standing next to each other in front of a curtain.' (1340ms)
+[262/274] Processing: test2024-262.jpg
+0: 448x640 (no detections), 16.4ms
+Speed: 2.5ms preprocess, 16.4ms inference, 2.0ms postprocess per image at shape (1, 3, 448, 640)
+[262/274]   Genre: Events & Music (conf=0.89, status=auto)
+[262/274] Done test2024-262.jpg: Rating=2, Title='There is a man that is holding a bunch of balloons.' (1141ms)
+[263/274] Processing: test2024-263.jpg
+0: 448x640 2 persons, 12.2ms
+Speed: 1.9ms preprocess, 12.2ms inference, 5.7ms postprocess per image at shape (1, 3, 448, 640)
+[263/274]   Genre: Events & Music (conf=0.95, status=auto)
+[263/274] Done test2024-263.jpg: Rating=1, Title='There are many people in suits and ties are holding up a man.' (1153ms)
+[264/274] Processing: test2024-264.jpg
+0: 448x640 2 persons, 12.2ms
+Speed: 2.1ms preprocess, 12.2ms inference, 2.5ms postprocess per image at shape (1, 3, 448, 640)
+[264/274]   Genre: Branding & Portrait (conf=0.43, status=review)
+[264/274] Done test2024-264.jpg: Rating=4, Title='There is a man that is cutting a piece of paper with scissors.' (1139ms)
+[265/274] Processing: test2024-265.jpg
+0: 512x640 (no detections), 12.7ms
+Speed: 2.1ms preprocess, 12.7ms inference, 1.5ms postprocess per image at shape (1, 3, 512, 640)
+[265/274]   Genre: Food & Product (conf=0.95, status=auto)
+[265/274] Done test2024-265.jpg: Rating=2, Title='There are many cans of marijuana are lined up on a shelf.' (1134ms)
+[266/274] Processing: test2024-266.jpg
+0: 448x640 (no detections), 13.2ms
+Speed: 2.1ms preprocess, 13.2ms inference, 1.3ms postprocess per image at shape (1, 3, 448, 640)
+[266/274]   Genre: Food & Product (conf=0.50, status=review)
+[266/274] Done test2024-266.jpg: Rating=1, Title='There is a person reaching for a bottle of orange juice in a refrigerator.' (1202ms)
+[267/274] Processing: test2024-267.jpg
+0: 448x640 2 oranges, 12.4ms
+Speed: 1.9ms preprocess, 12.4ms inference, 4.6ms postprocess per image at shape (1, 3, 448, 640)
+[267/274]   Genre: Food & Product (conf=0.95, status=auto)
+[267/274] Done test2024-267.jpg: Rating=4, Title='There are two oranges and two cans of drink in a refrigerator.' (1133ms)
+[268/274] Processing: test2024-268.jpg
+0: 640x512 2 birds, 12.5ms
+Speed: 2.8ms preprocess, 12.5ms inference, 3.7ms postprocess per image at shape (1, 3, 640, 512)
+[268/274]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[268/274] Done test2024-268.jpg: Rating=3, Title='There are two birds that are flying in the sky over the beach.' (1349ms)
+[269/274] Processing: test2024-269.jpg
+0: 512x640 1 bird, 14.9ms
+Speed: 2.6ms preprocess, 14.9ms inference, 5.7ms postprocess per image at shape (1, 3, 512, 640)
+[269/274]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[269/274] Done test2024-269.jpg: Rating=2, Title='There is a large bird that is flying in the sky.' (1206ms)
+[270/274] Processing: test2024-270.jpg
+0: 640x512 (no detections), 14.0ms
+Speed: 3.7ms preprocess, 14.0ms inference, 2.6ms postprocess per image at shape (1, 3, 640, 512)
+[270/274]   Genre: Food & Product (conf=0.50, status=review)
+[270/274] Done test2024-270.jpg: Rating=2, Title='There is a can of hammers on the beach with a blue sky in the background.' (1365ms)
+[271/274] Processing: test2024-271.jpg
+0: 640x512 1 bird, 11.8ms
+Speed: 2.4ms preprocess, 11.8ms inference, 2.4ms postprocess per image at shape (1, 3, 640, 512)
+[271/274]   Genre: Food & Product (conf=0.50, status=review)
+[271/274] Done test2024-271.jpg: Rating=3, Title='There is a can of soda sitting on the sand by the water.' (1204ms)
+[272/274] Processing: test2024-272.jpg
+0: 384x640 1 sheep, 12.5ms
+Speed: 1.6ms preprocess, 12.5ms inference, 5.0ms postprocess per image at shape (1, 3, 384, 640)
+[272/274]   Genre: Food & Product (conf=0.50, status=review)
+[272/274] Done test2024-272.jpg: Rating=3, Title='There is a can of soda sitting on the sand by the water.' (1103ms)
+[273/274] Processing: test2024-273.jpg
+0: 640x512 (no detections), 12.5ms
+Speed: 2.8ms preprocess, 12.5ms inference, 0.6ms postprocess per image at shape (1, 3, 640, 512)
+[273/274]   Genre: Branding & Portrait (conf=0.43, status=review)
+[273/274] Done test2024-273.jpg: Rating=1, Title='There is a red and white cup that is in the sand.' (1218ms)
+[274/274] Processing: test2024-274.jpg
+0: 640x480 3 persons, 15.3ms
+Speed: 2.6ms preprocess, 15.3ms inference, 5.3ms postprocess per image at shape (1, 3, 640, 480)
+[274/274]   Genre: Nature & Landscape (conf=0.95, status=auto)
+[274/274] Done test2024-274.jpg: Rating=3, Title='There are two people walking on the beach holding hands.' (1066ms)
+Cache: 13 hits, 261 misses
+============================================================
+Batch complete: 274 images in 322.9s (1.18s/image avg)
+============================================================
+Audit CSV written to: F:\Disco2 PORTFOLIO\WebSIte\lr\gpurun17_03_0949.csv
+System And Lifecycle Logs
+1 lines
+Copy All
+Python process exited with code 0.
+Queue
+
+Review Dashboard
+Total
+
+0
+Review
+
+0
+Corrected
+
+0
+Auto 0
+Title inferred 0
+Filters
+Search
+filename, caption
+Genre
+
+All
+Status
+
+All
+Max confidence
+
+100%
+Review-first view later
+Low confidence now: 0
+Review queue now: 0
+Corrected now: 0
+Queue Grid
+Load a review session to populate the queue.
+Organize
+
+Preview Surface
+Load a session and request organize preview to inspect the current dry run output.
+Explicar

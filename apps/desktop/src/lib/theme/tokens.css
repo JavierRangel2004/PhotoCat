@@ -1,0 +1,150 @@
+/* ── PhotoCat Design Tokens v2 ────────────────────────────────────── */
+
+:root {
+  color-scheme: dark;
+
+  /* ── Surfaces ─────────────────────────────────────────────────── */
+  --pc-bg:              #0B0F1A;
+  --pc-bg-elevated:     #111827;
+  --pc-surface:         #1F2937;
+  --pc-surface-strong:  #1E293B;
+  --pc-surface-soft:    rgba(30, 41, 59, 0.6);
+  --pc-surface-glass:   rgba(17, 24, 39, 0.92);
+
+  /* ── Borders ──────────────────────────────────────────────────── */
+  --pc-border:          rgba(148, 163, 184, 0.12);
+  --pc-border-strong:   rgba(148, 163, 184, 0.22);
+
+  /* ── Text ─────────────────────────────────────────────────────── */
+  --pc-text:            #F1F5F9;
+  --pc-text-muted:      #94A3B8;
+  --pc-text-soft:       #CBD5E1;
+
+  /* ── Accent / Brand ───────────────────────────────────────────── */
+  --pc-primary:         #14B8A6;
+  --pc-primary-strong:  #0D9488;
+  --pc-primary-glow:    rgba(20, 184, 166, 0.15);
+  --pc-secondary:       #6366F1;
+
+  /* ── Semantic ─────────────────────────────────────────────────── */
+  --pc-success:         #22C55E;
+  --pc-warning:         #F59E0B;
+  --pc-danger:          #EF4444;
+
+  /* ── Shadows & Glows ──────────────────────────────────────────── */
+  --pc-shadow:          0 8px 32px rgba(0, 0, 0, 0.35);
+  --pc-shadow-soft:     0 4px 16px rgba(0, 0, 0, 0.2);
+  --pc-glow:            0 0 0 1px rgba(20, 184, 166, 0.2),
+                        0 0 20px rgba(20, 184, 166, 0.1);
+
+  /* ── Radii ────────────────────────────────────────────────────── */
+  --pc-radius-xl:       16px;
+  --pc-radius-lg:       12px;
+  --pc-radius-md:       8px;
+  --pc-radius-sm:       6px;
+
+  /* ── Spacing ──────────────────────────────────────────────────── */
+  --pc-space-1:         0.25rem;
+  --pc-space-2:         0.5rem;
+  --pc-space-3:         0.75rem;
+  --pc-space-4:         1rem;
+  --pc-space-5:         1.5rem;
+  --pc-space-6:         2rem;
+  --pc-space-7:         3rem;
+
+  /* ── Motion ───────────────────────────────────────────────────── */
+  --pc-duration-fast:   120ms;
+  --pc-duration-normal: 200ms;
+  --pc-duration-slow:   300ms;
+  --pc-ease:            cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ── Typography ───────────────────────────────────────────────── */
+  --pc-font-display:    "Inter", system-ui, -apple-system, sans-serif;
+  --pc-font-body:       "Inter", system-ui, -apple-system, sans-serif;
+  --pc-font-mono:       "SF Mono", "Consolas", "Fira Code", monospace;
+
+  /* ── Sidebar ──────────────────────────────────────────────────── */
+  --pc-sidebar-width:   240px;
+  --pc-sidebar-collapsed: 64px;
+}
+
+/* ── Global Reset ───────────────────────────────────────────────── */
+
+html, body, #app {
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  font-family: var(--pc-font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--pc-text);
+  background: var(--pc-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+input, select, textarea {
+  color: var(--pc-text);
+  background: var(--pc-surface);
+}
+
+select, textarea, input {
+  accent-color: var(--pc-primary);
+}
+
+select:focus,
+textarea:focus,
+input:focus,
+button:focus-visible {
+  outline: 2px solid rgba(20, 184, 166, 0.5);
+  outline-offset: 2px;
+}
+
+select option, select optgroup {
+  color: var(--pc-text);
+  background: var(--pc-bg-elevated);
+}
+
+::selection {
+  background: rgba(20, 184, 166, 0.3);
+  color: #FFFFFF;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.18);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+/* ── Utility ────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,359 @@
+Override Genre
+Travel & Architecture ▾
+Portfolio Category
+auto ▾
+If you choose a different genre than the model assigned, PhotoCat automatically marks the original decision as wrong and keeps your override active.
+
+This item still needs a portfolio mapping decision. Without an override it will stay excluded from the portfolio export.
+
+[Device] Windows AMD64 | PyTorch 2.5.1+cu124
+[Device] GPU: NVIDIA GeForce RTX 3060 Ti | VRAM: 8191 MB total, ~8191 MB free
+[Device] Compute: CUDA
+Input: F:\Disco2 PORTFOLIO\WebSIte\lr
+Cache: F:\Disco2 PORTFOLIO\WebSIte\lr\.photocat_cache
+Found 274 image(s). write-xmp=False, workers=1
+[1/274] [cache] test2024-001.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[2/274] [cache] test2024-002.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 5ms)
+[3/274] [cache] test2024-003.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[4/274] [cache] test2024-004.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[5/274] [cache] test2024-005.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[6/274] [cache] test2024-006.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[7/274] [cache] test2024-007.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[8/274] [cache] test2024-008.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[9/274] [cache] test2024-009.jpg: Genre=Street Documentary (conf=0.63, status=review, 3ms)
+[10/274] [cache] test2024-010.jpg: Genre=Street Documentary (conf=0.63, status=review, 3ms)
+[11/274] [cache] test2024-011.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[12/274] [cache] test2024-012.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[13/274] [cache] test2024-013.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[14/274] [cache] test2024-014.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[15/274] [cache] test2024-015.jpg: Genre=Travel & Architecture (conf=0.79, status=review, 3ms)
+[16/274] [cache] test2024-016.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[17/274] [cache] test2024-017.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[18/274] [cache] test2024-018.jpg: Genre=Street Documentary (conf=0.76, status=review, 4ms)
+[19/274] [cache] test2024-019.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[20/274] [cache] test2024-020.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[21/274] [cache] test2024-021.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[22/274] [cache] test2024-022.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[23/274] [cache] test2024-023.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[24/274] [cache] test2024-024.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[25/274] [cache] test2024-025.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[26/274] [cache] test2024-026.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[27/274] [cache] test2024-027.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[28/274] [cache] test2024-028.jpg: Genre=Travel & Architecture (conf=0.74, status=review, 3ms)
+[29/274] [cache] test2024-029.jpg: Genre=Food & Product (conf=0.94, status=auto, 3ms)
+[30/274] [cache] test2024-030.jpg: Genre=Nature & Landscape (conf=0.92, status=auto, 3ms)
+[31/274] [cache] test2024-031.jpg: Genre=Street Documentary (conf=0.58, status=review, 3ms)
+[32/274] [cache] test2024-032.jpg: Genre=Street Documentary (conf=0.77, status=review, 3ms)
+[33/274] [cache] test2024-033.jpg: Genre=Street Documentary (conf=0.84, status=auto, 3ms)
+[34/274] [cache] test2024-034.jpg: Genre=Street Documentary (conf=0.70, status=review, 3ms)
+[35/274] [cache] test2024-035.jpg: Genre=Street Documentary (conf=0.73, status=review, 3ms)
+[36/274] [cache] test2024-036.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[37/274] [cache] test2024-037.jpg: Genre=Travel & Architecture (conf=0.78, status=review, 3ms)
+[38/274] [cache] test2024-038.jpg: Genre=Travel & Architecture (conf=0.82, status=auto, 3ms)
+[39/274] [cache] test2024-039.jpg: Genre=Travel & Architecture (conf=0.67, status=review, 4ms)
+[40/274] [cache] test2024-040.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 5ms)
+[41/274] [cache] test2024-041.jpg: Genre=Food & Product (conf=0.95, status=auto, 5ms)
+[42/274] [cache] test2024-042.jpg: Genre=Street Documentary (conf=0.95, status=auto, 4ms)
+[43/274] [cache] test2024-043.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[44/274] [cache] test2024-044.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[45/274] [cache] test2024-045.jpg: Genre=Food & Product (conf=0.93, status=auto, 4ms)
+[46/274] [cache] test2024-046.jpg: Genre=Street Documentary (conf=0.70, status=review, 3ms)
+[47/274] [cache] test2024-047.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[48/274] [cache] test2024-048.jpg: Genre=Street Documentary (conf=0.77, status=review, 3ms)
+[49/274] [cache] test2024-049.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[50/274] [cache] test2024-050.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[51/274] [cache] test2024-051.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[52/274] [cache] test2024-052.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[53/274] [cache] test2024-053.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[54/274] [cache] test2024-054.jpg: Genre=Other Photography (conf=0.27, status=review, 3ms)
+[55/274] [cache] test2024-055.jpg: Genre=Other Photography (conf=0.95, status=review, 3ms)
+[56/274] [cache] test2024-056.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[57/274] [cache] test2024-057.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[58/274] [cache] test2024-058.jpg: Genre=Nature & Landscape (conf=0.94, status=auto, 3ms)
+[59/274] [cache] test2024-059.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[60/274] [cache] test2024-060.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[61/274] [cache] test2024-061.jpg: Genre=Nature & Landscape (conf=0.60, status=review, 3ms)
+[62/274] [cache] test2024-062.jpg: Genre=Nature & Landscape (conf=0.92, status=auto, 3ms)
+[63/274] [cache] test2024-063.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[64/274] [cache] test2024-064.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[65/274] [cache] test2024-065.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[66/274] [cache] test2024-066.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[67/274] [cache] test2024-067.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[68/274] [cache] test2024-068.jpg: Genre=Travel & Architecture (conf=0.78, status=review, 3ms)
+[69/274] [cache] test2024-069.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[70/274] [cache] test2024-070.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[71/274] [cache] test2024-071.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[72/274] [cache] test2024-072.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[73/274] [cache] test2024-073.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[74/274] [cache] test2024-074.jpg: Genre=Street Documentary (conf=0.95, status=auto, 4ms)
+[75/274] [cache] test2024-075.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 5ms)
+[76/274] [cache] test2024-076.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 5ms)
+[77/274] [cache] test2024-077.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[78/274] [cache] test2024-078.jpg: Genre=Street Documentary (conf=0.83, status=review, 4ms)
+[79/274] [cache] test2024-079.jpg: Genre=Street Documentary (conf=0.94, status=review, 3ms)
+[80/274] [cache] test2024-080.jpg: Genre=Street Documentary (conf=0.89, status=auto, 3ms)
+[81/274] [cache] test2024-081.jpg: Genre=Travel & Architecture (conf=0.62, status=review, 3ms)
+[82/274] [cache] test2024-082.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[83/274] [cache] test2024-083.jpg: Genre=Street Documentary (conf=0.95, status=review, 3ms)
+[84/274] [cache] test2024-084.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[85/274] [cache] test2024-085.jpg: Genre=Travel & Architecture (conf=0.53, status=review, 3ms)
+[86/274] [cache] test2024-086.jpg: Genre=Street Documentary (conf=0.94, status=auto, 3ms)
+[87/274] [cache] test2024-087.jpg: Genre=Street Documentary (conf=0.95, status=auto, 4ms)
+[88/274] [cache] test2024-088.jpg: Genre=Street Documentary (conf=0.57, status=review, 4ms)
+[89/274] [cache] test2024-089.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[90/274] [cache] test2024-090.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[91/274] [cache] test2024-091.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[92/274] [cache] test2024-092.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[93/274] [cache] test2024-093.jpg: Genre=Street Documentary (conf=0.57, status=review, 3ms)
+[94/274] [cache] test2024-094.jpg: Genre=Street Documentary (conf=0.95, status=review, 3ms)
+[95/274] [cache] test2024-095.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[96/274] [cache] test2024-096.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[97/274] [cache] test2024-097.jpg: Genre=Street Documentary (conf=0.95, status=review, 3ms)
+[98/274] [cache] test2024-098.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[99/274] [cache] test2024-099.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[100/274] [cache] test2024-100.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[101/274] [cache] test2024-101.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[102/274] [cache] test2024-102.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[103/274] [cache] test2024-103.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[104/274] [cache] test2024-104.jpg: Genre=Street Documentary (conf=0.89, status=review, 4ms)
+[105/274] [cache] test2024-105.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 4ms)
+[106/274] [cache] test2024-106.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 4ms)
+[107/274] [cache] test2024-107.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[108/274] [cache] test2024-108.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 4ms)
+[109/274] [cache] test2024-109.jpg: Genre=Nature & Landscape (conf=0.69, status=review, 3ms)
+[110/274] [cache] test2024-110.jpg: Genre=Branding & Portrait (conf=0.66, status=review, 3ms)
+[111/274] [cache] test2024-111.jpg: Genre=Branding & Portrait (conf=0.84, status=auto, 3ms)
+[112/274] [cache] test2024-112.jpg: Genre=Nature & Landscape (conf=0.66, status=review, 3ms)
+[113/274] [cache] test2024-113.jpg: Genre=Branding & Portrait (conf=0.85, status=auto, 3ms)
+[114/274] [cache] test2024-114.jpg: Genre=Branding & Portrait (conf=0.92, status=auto, 4ms)
+[115/274] [cache] test2024-115.jpg: Genre=Street Documentary (conf=0.83, status=review, 3ms)
+[116/274] [cache] test2024-116.jpg: Genre=Branding & Portrait (conf=0.80, status=auto, 4ms)
+[117/274] [cache] test2024-117.jpg: Genre=Branding & Portrait (conf=0.69, status=review, 3ms)
+[118/274] [cache] test2024-118.jpg: Genre=Nature & Landscape (conf=0.73, status=review, 3ms)
+[119/274] [cache] test2024-119.jpg: Genre=Street Documentary (conf=0.89, status=review, 3ms)
+[120/274] [cache] test2024-120.jpg: Genre=Nature & Landscape (conf=0.82, status=auto, 3ms)
+[121/274] [cache] test2024-121.jpg: Genre=Branding & Portrait (conf=0.62, status=review, 4ms)
+[122/274] [cache] test2024-122.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[123/274] [cache] test2024-123.jpg: Genre=Branding & Portrait (conf=0.93, status=auto, 3ms)
+[124/274] [cache] test2024-124.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 4ms)
+[125/274] [cache] test2024-125.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[126/274] [cache] test2024-126.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[127/274] [cache] test2024-127.jpg: Genre=Branding & Portrait (conf=0.80, status=review, 3ms)
+[128/274] [cache] test2024-128.jpg: Genre=Branding & Portrait (conf=0.89, status=auto, 5ms)
+[129/274] [cache] test2024-129.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[130/274] [cache] test2024-130.jpg: Genre=Branding & Portrait (conf=0.83, status=auto, 3ms)
+[131/274] [cache] test2024-131.jpg: Genre=Branding & Portrait (conf=0.79, status=review, 3ms)
+[132/274] [cache] test2024-132.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[133/274] [cache] test2024-133.jpg: Genre=Branding & Portrait (conf=0.89, status=auto, 3ms)
+[134/274] [cache] test2024-134.jpg: Genre=Branding & Portrait (conf=0.92, status=auto, 3ms)
+[135/274] [cache] test2024-135.jpg: Genre=Events & Music (conf=0.52, status=review, 3ms)
+[136/274] [cache] test2024-136.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 4ms)
+[137/274] [cache] test2024-137.jpg: Genre=Branding & Portrait (conf=0.65, status=review, 4ms)
+[138/274] [cache] test2024-138.jpg: Genre=Branding & Portrait (conf=0.92, status=auto, 5ms)
+[139/274] [cache] test2024-139.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 6ms)
+[140/274] [cache] test2024-140.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 5ms)
+[141/274] [cache] test2024-141.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[142/274] [cache] test2024-142.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 4ms)
+[143/274] [cache] test2024-143.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[144/274] [cache] test2024-144.jpg: Genre=Branding & Portrait (conf=0.65, status=review, 4ms)
+[145/274] [cache] test2024-145.jpg: Genre=Food & Product (conf=0.49, status=review, 3ms)
+[146/274] [cache] test2024-146.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[147/274] [cache] test2024-147.jpg: Genre=Travel & Architecture (conf=0.71, status=review, 3ms)
+[148/274] [cache] test2024-148.jpg: Genre=Street Documentary (conf=0.93, status=auto, 3ms)
+[149/274] [cache] test2024-149.jpg: Genre=Street Documentary (conf=0.90, status=auto, 3ms)
+[150/274] [cache] test2024-150.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[151/274] [cache] test2024-151.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[152/274] [cache] test2024-152.jpg: Genre=Nature & Landscape (conf=0.55, status=review, 3ms)
+[153/274] [cache] test2024-153.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 3ms)
+[154/274] [cache] test2024-154.jpg: Genre=Travel & Architecture (conf=0.64, status=review, 3ms)
+[155/274] [cache] test2024-155.jpg: Genre=Street Documentary (conf=0.89, status=auto, 3ms)
+[156/274] [cache] test2024-156.jpg: Genre=Street Documentary (conf=0.95, status=review, 4ms)
+[157/274] [cache] test2024-157.jpg: Genre=Travel & Architecture (conf=0.95, status=auto, 5ms)
+[158/274] [cache] test2024-158.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[159/274] [cache] test2024-159.jpg: Genre=Food & Product (conf=0.50, status=review, 3ms)
+[160/274] [cache] test2024-160.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[161/274] [cache] test2024-161.jpg: Genre=Events & Music (conf=0.93, status=auto, 3ms)
+[162/274] [cache] test2024-162.jpg: Genre=Events & Music (conf=0.44, status=review, 3ms)
+[163/274] [cache] test2024-163.jpg: Genre=Events & Music (conf=0.88, status=auto, 3ms)
+[164/274] [cache] test2024-164.jpg: Genre=Travel & Architecture (conf=0.43, status=review, 3ms)
+[165/274] [cache] test2024-165.jpg: Genre=Events & Music (conf=0.94, status=auto, 3ms)
+[166/274] [cache] test2024-166.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[167/274] [cache] test2024-167.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[168/274] [cache] test2024-168.jpg: Genre=Branding & Portrait (conf=0.79, status=review, 3ms)
+[169/274] [cache] test2024-169.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[170/274] [cache] test2024-170.jpg: Genre=Events & Music (conf=0.51, status=review, 3ms)
+[171/274] [cache] test2024-171.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[172/274] [cache] test2024-172.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[173/274] [cache] test2024-173.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[174/274] [cache] test2024-174.jpg: Genre=Branding & Portrait (conf=0.94, status=auto, 3ms)
+[175/274] [cache] test2024-175.jpg: Genre=Branding & Portrait (conf=0.55, status=review, 3ms)
+[176/274] [cache] test2024-176.jpg: Genre=Street Documentary (conf=0.95, status=auto, 4ms)
+[177/274] [cache] test2024-177.jpg: Genre=Street Documentary (conf=0.55, status=review, 3ms)
+[178/274] [cache] test2024-178.jpg: Genre=Street Documentary (conf=0.77, status=review, 4ms)
+[179/274] [cache] test2024-179.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[180/274] [cache] test2024-180.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[181/274] [cache] test2024-181.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[182/274] [cache] test2024-182.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[183/274] [cache] test2024-183.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[184/274] [cache] test2024-184.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[185/274] [cache] test2024-185.jpg: Genre=Street Documentary (conf=0.95, status=review, 3ms)
+[186/274] [cache] test2024-186.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[187/274] [cache] test2024-187.jpg: Genre=Food & Product (conf=0.50, status=review, 3ms)
+[188/274] [cache] test2024-188.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[189/274] [cache] test2024-189.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[190/274] [cache] test2024-190.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[191/274] [cache] test2024-191.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[192/274] [cache] test2024-192.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[193/274] [cache] test2024-193.jpg: Genre=Food & Product (conf=0.50, status=review, 3ms)
+[194/274] [cache] test2024-194.jpg: Genre=Food & Product (conf=0.85, status=auto, 4ms)
+[195/274] [cache] test2024-195.jpg: Genre=Food & Product (conf=0.95, status=auto, 5ms)
+[196/274] [cache] test2024-196.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[197/274] [cache] test2024-197.jpg: Genre=Food & Product (conf=0.50, status=review, 4ms)
+[198/274] [cache] test2024-198.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[199/274] [cache] test2024-199.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[200/274] [cache] test2024-200.jpg: Genre=Food & Product (conf=0.50, status=review, 3ms)
+[201/274] [cache] test2024-201.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[202/274] [cache] test2024-202.jpg: Genre=Food & Product (conf=0.89, status=auto, 3ms)
+[203/274] [cache] test2024-203.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[204/274] [cache] test2024-204.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[205/274] [cache] test2024-205.jpg: Genre=Food & Product (conf=0.83, status=auto, 3ms)
+[206/274] [cache] test2024-206.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[207/274] [cache] test2024-207.jpg: Genre=Food & Product (conf=0.67, status=review, 3ms)
+[208/274] [cache] test2024-208.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[209/274] [cache] test2024-209.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[210/274] [cache] test2024-210.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[211/274] [cache] test2024-211.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[212/274] [cache] test2024-212.jpg: Genre=Street Documentary (conf=0.50, status=review, 3ms)
+[213/274] [cache] test2024-213.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[214/274] [cache] test2024-214.jpg: Genre=Street Documentary (conf=0.62, status=review, 3ms)
+[215/274] [cache] test2024-215.jpg: Genre=Street Documentary (conf=0.95, status=auto, 3ms)
+[216/274] [cache] test2024-216.jpg: Genre=Events & Music (conf=0.80, status=review, 3ms)
+[217/274] [cache] test2024-217.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[218/274] [cache] test2024-218.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[219/274] [cache] test2024-219.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[220/274] [cache] test2024-220.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[221/274] [cache] test2024-221.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[222/274] [cache] test2024-222.jpg: Genre=Branding & Portrait (conf=0.53, status=review, 3ms)
+[223/274] [cache] test2024-223.jpg: Genre=Branding & Portrait (conf=0.59, status=review, 3ms)
+[224/274] [cache] test2024-224.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[225/274] [cache] test2024-225.jpg: Genre=Branding & Portrait (conf=0.91, status=auto, 3ms)
+[226/274] [cache] test2024-226.jpg: Genre=Branding & Portrait (conf=0.87, status=auto, 3ms)
+[227/274] [cache] test2024-227.jpg: Genre=Branding & Portrait (conf=0.86, status=auto, 3ms)
+[228/274] [cache] test2024-228.jpg: Genre=Branding & Portrait (conf=0.74, status=review, 3ms)
+[229/274] [cache] test2024-229.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[230/274] [cache] test2024-230.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[231/274] [cache] test2024-231.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[232/274] [cache] test2024-232.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[233/274] [cache] test2024-233.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[234/274] [cache] test2024-234.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[235/274] [cache] test2024-235.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 4ms)
+[236/274] [cache] test2024-236.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[237/274] [cache] test2024-237.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[238/274] [cache] test2024-238.jpg: Genre=Nature & Landscape (conf=0.94, status=auto, 3ms)
+[239/274] [cache] test2024-239.jpg: Genre=Branding & Portrait (conf=0.88, status=auto, 3ms)
+[240/274] [cache] test2024-240.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[241/274] [cache] test2024-241.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[242/274] [cache] test2024-242.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 4ms)
+[243/274] [cache] test2024-243.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[244/274] [cache] test2024-244.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[245/274] [cache] test2024-245.jpg: Genre=Events & Music (conf=0.82, status=auto, 3ms)
+[246/274] [cache] test2024-246.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[247/274] [cache] test2024-247.jpg: Genre=Street Documentary (conf=0.76, status=review, 3ms)
+[248/274] [cache] test2024-248.jpg: Genre=Branding & Portrait (conf=0.95, status=auto, 3ms)
+[249/274] [cache] test2024-249.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[250/274] [cache] test2024-250.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[251/274] [cache] test2024-251.jpg: Genre=Events & Music (conf=0.77, status=review, 3ms)
+[252/274] [cache] test2024-252.jpg: Genre=Food & Product (conf=0.95, status=auto, 4ms)
+[253/274] [cache] test2024-253.jpg: Genre=Events & Music (conf=0.61, status=review, 3ms)
+[254/274] [cache] test2024-254.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 4ms)
+[255/274] [cache] test2024-255.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 4ms)
+[256/274] [cache] test2024-256.jpg: Genre=Branding & Portrait (conf=0.61, status=review, 3ms)
+[257/274] [cache] test2024-257.jpg: Genre=Wedding Photography (conf=0.95, status=auto, 3ms)
+[258/274] [cache] test2024-258.jpg: Genre=Other Photography (conf=0.42, status=review, 3ms)
+[259/274] [cache] test2024-259.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[260/274] [cache] test2024-260.jpg: Genre=Events & Music (conf=0.93, status=auto, 3ms)
+[261/274] [cache] test2024-261.jpg: Genre=Events & Music (conf=0.90, status=auto, 4ms)
+[262/274] [cache] test2024-262.jpg: Genre=Events & Music (conf=0.89, status=auto, 3ms)
+[263/274] [cache] test2024-263.jpg: Genre=Events & Music (conf=0.95, status=auto, 3ms)
+[264/274] [cache] test2024-264.jpg: Genre=Branding & Portrait (conf=0.43, status=review, 3ms)
+[265/274] [cache] test2024-265.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[266/274] [cache] test2024-266.jpg: Genre=Food & Product (conf=0.50, status=review, 4ms)
+[267/274] [cache] test2024-267.jpg: Genre=Food & Product (conf=0.95, status=auto, 3ms)
+[268/274] [cache] test2024-268.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[269/274] [cache] test2024-269.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+[270/274] [cache] test2024-270.jpg: Genre=Food & Product (conf=0.50, status=review, 4ms)
+[271/274] [cache] test2024-271.jpg: Genre=Food & Product (conf=0.50, status=review, 3ms)
+[272/274] [cache] test2024-272.jpg: Genre=Food & Product (conf=0.50, status=review, 3ms)
+[273/274] [cache] test2024-273.jpg: Genre=Branding & Portrait (conf=0.43, status=review, 3ms)
+[274/274] [cache] test2024-274.jpg: Genre=Nature & Landscape (conf=0.95, status=auto, 3ms)
+Cache: 274 hits, 0 misses
+============================================================
+Batch complete: 274 images in 0.9s (0.00s/image avg)
+============================================================
+Audit CSV written to: F:\Disco2 PORTFOLIO\WebSIte\lr\gpurun17_03_2305.csv
+
+{"level":30,"time":1773810272096,"pid":2888,"hostname":"DESKTOP-UJUO3NV","msg":"Server listening at http://127.0.0.1:8797"}
+{"level":30,"time":1773810275893,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-1","req":{"method":"GET","url":"/api/health","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":55051},"msg":"incoming request"}
+{"level":30,"time":1773810275899,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-1","res":{"statusCode":200},"responseTime":5.549399999901652,"msg":"request completed"}
+{"level":30,"time":1773810275901,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-2","req":{"method":"GET","url":"/api/review/session","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":54784},"msg":"incoming request"}
+{"level":30,"time":1773810275901,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-2","res":{"statusCode":200},"responseTime":0.35809999983757734,"msg":"request completed"}
+{"level":30,"time":1773810275902,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-3","req":{"method":"GET","url":"/api/pipeline/status","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":56890},"msg":"incoming request"}
+{"level":30,"time":1773810275902,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-3","res":{"statusCode":200},"responseTime":0.31099999975413084,"msg":"request completed"}
+{"level":30,"time":1773810275903,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-4","req":{"method":"GET","url":"/api/pipeline/logs","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":52239},"msg":"incoming request"}
+{"level":30,"time":1773810431332,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-6","req":{"method":"OPTIONS","url":"/api/pipeline/run","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":63321},"msg":"incoming request"}
+{"level":30,"time":1773810431333,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-6","res":{"statusCode":204},"responseTime":0.5230000000447035,"msg":"request completed"}
+{"level":30,"time":1773810431334,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-7","req":{"method":"POST","url":"/api/pipeline/run","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":63321},"msg":"incoming request"}
+Python process started (pid=35264).
+{"level":30,"time":1773810431670,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-7","res":{"statusCode":200},"responseTime":335.4961000001058,"msg":"request completed"}
+Python process started but has not emitted output yet.
+Python process exited with code 0.
+{"level":30,"time":1773810470234,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-8","req":{"method":"OPTIONS","url":"/api/review/load","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":63321},"msg":"incoming request"}
+{"level":30,"time":1773810470235,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-8","res":{"statusCode":204},"responseTime":0.47149999998509884,"msg":"request completed"}
+{"level":30,"time":1773810470236,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-9","req":{"method":"POST","url":"/api/review/load","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":63321},"msg":"incoming request"}
+{"level":30,"time":1773810471348,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-9","res":{"statusCode":200},"responseTime":1111.6509999996051,"msg":"request completed"}
+{"level":30,"time":1773810471388,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-a","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-001.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810471404,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-b","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-002.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":54483},"msg":"incoming request"}
+{"level":30,"time":1773810471405,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-c","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-003.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":52107},"msg":"incoming request"}
+{"level":30,"time":1773810471405,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-d","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-004.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":58014},"msg":"incoming request"}
+{"level":30,"time":1773810471406,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-e","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-005.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":58773},"msg":"incoming request"}
+{"level":30,"time":1773810471550,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-c","res":{"statusCode":200},"responseTime":145.45089999958873,"msg":"request completed"}
+{"level":30,"time":1773810471556,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-f","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-006.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":52107},"msg":"incoming request"}
+{"level":30,"time":1773810471561,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-d","res":{"statusCode":200},"responseTime":155.78760000038892,"msg":"request completed"}
+{"level":30,"time":1773810471563,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-a","res":{"statusCode":200},"responseTime":174.44830000028014,"msg":"request completed"}
+{"level":30,"time":1773810471572,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-g","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-007.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":58014},"msg":"incoming request"}
+{"level":30,"time":1773810471580,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-h","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-008.jpg&w=800","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810471583,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-b","res":{"statusCode":200},"responseTime":179.7037000004202,"msg":"request completed"}
+{"level":30,"time":1773810471694,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-f","res":{"statusCode":200},"responseTime":137.25189999956638,"msg":"request completed"}
+{"level":30,"time":1773810471696,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-e","res":{"statusCode":200},"responseTime":289.74560000002384,"msg":"request completed"}
+{"level":30,"time":1773810471721,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-g","res":{"statusCode":200},"responseTime":148.26699999999255,"msg":"request completed"}
+{"level":30,"time":1773810471733,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-h","res":{"statusCode":200},"responseTime":152.788200000301,"msg":"request completed"}
+{"level":30,"time":1773810474982,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-i","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-001.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810474988,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-i","res":{"statusCode":200},"responseTime":5.704599999822676,"msg":"request completed"}
+{"level":30,"time":1773810498754,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-j","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-002.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810498763,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-j","res":{"statusCode":200},"responseTime":8.36780000012368,"msg":"request completed"}
+{"level":30,"time":1773810500059,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-k","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-003.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810500066,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-k","res":{"statusCode":200},"responseTime":7.3634000001475215,"msg":"request completed"}
+{"level":30,"time":1773810520351,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-l","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-005.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810520359,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-l","res":{"statusCode":200},"responseTime":6.96860000025481,"msg":"request completed"}
+{"level":30,"time":1773810521084,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-m","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-004.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810521089,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-m","res":{"statusCode":200},"responseTime":4.914800000376999,"msg":"request completed"}
+{"level":30,"time":1773810561360,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-n","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-002.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810561369,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-n","res":{"statusCode":200},"responseTime":8.65789999999106,"msg":"request completed"}
+{"level":30,"time":1773810569708,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-o","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-003.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810569716,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-o","res":{"statusCode":200},"responseTime":7.83490000013262,"msg":"request completed"}
+{"level":30,"time":1773810571190,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-p","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-004.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810571196,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-p","res":{"statusCode":200},"responseTime":5.417700000107288,"msg":"request completed"}
+{"level":30,"time":1773810572082,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-q","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-005.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810572126,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-q","res":{"statusCode":200},"responseTime":43.864000000059605,"msg":"request completed"}
+{"level":30,"time":1773810572468,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-r","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-006.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810572472,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-r","res":{"statusCode":200},"responseTime":3.5087000001221895,"msg":"request completed"}
+{"level":30,"time":1773810574186,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-s","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-007.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810574195,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-s","res":{"statusCode":200},"responseTime":8.965099999681115,"msg":"request completed"}
+{"level":30,"time":1773810574339,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-t","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-008.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810574354,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-t","res":{"statusCode":200},"responseTime":14.663399999961257,"msg":"request completed"}
+{"level":30,"time":1773810574502,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-u","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-009.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810574518,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-u","res":{"statusCode":200},"responseTime":15.758899999782443,"msg":"request completed"}
+{"level":30,"time":1773810574663,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-v","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-010.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810574670,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-v","res":{"statusCode":200},"responseTime":6.565699999220669,"msg":"request completed"}
+{"level":30,"time":1773810574826,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-w","req":{"method":"GET","url":"/api/assets/image?path=F%3A%5CDisco2%20PORTFOLIO%5CWebSIte%5Clr%5Ctest2024-011.jpg","host":"127.0.0.1:8797","remoteAddress":"127.0.0.1","remotePort":62023},"msg":"incoming request"}
+{"level":30,"time":1773810574832,"pid":2888,"hostname":"DESKTOP-UJUO3NV","reqId":"req-w","res":{"statusCode":200},"responseTime":5.2530999993905425,"msg":"request completed"}
